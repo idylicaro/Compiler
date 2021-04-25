@@ -19,13 +19,26 @@ reserved = {
     'exp': 'EXP',
     'cmp': 'CMP',
     'package': 'PACKAGE',
+    'q': 'Q',
+    'qq': 'QQ',
+    'qr': 'QR',
+    'qw': 'QW',
+    'qx': 'QX',
+    'no': 'NO',
+    's': 'S',
+    'sub': 'SUB',
+    'tr': 'TR',
+    'unless': 'UNLESS',
+    'until': 'UNTIL',
 
 }
+
+literals = ['+', '-', '*', '/', '%', '|', '&', '^', '=', '(', ')', '[', ']', '{', '}', ',', '.', ';', ':']
+
 tokens = [
              'ID', 'NUMBER',
-             # Operators (+, -, *, /, %, |, &, ^, <<, >>, ||, &&, !, <, <=, >, >=, ==, !=)
-             'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'MODULO',
-             'OR', 'AND', 'XOR', 'LSHIFT', 'RSHIFT',
+             # Operators (<<, >>, ||, &&, !, <, <=, >, >=, ==, !=)
+             'LSHIFT', 'RSHIFT',
              'LOR', 'LAND', 'LNOT',
              'LT', 'LE', 'GT', 'GE', 'EQ', 'NE',
 
@@ -39,28 +52,13 @@ tokens = [
              # Ternary operator (?)
              'TERNARY',
 
-             # Delimeters ( ) [ ] { } , . ; :
-             'LPAREN', 'RPAREN',
-             'LBRACKET', 'RBRACKET',
-             'LBRACE', 'RBRACE',
-             'COMMA', 'PERIOD', 'SEMI', 'COLON',
-
              # Reserved words
-             # TODO: move for reserverd object
-             'LOCK', 'IT', 'M', 'NO', 'Q', 'QQ', 'QR',
-             'QW', 'QX', 'S', 'SUB', 'TR', 'UNLESS', 'UNTIL', 'Y'
+             # TODO: move for reserved object
+             'LOCK', 'IT', 'M', 'Y'
 
          ] + list(reserved.values())
 
 # Operators
-t_PLUS = r'\+'
-t_MINUS = r'-'
-t_TIMES = r'\*'
-t_DIVIDE = r'/'
-t_MODULO = r'%'
-t_OR = r'\|'
-t_AND = r'&'
-t_XOR = r'\^'
 t_LSHIFT = r'<<'
 t_RSHIFT = r'>>'
 t_LOR = r'\|\|'
@@ -74,7 +72,6 @@ t_EQ = r'=='  # TODO: tem outra forma que no caso é para string que é : eq
 t_NE = r'!='  # TODO: tem outra forma que no caso é para string que é : ne
 
 # Assignment operators
-t_EQUALS = r'='
 t_TIMESEQUAL = r'\*='
 t_DIVEQUAL = r'/='
 t_MODEQUAL = r'%='
@@ -86,22 +83,9 @@ t_ANDEQUAL = r'&='
 t_OREQUAL = r'\|='
 t_XOREQUAL = r'\^='
 
-# TODO: precisa ver essa questão de palavras reservadas, pq deixando fazendo desta forma ta sendo ignorado e ta indo tudo como ID
-t_LOCK = 'lock'
 t_IT = 'it'
 t_M = 'm'
-t_NO = 'no'
-t_Q = 'q'
-t_QQ = 'qq'
-t_QR = 'qr'
-
-t_QW = 'qw'
-t_QX = 'qx'
 t_S = 's'
-t_SUB = 'sub'
-t_UNLESS = 'unless'
-t_UNTIL = 'until'
-t_WHILE = 'while'
 t_Y = 'y'
 
 
@@ -139,9 +123,9 @@ lexer = lex.lex()
 
 # Test it out
 data = '''
-if
+if (1 + 1) {}
+elsif 2 > 3
 _a
-abc
 eq
 cmp
 __DATA__ 
