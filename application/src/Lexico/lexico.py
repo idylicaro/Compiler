@@ -9,49 +9,48 @@ reserved = {
     '__PACKAGE__': '__PACKAGE__',
     'if': 'IF',
     'else': 'ELSE',
-    'elsif':'ELSIF',
-    'for':'FOR',
-    'foreach':'FOREACH',
+    'elsif': 'ELSIF',
+    'for': 'FOR',
+    'foreach': 'FOREACH',
     'while': 'WHILE',
-    'continue':'CONTINUE',
-    'CORE':'CORE',
-    'do':'DO',
-    'exp':'EXP',
-    'cmp':'CMP',
-    'package':'PACKAGE',
-    
+    'continue': 'CONTINUE',
+    'CORE': 'CORE',
+    'do': 'DO',
+    'exp': 'EXP',
+    'cmp': 'CMP',
+    'package': 'PACKAGE',
 
 }
 tokens = [
-    'ID', 'NUMBER',
-    # Operators (+, -, *, /, %, |, &, ^, <<, >>, ||, &&, !, <, <=, >, >=, ==, !=)
-    'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'MODULO',
-    'OR', 'AND', 'XOR', 'LSHIFT', 'RSHIFT',
-    'LOR', 'LAND', 'LNOT',
-    'LT', 'LE', 'GT', 'GE', 'EQ', 'NE',
+             'ID', 'NUMBER',
+             # Operators (+, -, *, /, %, |, &, ^, <<, >>, ||, &&, !, <, <=, >, >=, ==, !=)
+             'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'MODULO',
+             'OR', 'AND', 'XOR', 'LSHIFT', 'RSHIFT',
+             'LOR', 'LAND', 'LNOT',
+             'LT', 'LE', 'GT', 'GE', 'EQ', 'NE',
 
-    # Assignment (=, *=, /=, %=, +=, -=, <<=, >>=, &=, ^=, |=)
-    'EQUALS', 'TIMESEQUAL', 'DIVEQUAL', 'MODEQUAL', 'PLUSEQUAL', 'MINUSEQUAL',
-    'LSHIFTEQUAL', 'RSHIFTEQUAL', 'ANDEQUAL', 'XOREQUAL', 'OREQUAL',
+             # Assignment (=, *=, /=, %=, +=, -=, <<=, >>=, &=, ^=, |=)
+             'EQUALS', 'TIMESEQUAL', 'DIVEQUAL', 'MODEQUAL', 'PLUSEQUAL', 'MINUSEQUAL',
+             'LSHIFTEQUAL', 'RSHIFTEQUAL', 'ANDEQUAL', 'XOREQUAL', 'OREQUAL',
 
-    # Increment/decrement (++,--)
-    'INCREMENT', 'DECREMENT',
+             # Increment/decrement (++,--)
+             'INCREMENT', 'DECREMENT',
 
-    # Ternary operator (?)
-    'TERNARY',
+             # Ternary operator (?)
+             'TERNARY',
 
-    # Delimeters ( ) [ ] { } , . ; :
-    'LPAREN', 'RPAREN',
-    'LBRACKET', 'RBRACKET',
-    'LBRACE', 'RBRACE',
-    'COMMA', 'PERIOD', 'SEMI', 'COLON',
+             # Delimeters ( ) [ ] { } , . ; :
+             'LPAREN', 'RPAREN',
+             'LBRACKET', 'RBRACKET',
+             'LBRACE', 'RBRACE',
+             'COMMA', 'PERIOD', 'SEMI', 'COLON',
 
-    # Reserved words
-    # TODO: move for reserverd object
-    'LOCK', 'IT', 'M', 'NO', 'Q', 'QQ', 'QR',
-    'QW', 'QX', 'S', 'SUB', 'TR', 'UNLESS', 'UNTIL', 'Y'
+             # Reserved words
+             # TODO: move for reserverd object
+             'LOCK', 'IT', 'M', 'NO', 'Q', 'QQ', 'QR',
+             'QW', 'QX', 'S', 'SUB', 'TR', 'UNLESS', 'UNTIL', 'Y'
 
-] + list(reserved.values())
+         ] + list(reserved.values())
 
 # Operators
 t_PLUS = r'\+'
@@ -87,29 +86,11 @@ t_ANDEQUAL = r'&='
 t_OREQUAL = r'\|='
 t_XOREQUAL = r'\^='
 
-t___DATA__ = '__DATA__'
-t___END__ = '__END__'
-t___FILE__ = '__FILE__'
-t___LINE__ = '__LINE__'
-t___PACKAGE__ = '__PACKAGE__'
-
-t_CMP = 'cmp'
-t_CONTINUE = 'continue'
-t_CORE = 'CORE'
-t_DO = 'do'
-
-t_ELSE = 'else'
-t_ELSIF = 'elsif'
-t_EXP = 'exp'
-t_FOR = 'for'
-t_FOREACH = 'foreach'
-t_IF = 'if'
-
+# TODO: precisa ver essa questão de palavras reservadas, pq deixando fazendo desta forma ta sendo ignorado e ta indo tudo como ID
 t_LOCK = 'lock'
 t_IT = 'it'
 t_M = 'm'
 t_NO = 'no'
-t_PACKAGE = 'package'
 t_Q = 'q'
 t_QQ = 'qq'
 t_QR = 'qr'
@@ -122,6 +103,7 @@ t_UNLESS = 'unless'
 t_UNTIL = 'until'
 t_WHILE = 'while'
 t_Y = 'y'
+
 
 # Identifiers
 def t_ID(t):
