@@ -1,6 +1,28 @@
 import ply.lex as lex
 
-tokens = (
+reserved = {
+    # Value : token
+    '__DATA__': '__DATA__',
+    '__END__': '__END__',
+    '__FILE__': '__FILE__',
+    '__LINE__': '__LINE__',
+    '__PACKAGE__': '__PACKAGE__',
+    'if': 'IF',
+    'else': 'ELSE',
+    'elsif':'ELSIF',
+    'for':'FOR',
+    'foreach':'FOREACH',
+    'while': 'WHILE',
+    'continue':'CONTINUE',
+    'CORE':'CORE',
+    'do':'DO',
+    'exp':'EXP',
+    'cmp':'CMP',
+    'package':'PACKAGE',
+    
+
+}
+tokens = [
     'ID', 'NUMBER',
     # Operators (+, -, *, /, %, |, &, ^, <<, >>, ||, &&, !, <, <=, >, >=, ==, !=)
     'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'MODULO',
@@ -25,13 +47,11 @@ tokens = (
     'COMMA', 'PERIOD', 'SEMI', 'COLON',
 
     # Reserved words
-    '__DATA__', '__END__', '__FILE__', '__LINE__', '__PACKAGE__',
-    'CMP', 'CONTINUE', 'CORE', 'DO',
-    'ELSE', 'ELSIF', 'EXP', 'FOR', 'FOREACH', 'IF',
-    'LOCK', 'IT', 'M', 'NO', 'PACKAGE', 'Q', 'QQ', 'QR',
-    'QW', 'QX', 'S', 'SUB', 'TR', 'UNLESS', 'UNTIL', 'WHILE', 'Y'
+    # TODO: move for reserverd object
+    'LOCK', 'IT', 'M', 'NO', 'Q', 'QQ', 'QR',
+    'QW', 'QX', 'S', 'SUB', 'TR', 'UNLESS', 'UNTIL', 'Y'
 
-)
+] + list(reserved.values())
 
 # Operators
 t_PLUS = r'\+'
@@ -41,19 +61,18 @@ t_DIVIDE = r'/'
 t_MODULO = r'%'
 t_OR = r'\|'
 t_AND = r'&'
-t_NOT = r'~'
 t_XOR = r'\^'
 t_LSHIFT = r'<<'
 t_RSHIFT = r'>>'
 t_LOR = r'\|\|'
 t_LAND = r'&&'
 t_LNOT = r'!'
-t_LT = r'<'  #TODO: tem outra forma que no caso é para string que é : lt
-t_GT = r'>'  #TODO: tem outra forma que no caso é para string que é : gt
-t_LE = r'<=' #TODO: tem outra forma que no caso é para string que é : le
-t_GE = r'>=' #TODO: tem outra forma que no caso é para string que é : ge
-t_EQ = r'==' #TODO: tem outra forma que no caso é para string que é : eq
-t_NE = r'!=' #TODO: tem outra forma que no caso é para string que é : ne
+t_LT = r'<'  # TODO: tem outra forma que no caso é para string que é : lt
+t_GT = r'>'  # TODO: tem outra forma que no caso é para string que é : gt
+t_LE = r'<='  # TODO: tem outra forma que no caso é para string que é : le
+t_GE = r'>='  # TODO: tem outra forma que no caso é para string que é : ge
+t_EQ = r'=='  # TODO: tem outra forma que no caso é para string que é : eq
+t_NE = r'!='  # TODO: tem outra forma que no caso é para string que é : ne
 
 # Assignment operators
 t_EQUALS = r'='
@@ -104,9 +123,10 @@ t_UNTIL = 'until'
 t_WHILE = 'while'
 t_Y = 'y'
 
-
+# Identifiers
 def t_ID(t):
-    r' ([a-zA-Z_])(\w|_)*'
+    r'[a-zA-Z_][a-zA-Z_0-9]*'
+    t.type = reserved.get(t.value, 'ID')  # Check for reserved words
     return t
 
 
@@ -137,6 +157,7 @@ lexer = lex.lex()
 
 # Test it out
 data = '''
+if
 _a
 abc
 eq
