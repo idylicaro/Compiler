@@ -30,10 +30,16 @@ reserved = {
     'tr': 'TR',
     'unless': 'UNLESS',
     'until': 'UNTIL',
+    'lt': 'SLT',
+    'gt': 'SGT',
+    'le': 'SLE',
+    'ge': 'SGE',
+    'eq': 'SEQ',
+    'ne': 'SNE',
 
 }
 
-literals = ['+', '-', '*', '/', '%', '|', '&', '^', '=', '(', ')', '[', ']', '{', '}', ',', '.', ';', ':']
+literals = ['+', '-', '*', '/', '%', '|', '&', '^', '=', '(', ')', '[', ']', '{', '}', ',', '.', ';', ':', '\"', '$']
 
 tokens = [
              'ID', 'NUMBER',
@@ -54,7 +60,7 @@ tokens = [
 
              # Reserved words
              # TODO: move for reserved object
-             'LOCK', 'IT', 'M', 'Y'
+             # 'IT', 'M', 'Y'
 
          ] + list(reserved.values())
 
@@ -64,12 +70,12 @@ t_RSHIFT = r'>>'
 t_LOR = r'\|\|'
 t_LAND = r'&&'
 t_LNOT = r'!'
-t_LT = r'<'  # TODO: tem outra forma que no caso é para string que é : lt
-t_GT = r'>'  # TODO: tem outra forma que no caso é para string que é : gt
-t_LE = r'<='  # TODO: tem outra forma que no caso é para string que é : le
-t_GE = r'>='  # TODO: tem outra forma que no caso é para string que é : ge
-t_EQ = r'=='  # TODO: tem outra forma que no caso é para string que é : eq
-t_NE = r'!='  # TODO: tem outra forma que no caso é para string que é : ne
+t_LT = r'<'
+t_GT = r'>'
+t_LE = r'<='
+t_GE = r'>='
+t_EQ = r'=='
+t_NE = r'!='
 
 # Assignment operators
 t_TIMESEQUAL = r'\*='
@@ -82,11 +88,6 @@ t_RSHIFTEQUAL = r'>>='
 t_ANDEQUAL = r'&='
 t_OREQUAL = r'\|='
 t_XOREQUAL = r'\^='
-
-t_IT = 'it'
-t_M = 'm'
-t_S = 's'
-t_Y = 'y'
 
 
 # Identifiers
@@ -125,7 +126,7 @@ lexer = lex.lex()
 data = '''
 if (1 + 1) {}
 elsif 2 > 3
-_a
+$x = "Supernaturural"
 eq
 cmp
 __DATA__ 
