@@ -39,10 +39,10 @@ reserved = {
 
 }
 
-literals = ['+', '-', '*', '/', '%', '|', '&', '^', '=', '(', ')', '[', ']', '{', '}', ',', '.', ';', ':', '\"', '$']
+literals = ['+', '-', '*', '/', '%', '|', '&', '^', '=', '(', ')', '[', ']', '{', '}', ',', '.', ';', ':', '\"']
 
 tokens = [
-             'ID', 'NUMBER',
+             'ID_SC','ID_LI','ID', 'NUMBER',
              # Operators (<<, >>, ||, &&, !, <, <=, >, >=, ==, !=)
              'LSHIFT', 'RSHIFT',
              'LOR', 'LAND', 'LNOT',
@@ -91,10 +91,21 @@ t_XOREQUAL = r'\^='
 
 
 # Identifiers
+def t_ID_SC(t):
+    r'\$[a-zA-Z_][a-zA-Z_0-9]*'
+    t.type = reserved.get(t.value, 'ID_SC')  # Check for reserved words
+    return t
+
+def t_ID_LI(t):
+    r'@[a-zA-Z_][a-zA-Z_0-9]*'
+    t.type = reserved.get(t.value, 'ID_LI')  # Check for reserved words
+    return t
+
 def t_ID(t):
     r'[a-zA-Z_][a-zA-Z_0-9]*'
     t.type = reserved.get(t.value, 'ID')  # Check for reserved words
     return t
+
 
 
 def t_NUMBER(t):
@@ -124,12 +135,9 @@ lexer = lex.lex()
 
 # Test it out
 data = '''
-if (1 + 1) {}
-elsif 2 > 3
-$x = "Supernaturural"
-eq
-cmp
-__DATA__ 
+$_a
+@_b
+ab
 '''
 
 # Give the lexer some input
