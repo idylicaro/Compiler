@@ -1,0 +1,216 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    AND
+    ANDEQUAL
+    COLON
+    CORE
+    DECREMENT
+    DIVEQUAL
+    DIVIDE
+    ELSE
+    ELSIF
+    EQUALS
+    EXP
+    FOREACH
+    ID
+    ID_LI
+    ID_SC
+    IF
+    INCREMENT
+    LAND
+    LBRACKET
+    LNOT
+    LOR
+    LSHIFT
+    LSHIFTEQUAL
+    MINUS
+    MINUSEQUAL
+    MODEQUAL
+    MODULO
+    NO
+    OR
+    OREQUAL
+    PACKAGE
+    PERIOD
+    PLUS
+    PLUSEQUAL
+    Q
+    QQ
+    QR
+    QW
+    QX
+    RBRACKET
+    RSHIFT
+    RSHIFTEQUAL
+    S
+    TERNARY
+    TIMES
+    TIMESEQUAL
+    TR
+    UNLESS
+    UNTIL
+    XOR
+    XOREQUAL
+    __DATA__
+    __END__
+    __FILE__
+    __LINE__
+    __PACKAGE__
+
+Grammar
+
+Rule 0     S' -> init
+Rule 1     init -> blockcode
+Rule 2     init -> functions
+Rule 3     blockcode -> command
+Rule 4     command -> interations
+Rule 5     command -> if
+Rule 6     command -> exp_assignment
+Rule 7     command -> call
+Rule 8     command -> RETURN return SEMICOLON
+Rule 9     command -> BREAK SEMICOLON
+Rule 10    command -> CONTINUE SEMICOLON
+Rule 11    interations -> for
+Rule 12    interations -> dowhile
+Rule 13    interations -> while
+Rule 14    for -> FOR LPAREN for_assignments SEMICOLON condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
+Rule 15    for_assignments -> exp_assignment
+Rule 16    for_assignments -> exp_assignment COMMA for_assignments
+Rule 17    dowhile -> DO LBRACE blockcode RBRACE WHILE LPAREN condition RPAREN
+Rule 18    while -> LPAREN condition RPAREN LBRACE blockcode RBRACE
+Rule 19    functions -> function functions
+Rule 20    function -> SUB identifier LPAREN RPAREN LBRACE blockcode RBRACE
+Rule 21    function -> SUB identifier LPAREN function_assignments RPAREN LBRACE blockcode RBRACE
+Rule 22    function_assignments -> exp_assignment
+Rule 23    function_assignments -> exp_assignment COMMA function_assignments
+Rule 24    condition -> attcond GT attcond
+Rule 25    condition -> attcond LT attcond
+Rule 26    condition -> attcond EQ attcond
+Rule 27    condition -> attcond GE attcond
+Rule 28    condition -> attcond LE attcond
+Rule 29    condition -> attcond NE attcond
+Rule 30    condition -> attcond
+Rule 31    condition -> attcond CMP attcond
+Rule 32    condition -> attcond SEQ attcond
+Rule 33    condition -> attcond SNE attcond
+Rule 34    condition -> attcond SLT attcond
+Rule 35    condition -> attcond SGT attcond
+Rule 36    condition -> attcond SLE attcond
+Rule 37    condition -> attcond SGE attcond
+Rule 38    attcond -> exp_assignment
+Rule 39    attcond -> NUMBER
+Rule 40    attcond -> TRUE
+Rule 41    attcond -> FALSE
+
+Terminals, with rules where they appear
+
+AND                  : 
+ANDEQUAL             : 
+CMP                  : 31
+COLON                : 
+COMMA                : 16 23
+CONTINUE             : 10
+CORE                 : 
+DECREMENT            : 
+DIVEQUAL             : 
+DIVIDE               : 
+DO                   : 17
+ELSE                 : 
+ELSIF                : 
+EQ                   : 26
+EQUALS               : 
+EXP                  : 
+FOR                  : 14
+FOREACH              : 
+GE                   : 27
+GT                   : 24
+ID                   : 
+ID_LI                : 
+ID_SC                : 
+IF                   : 
+INCREMENT            : 
+LAND                 : 
+LBRACE               : 14 17 18 20 21
+LBRACKET             : 
+LE                   : 28
+LNOT                 : 
+LOR                  : 
+LPAREN               : 14 17 18 20 21
+LSHIFT               : 
+LSHIFTEQUAL          : 
+LT                   : 25
+MINUS                : 
+MINUSEQUAL           : 
+MODEQUAL             : 
+MODULO               : 
+NE                   : 29
+NO                   : 
+NUMBER               : 39
+OR                   : 
+OREQUAL              : 
+PACKAGE              : 
+PERIOD               : 
+PLUS                 : 
+PLUSEQUAL            : 
+Q                    : 
+QQ                   : 
+QR                   : 
+QW                   : 
+QX                   : 
+RBRACE               : 14 17 18 20 21
+RBRACKET             : 
+RETURN               : 8
+RPAREN               : 14 17 18 20 21
+RSHIFT               : 
+RSHIFTEQUAL          : 
+S                    : 
+SEMICOLON            : 8 9 10 14 14
+SEQ                  : 32
+SGE                  : 37
+SGT                  : 35
+SLE                  : 36
+SLT                  : 34
+SNE                  : 33
+SUB                  : 20 21
+TERNARY              : 
+TIMES                : 
+TIMESEQUAL           : 
+TR                   : 
+UNLESS               : 
+UNTIL                : 
+WHILE                : 17
+XOR                  : 
+XOREQUAL             : 
+__DATA__             : 
+__END__              : 
+__FILE__             : 
+__LINE__             : 
+__PACKAGE__          : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+BREAK                : 9
+FALSE                : 41
+TRUE                 : 40
+attcond              : 24 24 25 25 26 26 27 27 28 28 29 29 30 31 31 32 32 33 33 34 34 35 35 36 36 37 37
+blockcode            : 1 14 17 18 20 21
+call                 : 7
+command              : 3
+condition            : 14 17 18
+dowhile              : 12
+exp_assignment       : 6 15 16 22 23 38
+for                  : 11
+for_assignments      : 14 14 16
+function             : 19
+function_assignments : 21 23
+functions            : 2 19
+identifier           : 20 21
+if                   : 5
+init                 : 0
+interations          : 4
+return               : 8
+while                : 13
+
