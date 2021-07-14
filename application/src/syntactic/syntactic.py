@@ -75,8 +75,8 @@ def p_condition(p):
 def p_attcond(p):
     ''' attcond : exp_assignment
         | NUMBER
-        | TRUE
-        | FALSE
+        | true
+        | false
     '''
 
 parser = yacc.yacc()

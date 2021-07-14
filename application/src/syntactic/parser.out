@@ -5,7 +5,6 @@ Unused terminals:
     AND
     ANDEQUAL
     COLON
-    CORE
     DECREMENT
     DIVEQUAL
     DIVIDE
@@ -13,7 +12,6 @@ Unused terminals:
     ELSIF
     EQUALS
     EXP
-    FOREACH
     ID
     ID_LI
     ID_SC
@@ -32,7 +30,6 @@ Unused terminals:
     NO
     OR
     OREQUAL
-    PACKAGE
     PERIOD
     PLUS
     PLUSEQUAL
@@ -53,11 +50,6 @@ Unused terminals:
     UNTIL
     XOR
     XOREQUAL
-    __DATA__
-    __END__
-    __FILE__
-    __LINE__
-    __PACKAGE__
 
 Grammar
 
@@ -101,18 +93,18 @@ Rule 36    condition -> attcond SLE attcond
 Rule 37    condition -> attcond SGE attcond
 Rule 38    attcond -> exp_assignment
 Rule 39    attcond -> NUMBER
-Rule 40    attcond -> TRUE
-Rule 41    attcond -> FALSE
+Rule 40    attcond -> true
+Rule 41    attcond -> false
 
 Terminals, with rules where they appear
 
 AND                  : 
 ANDEQUAL             : 
+BREAK                : 9
 CMP                  : 31
 COLON                : 
 COMMA                : 16 23
 CONTINUE             : 10
-CORE                 : 
 DECREMENT            : 
 DIVEQUAL             : 
 DIVIDE               : 
@@ -123,7 +115,6 @@ EQ                   : 26
 EQUALS               : 
 EXP                  : 
 FOR                  : 14
-FOREACH              : 
 GE                   : 27
 GT                   : 24
 ID                   : 
@@ -150,7 +141,6 @@ NO                   :
 NUMBER               : 39
 OR                   : 
 OREQUAL              : 
-PACKAGE              : 
 PERIOD               : 
 PLUS                 : 
 PLUSEQUAL            : 
@@ -183,18 +173,10 @@ UNTIL                :
 WHILE                : 17
 XOR                  : 
 XOREQUAL             : 
-__DATA__             : 
-__END__              : 
-__FILE__             : 
-__LINE__             : 
-__PACKAGE__          : 
 error                : 
 
 Nonterminals, with rules where they appear
 
-BREAK                : 9
-FALSE                : 41
-TRUE                 : 40
 attcond              : 24 24 25 25 26 26 27 27 28 28 29 29 30 31 31 32 32 33 33 34 34 35 35 36 36 37 37
 blockcode            : 1 14 17 18 20 21
 call                 : 7
@@ -202,6 +184,7 @@ command              : 3
 condition            : 14 17 18
 dowhile              : 12
 exp_assignment       : 6 15 16 22 23 38
+false                : 41
 for                  : 11
 for_assignments      : 14 14 16
 function             : 19
@@ -212,5 +195,6 @@ if                   : 5
 init                 : 0
 interations          : 4
 return               : 8
+true                 : 40
 while                : 13
 

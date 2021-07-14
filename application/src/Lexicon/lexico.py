@@ -2,22 +2,7 @@ import ply.lex as lex
 
 reserved = {
     # Value : token
-    '__DATA__': '__DATA__',
-    '__END__': '__END__',
-    '__FILE__': '__FILE__',
-    '__LINE__': '__LINE__',
-    '__PACKAGE__': '__PACKAGE__',
-    'else': 'ELSE',
-    'elsif': 'ELSIF',
-    'for': 'FOR',
-    'foreach': 'FOREACH',
-    'while': 'WHILE',
-    # 'continue': 'CONTINUE',
-    'CORE': 'CORE',
-    'do': 'DO',
     'exp': 'EXP',
-    'cmp': 'CMP',
-    'package': 'PACKAGE',
     'q': 'Q',
     'qq': 'QQ',
     'qr': 'QR',
@@ -25,7 +10,6 @@ reserved = {
     'qx': 'QX',
     'no': 'NO',
     's': 'S',
-    'sub': 'SUB',
     'tr': 'TR',
     'unless': 'UNLESS',
     'until': 'UNTIL',
@@ -39,8 +23,9 @@ reserved = {
 }
 
 tokens = [
-             'ID_SC', 'ID_LI', 'ID', 'NUMBER', 'RETURN', 'CONTINUE',
-             'IF',
+             'ID_SC', 'ID_LI', 'ID', 'NUMBER',
+             'RETURN', 'CONTINUE', 'BREAK', 'IF', 'ELSE', 'FOR', 'ELSIF',
+             'DO', 'WHILE', 'CMP', 'SUB',
              # Operators (+, -, *, /, %, |, &, ^, <<, >>, ||, &&, !, <, <=, >, >=, ==, !=)
              'PLUS', 'MINUS', 'TIMES', 'DIVIDE', 'MODULO',
              'OR', 'AND', 'XOR',
@@ -70,11 +55,34 @@ tokens = [
 
          ] + list(reserved.values())
 
+
 def t_RETURN(t): r'return'; return t
-t_CONTINUE = r'continue'
+
+
+def t_CONTINUE(t): r'continue'; return t
 
 
 def t_IF(t): r'if'; return t
+
+
+def t_ELSE(t): r'else'; return t
+
+
+def t_ELSIF(t): r'elsif'; return t
+
+
+def t_BREAK(t): r'break'; return t
+
+
+def t_FOR(t): r'for'; return t
+
+
+def t_DO(t): r'do'; return t
+
+def t_WHILE(t): r'while'; return t
+
+def t_CMP(t): r'cmp'; return t
+def t_SUB(t): r'sub'; return t
 
 
 # Operators
