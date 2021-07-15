@@ -49,6 +49,7 @@ tokens = [
              'LBRACE', 'RBRACE',
              'COMMA', 'PERIOD', 'SEMICOLON', 'COLON',
 
+             'TRUE', 'FALSE'
              # Reserved words
              # TODO: move for reserved object
              # 'IT', 'M', 'Y'
@@ -88,7 +89,8 @@ def t_CMP(t): r'cmp'; return t
 
 def t_SUB(t): r'sub'; return t
 
-
+def t_TRUE(t): r'true'; return t
+def t_FALSE(t): r'false'; return t
 # Operators
 t_PLUS = r'\+'
 t_MINUS = r'-'
