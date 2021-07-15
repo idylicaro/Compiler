@@ -79,9 +79,13 @@ def t_FOR(t): r'for'; return t
 
 def t_DO(t): r'do'; return t
 
+
 def t_WHILE(t): r'while'; return t
 
+
 def t_CMP(t): r'cmp'; return t
+
+
 def t_SUB(t): r'sub'; return t
 
 
