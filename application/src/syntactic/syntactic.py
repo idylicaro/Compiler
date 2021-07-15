@@ -150,13 +150,15 @@ def p_exp3(p):
         | exp_condition
         | call
         | exp
+        | TRUE
+        | FALSE
     '''
 
 def p_attcond(p):
     ''' attcond : exp_assignment
         | NUMBER
-        | true
-        | false
+        | TRUE
+        | FALSE
     '''
 
 def p_call(p):
@@ -170,15 +172,6 @@ def p_return(p):
         | arithmetic
      '''
 
-def p_true(p):
-    '''
-        true : TRUE
-    '''
-
-def p_false(p):
-    '''
-        false : FALSE
-    '''
 
 parser = yacc.yacc()
 

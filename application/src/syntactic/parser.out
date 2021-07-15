@@ -113,16 +113,16 @@ Rule 74    exp3 -> exp_assignment
 Rule 75    exp3 -> exp_condition
 Rule 76    exp3 -> call
 Rule 77    exp3 -> exp
-Rule 78    attcond -> exp_assignment
-Rule 79    attcond -> NUMBER
-Rule 80    attcond -> true
-Rule 81    attcond -> false
-Rule 82    call -> ID LPAREN RPAREN
-Rule 83    call -> ID LPAREN function_assignments RPAREN
-Rule 84    return -> attcond
-Rule 85    return -> arithmetic
-Rule 86    true -> TRUE
-Rule 87    false -> FALSE
+Rule 78    exp3 -> TRUE
+Rule 79    exp3 -> FALSE
+Rule 80    attcond -> exp_assignment
+Rule 81    attcond -> NUMBER
+Rule 82    attcond -> TRUE
+Rule 83    attcond -> FALSE
+Rule 84    call -> ID LPAREN RPAREN
+Rule 85    call -> ID LPAREN function_assignments RPAREN
+Rule 86    return -> attcond
+Rule 87    return -> arithmetic
 
 Terminals, with rules where they appear
 
@@ -142,11 +142,11 @@ ELSIF                : 18 19
 EQ                   : 36
 EQUALS               : 54 55
 EXP                  : 
-FALSE                : 87
+FALSE                : 79 83
 FOR                  : 25
 GE                   : 37
 GT                   : 34
-ID                   : 30 31 82 83
+ID                   : 30 31 84 85
 ID_LI                : 55 57
 ID_SC                : 54 56 58 59 60 61
 IF                   : 14 15 16 17
@@ -157,7 +157,7 @@ LBRACKET             :
 LE                   : 38
 LNOT                 : 53
 LOR                  : 52
-LPAREN               : 14 15 16 17 18 19 25 28 29 30 31 41 49 50 50 72 82 83
+LPAREN               : 14 15 16 17 18 19 25 28 29 30 31 41 49 50 50 72 84 85
 LSHIFT               : 
 LSHIFTEQUAL          : 
 LT                   : 35
@@ -167,7 +167,7 @@ MODEQUAL             :
 MODULO               : 68
 NE                   : 39
 NO                   : 
-NUMBER               : 73 79
+NUMBER               : 73 81
 OR                   : 
 OREQUAL              : 
 PERIOD               : 
@@ -181,7 +181,7 @@ QX                   :
 RBRACE               : 14 16 16 17 18 19 21 25 28 29 30 31
 RBRACKET             : 
 RETURN               : 11
-RPAREN               : 14 15 16 17 18 19 25 28 29 30 31 41 49 50 50 72 82 83
+RPAREN               : 14 15 16 17 18 19 25 28 29 30 31 41 49 50 50 72 84 85
 RSHIFT               : 
 RSHIFTEQUAL          : 
 S                    : 
@@ -197,7 +197,7 @@ TERNARY              :
 TIMES                : 66
 TIMESEQUAL           : 
 TR                   : 
-TRUE                 : 86
+TRUE                 : 78 82
 UNLESS               : 
 UNTIL                : 
 WHILE                : 28
@@ -207,8 +207,8 @@ error                :
 
 Nonterminals, with rules where they appear
 
-arithmetic           : 54 55 72 85
-attcond              : 34 34 35 35 36 36 37 37 38 38 39 39 40 42 42 43 43 44 44 45 45 46 46 47 47 48 48 84
+arithmetic           : 54 55 72 87
+attcond              : 34 34 35 35 36 36 37 37 38 38 39 39 40 42 42 43 43 44 44 45 45 46 46 47 47 48 48 86
 blockcode            : 1 3 6 14 16 16 17 18 19 21 25 28 29 30 31
 call                 : 10 76
 command              : 5 6 15
@@ -219,20 +219,18 @@ exp                  : 62 63 64 77
 exp1                 : 63 64 65 66 67 68
 exp2                 : 66 67 68 69 70
 exp3                 : 70 71
-exp_assignment       : 9 26 27 32 33 74 78
+exp_assignment       : 9 26 27 32 33 74 80
 exp_condition        : 14 15 16 17 18 19 25 28 29 41 49 50 50 75
 exp_condition_logic  : 41
-false                : 81
 for                  : 22
 for_assignments      : 25 25 27
 function             : 2 4
-function_assignments : 31 33 83
+function_assignments : 31 33 85
 if                   : 8
 init                 : 1 2 0
 interations          : 7
 logic                : 41 50
 return               : 11
-true                 : 80
 while                : 24
 
 Parsing method: LALR
@@ -270,8 +268,8 @@ state 0
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (25) for -> . FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
     (28) dowhile -> . DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN
     (29) while -> . LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
@@ -342,8 +340,8 @@ state 2
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (25) for -> . FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
     (28) dowhile -> . DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN
     (29) while -> . LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
@@ -409,8 +407,8 @@ state 3
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (25) for -> . FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
     (28) dowhile -> . DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN
     (29) while -> . LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
@@ -471,8 +469,8 @@ state 4
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (25) for -> . FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
     (28) dowhile -> . DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN
     (29) while -> . LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
@@ -538,8 +536,8 @@ state 5
 
 state 6
 
-    (82) call -> ID . LPAREN RPAREN
-    (83) call -> ID . LPAREN function_assignments RPAREN
+    (84) call -> ID . LPAREN RPAREN
+    (85) call -> ID . LPAREN function_assignments RPAREN
 
     LPAREN          shift and go to state 30
 
@@ -562,10 +560,10 @@ state 7
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -574,23 +572,19 @@ state 7
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     LPAREN          shift and go to state 31
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
     exp_condition                  shift and go to state 32
     attcond                        shift and go to state 33
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 8
 
@@ -679,12 +673,12 @@ state 11
 state 12
 
     (11) command -> RETURN . return SEMICOLON
-    (84) return -> . attcond
-    (85) return -> . arithmetic
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (86) return -> . attcond
+    (87) return -> . arithmetic
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (62) arithmetic -> . exp
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
@@ -694,8 +688,6 @@ state 12
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
     (63) exp -> . exp PLUS exp1
     (64) exp -> . exp MINUS exp1
     (65) exp -> . exp1
@@ -711,6 +703,8 @@ state 12
     (75) exp3 -> . exp_condition
     (76) exp3 -> . call
     (77) exp3 -> . exp
+    (78) exp3 -> . TRUE
+    (79) exp3 -> . FALSE
     (34) exp_condition -> . attcond GT attcond
     (35) exp_condition -> . attcond LT attcond
     (36) exp_condition -> . attcond EQ attcond
@@ -726,25 +720,23 @@ state 12
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
 
-    NUMBER          shift and go to state 44
+    NUMBER          shift and go to state 42
+    TRUE            shift and go to state 43
+    FALSE           shift and go to state 44
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
     LPAREN          shift and go to state 49
     ID              shift and go to state 6
 
-    return                         shift and go to state 40
-    attcond                        shift and go to state 41
-    arithmetic                     shift and go to state 42
-    exp_assignment                 shift and go to state 43
-    true                           shift and go to state 36
-    false                          shift and go to state 37
+    return                         shift and go to state 38
+    attcond                        shift and go to state 39
+    arithmetic                     shift and go to state 40
+    exp_assignment                 shift and go to state 41
     exp                            shift and go to state 45
     exp1                           shift and go to state 46
     exp2                           shift and go to state 47
@@ -1018,8 +1010,8 @@ state 29
 
 state 30
 
-    (82) call -> ID LPAREN . RPAREN
-    (83) call -> ID LPAREN . function_assignments RPAREN
+    (84) call -> ID LPAREN . RPAREN
+    (85) call -> ID LPAREN . function_assignments RPAREN
     (32) function_assignments -> . exp_assignment
     (33) function_assignments -> . exp_assignment COMMA function_assignments
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
@@ -1058,10 +1050,10 @@ state 31
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -1070,23 +1062,19 @@ state 31
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     LPAREN          shift and go to state 31
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
     exp_condition                  shift and go to state 68
     attcond                        shift and go to state 33
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 32
 
@@ -1180,272 +1168,186 @@ state 33
 
 state 34
 
-    (78) attcond -> exp_assignment .
+    (80) attcond -> exp_assignment .
 
-    GT              reduce using rule 78 (attcond -> exp_assignment .)
-    LT              reduce using rule 78 (attcond -> exp_assignment .)
-    EQ              reduce using rule 78 (attcond -> exp_assignment .)
-    GE              reduce using rule 78 (attcond -> exp_assignment .)
-    LE              reduce using rule 78 (attcond -> exp_assignment .)
-    NE              reduce using rule 78 (attcond -> exp_assignment .)
-    CMP             reduce using rule 78 (attcond -> exp_assignment .)
-    SEQ             reduce using rule 78 (attcond -> exp_assignment .)
-    SNE             reduce using rule 78 (attcond -> exp_assignment .)
-    SLT             reduce using rule 78 (attcond -> exp_assignment .)
-    SGT             reduce using rule 78 (attcond -> exp_assignment .)
-    SLE             reduce using rule 78 (attcond -> exp_assignment .)
-    SGE             reduce using rule 78 (attcond -> exp_assignment .)
-    RPAREN          reduce using rule 78 (attcond -> exp_assignment .)
-    IF              reduce using rule 78 (attcond -> exp_assignment .)
-    RETURN          reduce using rule 78 (attcond -> exp_assignment .)
-    BREAK           reduce using rule 78 (attcond -> exp_assignment .)
-    CONTINUE        reduce using rule 78 (attcond -> exp_assignment .)
-    ID_SC           reduce using rule 78 (attcond -> exp_assignment .)
-    ID_LI           reduce using rule 78 (attcond -> exp_assignment .)
-    INCREMENT       reduce using rule 78 (attcond -> exp_assignment .)
-    DECREMENT       reduce using rule 78 (attcond -> exp_assignment .)
-    ID              reduce using rule 78 (attcond -> exp_assignment .)
-    FOR             reduce using rule 78 (attcond -> exp_assignment .)
-    DO              reduce using rule 78 (attcond -> exp_assignment .)
-    LPAREN          reduce using rule 78 (attcond -> exp_assignment .)
-    SUB             reduce using rule 78 (attcond -> exp_assignment .)
-    $end            reduce using rule 78 (attcond -> exp_assignment .)
-    RBRACE          reduce using rule 78 (attcond -> exp_assignment .)
-    SEMICOLON       reduce using rule 78 (attcond -> exp_assignment .)
-    XOR             reduce using rule 78 (attcond -> exp_assignment .)
-    TIMES           reduce using rule 78 (attcond -> exp_assignment .)
-    DIVIDE          reduce using rule 78 (attcond -> exp_assignment .)
-    MODULO          reduce using rule 78 (attcond -> exp_assignment .)
-    PLUS            reduce using rule 78 (attcond -> exp_assignment .)
-    MINUS           reduce using rule 78 (attcond -> exp_assignment .)
-    COMMA           reduce using rule 78 (attcond -> exp_assignment .)
+    GT              reduce using rule 80 (attcond -> exp_assignment .)
+    LT              reduce using rule 80 (attcond -> exp_assignment .)
+    EQ              reduce using rule 80 (attcond -> exp_assignment .)
+    GE              reduce using rule 80 (attcond -> exp_assignment .)
+    LE              reduce using rule 80 (attcond -> exp_assignment .)
+    NE              reduce using rule 80 (attcond -> exp_assignment .)
+    CMP             reduce using rule 80 (attcond -> exp_assignment .)
+    SEQ             reduce using rule 80 (attcond -> exp_assignment .)
+    SNE             reduce using rule 80 (attcond -> exp_assignment .)
+    SLT             reduce using rule 80 (attcond -> exp_assignment .)
+    SGT             reduce using rule 80 (attcond -> exp_assignment .)
+    SLE             reduce using rule 80 (attcond -> exp_assignment .)
+    SGE             reduce using rule 80 (attcond -> exp_assignment .)
+    RPAREN          reduce using rule 80 (attcond -> exp_assignment .)
+    IF              reduce using rule 80 (attcond -> exp_assignment .)
+    RETURN          reduce using rule 80 (attcond -> exp_assignment .)
+    BREAK           reduce using rule 80 (attcond -> exp_assignment .)
+    CONTINUE        reduce using rule 80 (attcond -> exp_assignment .)
+    ID_SC           reduce using rule 80 (attcond -> exp_assignment .)
+    ID_LI           reduce using rule 80 (attcond -> exp_assignment .)
+    INCREMENT       reduce using rule 80 (attcond -> exp_assignment .)
+    DECREMENT       reduce using rule 80 (attcond -> exp_assignment .)
+    ID              reduce using rule 80 (attcond -> exp_assignment .)
+    FOR             reduce using rule 80 (attcond -> exp_assignment .)
+    DO              reduce using rule 80 (attcond -> exp_assignment .)
+    LPAREN          reduce using rule 80 (attcond -> exp_assignment .)
+    SUB             reduce using rule 80 (attcond -> exp_assignment .)
+    $end            reduce using rule 80 (attcond -> exp_assignment .)
+    RBRACE          reduce using rule 80 (attcond -> exp_assignment .)
+    SEMICOLON       reduce using rule 80 (attcond -> exp_assignment .)
+    XOR             reduce using rule 80 (attcond -> exp_assignment .)
+    TIMES           reduce using rule 80 (attcond -> exp_assignment .)
+    DIVIDE          reduce using rule 80 (attcond -> exp_assignment .)
+    MODULO          reduce using rule 80 (attcond -> exp_assignment .)
+    PLUS            reduce using rule 80 (attcond -> exp_assignment .)
+    MINUS           reduce using rule 80 (attcond -> exp_assignment .)
+    COMMA           reduce using rule 80 (attcond -> exp_assignment .)
 
 
 state 35
 
-    (79) attcond -> NUMBER .
+    (81) attcond -> NUMBER .
 
-    GT              reduce using rule 79 (attcond -> NUMBER .)
-    LT              reduce using rule 79 (attcond -> NUMBER .)
-    EQ              reduce using rule 79 (attcond -> NUMBER .)
-    GE              reduce using rule 79 (attcond -> NUMBER .)
-    LE              reduce using rule 79 (attcond -> NUMBER .)
-    NE              reduce using rule 79 (attcond -> NUMBER .)
-    CMP             reduce using rule 79 (attcond -> NUMBER .)
-    SEQ             reduce using rule 79 (attcond -> NUMBER .)
-    SNE             reduce using rule 79 (attcond -> NUMBER .)
-    SLT             reduce using rule 79 (attcond -> NUMBER .)
-    SGT             reduce using rule 79 (attcond -> NUMBER .)
-    SLE             reduce using rule 79 (attcond -> NUMBER .)
-    SGE             reduce using rule 79 (attcond -> NUMBER .)
-    RPAREN          reduce using rule 79 (attcond -> NUMBER .)
-    IF              reduce using rule 79 (attcond -> NUMBER .)
-    RETURN          reduce using rule 79 (attcond -> NUMBER .)
-    BREAK           reduce using rule 79 (attcond -> NUMBER .)
-    CONTINUE        reduce using rule 79 (attcond -> NUMBER .)
-    ID_SC           reduce using rule 79 (attcond -> NUMBER .)
-    ID_LI           reduce using rule 79 (attcond -> NUMBER .)
-    INCREMENT       reduce using rule 79 (attcond -> NUMBER .)
-    DECREMENT       reduce using rule 79 (attcond -> NUMBER .)
-    ID              reduce using rule 79 (attcond -> NUMBER .)
-    FOR             reduce using rule 79 (attcond -> NUMBER .)
-    DO              reduce using rule 79 (attcond -> NUMBER .)
-    LPAREN          reduce using rule 79 (attcond -> NUMBER .)
-    SUB             reduce using rule 79 (attcond -> NUMBER .)
-    $end            reduce using rule 79 (attcond -> NUMBER .)
-    RBRACE          reduce using rule 79 (attcond -> NUMBER .)
-    SEMICOLON       reduce using rule 79 (attcond -> NUMBER .)
-    XOR             reduce using rule 79 (attcond -> NUMBER .)
-    TIMES           reduce using rule 79 (attcond -> NUMBER .)
-    DIVIDE          reduce using rule 79 (attcond -> NUMBER .)
-    MODULO          reduce using rule 79 (attcond -> NUMBER .)
-    PLUS            reduce using rule 79 (attcond -> NUMBER .)
-    MINUS           reduce using rule 79 (attcond -> NUMBER .)
-    COMMA           reduce using rule 79 (attcond -> NUMBER .)
+    GT              reduce using rule 81 (attcond -> NUMBER .)
+    LT              reduce using rule 81 (attcond -> NUMBER .)
+    EQ              reduce using rule 81 (attcond -> NUMBER .)
+    GE              reduce using rule 81 (attcond -> NUMBER .)
+    LE              reduce using rule 81 (attcond -> NUMBER .)
+    NE              reduce using rule 81 (attcond -> NUMBER .)
+    CMP             reduce using rule 81 (attcond -> NUMBER .)
+    SEQ             reduce using rule 81 (attcond -> NUMBER .)
+    SNE             reduce using rule 81 (attcond -> NUMBER .)
+    SLT             reduce using rule 81 (attcond -> NUMBER .)
+    SGT             reduce using rule 81 (attcond -> NUMBER .)
+    SLE             reduce using rule 81 (attcond -> NUMBER .)
+    SGE             reduce using rule 81 (attcond -> NUMBER .)
+    RPAREN          reduce using rule 81 (attcond -> NUMBER .)
+    IF              reduce using rule 81 (attcond -> NUMBER .)
+    RETURN          reduce using rule 81 (attcond -> NUMBER .)
+    BREAK           reduce using rule 81 (attcond -> NUMBER .)
+    CONTINUE        reduce using rule 81 (attcond -> NUMBER .)
+    ID_SC           reduce using rule 81 (attcond -> NUMBER .)
+    ID_LI           reduce using rule 81 (attcond -> NUMBER .)
+    INCREMENT       reduce using rule 81 (attcond -> NUMBER .)
+    DECREMENT       reduce using rule 81 (attcond -> NUMBER .)
+    ID              reduce using rule 81 (attcond -> NUMBER .)
+    FOR             reduce using rule 81 (attcond -> NUMBER .)
+    DO              reduce using rule 81 (attcond -> NUMBER .)
+    LPAREN          reduce using rule 81 (attcond -> NUMBER .)
+    SUB             reduce using rule 81 (attcond -> NUMBER .)
+    $end            reduce using rule 81 (attcond -> NUMBER .)
+    RBRACE          reduce using rule 81 (attcond -> NUMBER .)
+    SEMICOLON       reduce using rule 81 (attcond -> NUMBER .)
+    XOR             reduce using rule 81 (attcond -> NUMBER .)
+    TIMES           reduce using rule 81 (attcond -> NUMBER .)
+    DIVIDE          reduce using rule 81 (attcond -> NUMBER .)
+    MODULO          reduce using rule 81 (attcond -> NUMBER .)
+    PLUS            reduce using rule 81 (attcond -> NUMBER .)
+    MINUS           reduce using rule 81 (attcond -> NUMBER .)
+    COMMA           reduce using rule 81 (attcond -> NUMBER .)
 
 
 state 36
 
-    (80) attcond -> true .
+    (82) attcond -> TRUE .
 
-    GT              reduce using rule 80 (attcond -> true .)
-    LT              reduce using rule 80 (attcond -> true .)
-    EQ              reduce using rule 80 (attcond -> true .)
-    GE              reduce using rule 80 (attcond -> true .)
-    LE              reduce using rule 80 (attcond -> true .)
-    NE              reduce using rule 80 (attcond -> true .)
-    CMP             reduce using rule 80 (attcond -> true .)
-    SEQ             reduce using rule 80 (attcond -> true .)
-    SNE             reduce using rule 80 (attcond -> true .)
-    SLT             reduce using rule 80 (attcond -> true .)
-    SGT             reduce using rule 80 (attcond -> true .)
-    SLE             reduce using rule 80 (attcond -> true .)
-    SGE             reduce using rule 80 (attcond -> true .)
-    RPAREN          reduce using rule 80 (attcond -> true .)
-    SEMICOLON       reduce using rule 80 (attcond -> true .)
-    XOR             reduce using rule 80 (attcond -> true .)
-    TIMES           reduce using rule 80 (attcond -> true .)
-    DIVIDE          reduce using rule 80 (attcond -> true .)
-    MODULO          reduce using rule 80 (attcond -> true .)
-    PLUS            reduce using rule 80 (attcond -> true .)
-    MINUS           reduce using rule 80 (attcond -> true .)
-    IF              reduce using rule 80 (attcond -> true .)
-    RETURN          reduce using rule 80 (attcond -> true .)
-    BREAK           reduce using rule 80 (attcond -> true .)
-    CONTINUE        reduce using rule 80 (attcond -> true .)
-    ID_SC           reduce using rule 80 (attcond -> true .)
-    ID_LI           reduce using rule 80 (attcond -> true .)
-    INCREMENT       reduce using rule 80 (attcond -> true .)
-    DECREMENT       reduce using rule 80 (attcond -> true .)
-    ID              reduce using rule 80 (attcond -> true .)
-    FOR             reduce using rule 80 (attcond -> true .)
-    DO              reduce using rule 80 (attcond -> true .)
-    LPAREN          reduce using rule 80 (attcond -> true .)
-    SUB             reduce using rule 80 (attcond -> true .)
-    $end            reduce using rule 80 (attcond -> true .)
-    RBRACE          reduce using rule 80 (attcond -> true .)
-    COMMA           reduce using rule 80 (attcond -> true .)
+    GT              reduce using rule 82 (attcond -> TRUE .)
+    LT              reduce using rule 82 (attcond -> TRUE .)
+    EQ              reduce using rule 82 (attcond -> TRUE .)
+    GE              reduce using rule 82 (attcond -> TRUE .)
+    LE              reduce using rule 82 (attcond -> TRUE .)
+    NE              reduce using rule 82 (attcond -> TRUE .)
+    CMP             reduce using rule 82 (attcond -> TRUE .)
+    SEQ             reduce using rule 82 (attcond -> TRUE .)
+    SNE             reduce using rule 82 (attcond -> TRUE .)
+    SLT             reduce using rule 82 (attcond -> TRUE .)
+    SGT             reduce using rule 82 (attcond -> TRUE .)
+    SLE             reduce using rule 82 (attcond -> TRUE .)
+    SGE             reduce using rule 82 (attcond -> TRUE .)
+    RPAREN          reduce using rule 82 (attcond -> TRUE .)
+    IF              reduce using rule 82 (attcond -> TRUE .)
+    RETURN          reduce using rule 82 (attcond -> TRUE .)
+    BREAK           reduce using rule 82 (attcond -> TRUE .)
+    CONTINUE        reduce using rule 82 (attcond -> TRUE .)
+    ID_SC           reduce using rule 82 (attcond -> TRUE .)
+    ID_LI           reduce using rule 82 (attcond -> TRUE .)
+    INCREMENT       reduce using rule 82 (attcond -> TRUE .)
+    DECREMENT       reduce using rule 82 (attcond -> TRUE .)
+    ID              reduce using rule 82 (attcond -> TRUE .)
+    FOR             reduce using rule 82 (attcond -> TRUE .)
+    DO              reduce using rule 82 (attcond -> TRUE .)
+    LPAREN          reduce using rule 82 (attcond -> TRUE .)
+    SUB             reduce using rule 82 (attcond -> TRUE .)
+    $end            reduce using rule 82 (attcond -> TRUE .)
+    RBRACE          reduce using rule 82 (attcond -> TRUE .)
+    SEMICOLON       reduce using rule 82 (attcond -> TRUE .)
+    XOR             reduce using rule 82 (attcond -> TRUE .)
+    TIMES           reduce using rule 82 (attcond -> TRUE .)
+    DIVIDE          reduce using rule 82 (attcond -> TRUE .)
+    MODULO          reduce using rule 82 (attcond -> TRUE .)
+    PLUS            reduce using rule 82 (attcond -> TRUE .)
+    MINUS           reduce using rule 82 (attcond -> TRUE .)
+    COMMA           reduce using rule 82 (attcond -> TRUE .)
 
 
 state 37
 
-    (81) attcond -> false .
+    (83) attcond -> FALSE .
 
-    GT              reduce using rule 81 (attcond -> false .)
-    LT              reduce using rule 81 (attcond -> false .)
-    EQ              reduce using rule 81 (attcond -> false .)
-    GE              reduce using rule 81 (attcond -> false .)
-    LE              reduce using rule 81 (attcond -> false .)
-    NE              reduce using rule 81 (attcond -> false .)
-    CMP             reduce using rule 81 (attcond -> false .)
-    SEQ             reduce using rule 81 (attcond -> false .)
-    SNE             reduce using rule 81 (attcond -> false .)
-    SLT             reduce using rule 81 (attcond -> false .)
-    SGT             reduce using rule 81 (attcond -> false .)
-    SLE             reduce using rule 81 (attcond -> false .)
-    SGE             reduce using rule 81 (attcond -> false .)
-    RPAREN          reduce using rule 81 (attcond -> false .)
-    SEMICOLON       reduce using rule 81 (attcond -> false .)
-    XOR             reduce using rule 81 (attcond -> false .)
-    TIMES           reduce using rule 81 (attcond -> false .)
-    DIVIDE          reduce using rule 81 (attcond -> false .)
-    MODULO          reduce using rule 81 (attcond -> false .)
-    PLUS            reduce using rule 81 (attcond -> false .)
-    MINUS           reduce using rule 81 (attcond -> false .)
-    IF              reduce using rule 81 (attcond -> false .)
-    RETURN          reduce using rule 81 (attcond -> false .)
-    BREAK           reduce using rule 81 (attcond -> false .)
-    CONTINUE        reduce using rule 81 (attcond -> false .)
-    ID_SC           reduce using rule 81 (attcond -> false .)
-    ID_LI           reduce using rule 81 (attcond -> false .)
-    INCREMENT       reduce using rule 81 (attcond -> false .)
-    DECREMENT       reduce using rule 81 (attcond -> false .)
-    ID              reduce using rule 81 (attcond -> false .)
-    FOR             reduce using rule 81 (attcond -> false .)
-    DO              reduce using rule 81 (attcond -> false .)
-    LPAREN          reduce using rule 81 (attcond -> false .)
-    SUB             reduce using rule 81 (attcond -> false .)
-    $end            reduce using rule 81 (attcond -> false .)
-    RBRACE          reduce using rule 81 (attcond -> false .)
-    COMMA           reduce using rule 81 (attcond -> false .)
+    GT              reduce using rule 83 (attcond -> FALSE .)
+    LT              reduce using rule 83 (attcond -> FALSE .)
+    EQ              reduce using rule 83 (attcond -> FALSE .)
+    GE              reduce using rule 83 (attcond -> FALSE .)
+    LE              reduce using rule 83 (attcond -> FALSE .)
+    NE              reduce using rule 83 (attcond -> FALSE .)
+    CMP             reduce using rule 83 (attcond -> FALSE .)
+    SEQ             reduce using rule 83 (attcond -> FALSE .)
+    SNE             reduce using rule 83 (attcond -> FALSE .)
+    SLT             reduce using rule 83 (attcond -> FALSE .)
+    SGT             reduce using rule 83 (attcond -> FALSE .)
+    SLE             reduce using rule 83 (attcond -> FALSE .)
+    SGE             reduce using rule 83 (attcond -> FALSE .)
+    RPAREN          reduce using rule 83 (attcond -> FALSE .)
+    IF              reduce using rule 83 (attcond -> FALSE .)
+    RETURN          reduce using rule 83 (attcond -> FALSE .)
+    BREAK           reduce using rule 83 (attcond -> FALSE .)
+    CONTINUE        reduce using rule 83 (attcond -> FALSE .)
+    ID_SC           reduce using rule 83 (attcond -> FALSE .)
+    ID_LI           reduce using rule 83 (attcond -> FALSE .)
+    INCREMENT       reduce using rule 83 (attcond -> FALSE .)
+    DECREMENT       reduce using rule 83 (attcond -> FALSE .)
+    ID              reduce using rule 83 (attcond -> FALSE .)
+    FOR             reduce using rule 83 (attcond -> FALSE .)
+    DO              reduce using rule 83 (attcond -> FALSE .)
+    LPAREN          reduce using rule 83 (attcond -> FALSE .)
+    SUB             reduce using rule 83 (attcond -> FALSE .)
+    $end            reduce using rule 83 (attcond -> FALSE .)
+    RBRACE          reduce using rule 83 (attcond -> FALSE .)
+    SEMICOLON       reduce using rule 83 (attcond -> FALSE .)
+    XOR             reduce using rule 83 (attcond -> FALSE .)
+    TIMES           reduce using rule 83 (attcond -> FALSE .)
+    DIVIDE          reduce using rule 83 (attcond -> FALSE .)
+    MODULO          reduce using rule 83 (attcond -> FALSE .)
+    PLUS            reduce using rule 83 (attcond -> FALSE .)
+    MINUS           reduce using rule 83 (attcond -> FALSE .)
+    COMMA           reduce using rule 83 (attcond -> FALSE .)
 
 
 state 38
-
-    (86) true -> TRUE .
-
-    GT              reduce using rule 86 (true -> TRUE .)
-    LT              reduce using rule 86 (true -> TRUE .)
-    EQ              reduce using rule 86 (true -> TRUE .)
-    GE              reduce using rule 86 (true -> TRUE .)
-    LE              reduce using rule 86 (true -> TRUE .)
-    NE              reduce using rule 86 (true -> TRUE .)
-    CMP             reduce using rule 86 (true -> TRUE .)
-    SEQ             reduce using rule 86 (true -> TRUE .)
-    SNE             reduce using rule 86 (true -> TRUE .)
-    SLT             reduce using rule 86 (true -> TRUE .)
-    SGT             reduce using rule 86 (true -> TRUE .)
-    SLE             reduce using rule 86 (true -> TRUE .)
-    SGE             reduce using rule 86 (true -> TRUE .)
-    RPAREN          reduce using rule 86 (true -> TRUE .)
-    SEMICOLON       reduce using rule 86 (true -> TRUE .)
-    XOR             reduce using rule 86 (true -> TRUE .)
-    TIMES           reduce using rule 86 (true -> TRUE .)
-    DIVIDE          reduce using rule 86 (true -> TRUE .)
-    MODULO          reduce using rule 86 (true -> TRUE .)
-    PLUS            reduce using rule 86 (true -> TRUE .)
-    MINUS           reduce using rule 86 (true -> TRUE .)
-    IF              reduce using rule 86 (true -> TRUE .)
-    RETURN          reduce using rule 86 (true -> TRUE .)
-    BREAK           reduce using rule 86 (true -> TRUE .)
-    CONTINUE        reduce using rule 86 (true -> TRUE .)
-    ID_SC           reduce using rule 86 (true -> TRUE .)
-    ID_LI           reduce using rule 86 (true -> TRUE .)
-    INCREMENT       reduce using rule 86 (true -> TRUE .)
-    DECREMENT       reduce using rule 86 (true -> TRUE .)
-    ID              reduce using rule 86 (true -> TRUE .)
-    FOR             reduce using rule 86 (true -> TRUE .)
-    DO              reduce using rule 86 (true -> TRUE .)
-    LPAREN          reduce using rule 86 (true -> TRUE .)
-    SUB             reduce using rule 86 (true -> TRUE .)
-    $end            reduce using rule 86 (true -> TRUE .)
-    RBRACE          reduce using rule 86 (true -> TRUE .)
-    COMMA           reduce using rule 86 (true -> TRUE .)
-
-
-state 39
-
-    (87) false -> FALSE .
-
-    GT              reduce using rule 87 (false -> FALSE .)
-    LT              reduce using rule 87 (false -> FALSE .)
-    EQ              reduce using rule 87 (false -> FALSE .)
-    GE              reduce using rule 87 (false -> FALSE .)
-    LE              reduce using rule 87 (false -> FALSE .)
-    NE              reduce using rule 87 (false -> FALSE .)
-    CMP             reduce using rule 87 (false -> FALSE .)
-    SEQ             reduce using rule 87 (false -> FALSE .)
-    SNE             reduce using rule 87 (false -> FALSE .)
-    SLT             reduce using rule 87 (false -> FALSE .)
-    SGT             reduce using rule 87 (false -> FALSE .)
-    SLE             reduce using rule 87 (false -> FALSE .)
-    SGE             reduce using rule 87 (false -> FALSE .)
-    RPAREN          reduce using rule 87 (false -> FALSE .)
-    SEMICOLON       reduce using rule 87 (false -> FALSE .)
-    XOR             reduce using rule 87 (false -> FALSE .)
-    TIMES           reduce using rule 87 (false -> FALSE .)
-    DIVIDE          reduce using rule 87 (false -> FALSE .)
-    MODULO          reduce using rule 87 (false -> FALSE .)
-    PLUS            reduce using rule 87 (false -> FALSE .)
-    MINUS           reduce using rule 87 (false -> FALSE .)
-    IF              reduce using rule 87 (false -> FALSE .)
-    RETURN          reduce using rule 87 (false -> FALSE .)
-    BREAK           reduce using rule 87 (false -> FALSE .)
-    CONTINUE        reduce using rule 87 (false -> FALSE .)
-    ID_SC           reduce using rule 87 (false -> FALSE .)
-    ID_LI           reduce using rule 87 (false -> FALSE .)
-    INCREMENT       reduce using rule 87 (false -> FALSE .)
-    DECREMENT       reduce using rule 87 (false -> FALSE .)
-    ID              reduce using rule 87 (false -> FALSE .)
-    FOR             reduce using rule 87 (false -> FALSE .)
-    DO              reduce using rule 87 (false -> FALSE .)
-    LPAREN          reduce using rule 87 (false -> FALSE .)
-    SUB             reduce using rule 87 (false -> FALSE .)
-    $end            reduce using rule 87 (false -> FALSE .)
-    RBRACE          reduce using rule 87 (false -> FALSE .)
-    COMMA           reduce using rule 87 (false -> FALSE .)
-
-
-state 40
 
     (11) command -> RETURN return . SEMICOLON
 
     SEMICOLON       shift and go to state 83
 
 
-state 41
+state 39
 
-    (84) return -> attcond .
+    (86) return -> attcond .
     (34) exp_condition -> attcond . GT attcond
     (35) exp_condition -> attcond . LT attcond
     (36) exp_condition -> attcond . EQ attcond
@@ -1483,19 +1385,19 @@ state 41
     SLE             shift and go to state 81
     SGE             shift and go to state 82
 
-  ! SEMICOLON       [ reduce using rule 84 (return -> attcond .) ]
+  ! SEMICOLON       [ reduce using rule 86 (return -> attcond .) ]
 
 
-state 42
+state 40
 
-    (85) return -> arithmetic .
+    (87) return -> arithmetic .
 
-    SEMICOLON       reduce using rule 85 (return -> arithmetic .)
+    SEMICOLON       reduce using rule 87 (return -> arithmetic .)
 
 
-state 43
+state 41
 
-    (78) attcond -> exp_assignment .
+    (80) attcond -> exp_assignment .
     (74) exp3 -> exp_assignment .
 
   ! reduce/reduce conflict for XOR resolved using rule 74 (exp3 -> exp_assignment .)
@@ -1506,19 +1408,19 @@ state 43
   ! reduce/reduce conflict for MINUS resolved using rule 74 (exp3 -> exp_assignment .)
   ! reduce/reduce conflict for SEMICOLON resolved using rule 74 (exp3 -> exp_assignment .)
   ! reduce/reduce conflict for RPAREN resolved using rule 74 (exp3 -> exp_assignment .)
-    GT              reduce using rule 78 (attcond -> exp_assignment .)
-    LT              reduce using rule 78 (attcond -> exp_assignment .)
-    EQ              reduce using rule 78 (attcond -> exp_assignment .)
-    GE              reduce using rule 78 (attcond -> exp_assignment .)
-    LE              reduce using rule 78 (attcond -> exp_assignment .)
-    NE              reduce using rule 78 (attcond -> exp_assignment .)
-    CMP             reduce using rule 78 (attcond -> exp_assignment .)
-    SEQ             reduce using rule 78 (attcond -> exp_assignment .)
-    SNE             reduce using rule 78 (attcond -> exp_assignment .)
-    SLT             reduce using rule 78 (attcond -> exp_assignment .)
-    SGT             reduce using rule 78 (attcond -> exp_assignment .)
-    SLE             reduce using rule 78 (attcond -> exp_assignment .)
-    SGE             reduce using rule 78 (attcond -> exp_assignment .)
+    GT              reduce using rule 80 (attcond -> exp_assignment .)
+    LT              reduce using rule 80 (attcond -> exp_assignment .)
+    EQ              reduce using rule 80 (attcond -> exp_assignment .)
+    GE              reduce using rule 80 (attcond -> exp_assignment .)
+    LE              reduce using rule 80 (attcond -> exp_assignment .)
+    NE              reduce using rule 80 (attcond -> exp_assignment .)
+    CMP             reduce using rule 80 (attcond -> exp_assignment .)
+    SEQ             reduce using rule 80 (attcond -> exp_assignment .)
+    SNE             reduce using rule 80 (attcond -> exp_assignment .)
+    SLT             reduce using rule 80 (attcond -> exp_assignment .)
+    SGT             reduce using rule 80 (attcond -> exp_assignment .)
+    SLE             reduce using rule 80 (attcond -> exp_assignment .)
+    SGE             reduce using rule 80 (attcond -> exp_assignment .)
     XOR             reduce using rule 74 (exp3 -> exp_assignment .)
     TIMES           reduce using rule 74 (exp3 -> exp_assignment .)
     DIVIDE          reduce using rule 74 (exp3 -> exp_assignment .)
@@ -1528,19 +1430,19 @@ state 43
     SEMICOLON       reduce using rule 74 (exp3 -> exp_assignment .)
     RPAREN          reduce using rule 74 (exp3 -> exp_assignment .)
 
-  ! SEMICOLON       [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! XOR             [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! TIMES           [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! DIVIDE          [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! MODULO          [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! PLUS            [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! MINUS           [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! RPAREN          [ reduce using rule 78 (attcond -> exp_assignment .) ]
+  ! SEMICOLON       [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! XOR             [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! TIMES           [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! DIVIDE          [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! MODULO          [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! PLUS            [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! MINUS           [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! RPAREN          [ reduce using rule 80 (attcond -> exp_assignment .) ]
 
 
-state 44
+state 42
 
-    (79) attcond -> NUMBER .
+    (81) attcond -> NUMBER .
     (73) exp3 -> NUMBER .
 
   ! reduce/reduce conflict for XOR resolved using rule 73 (exp3 -> NUMBER .)
@@ -1551,19 +1453,19 @@ state 44
   ! reduce/reduce conflict for MINUS resolved using rule 73 (exp3 -> NUMBER .)
   ! reduce/reduce conflict for SEMICOLON resolved using rule 73 (exp3 -> NUMBER .)
   ! reduce/reduce conflict for RPAREN resolved using rule 73 (exp3 -> NUMBER .)
-    GT              reduce using rule 79 (attcond -> NUMBER .)
-    LT              reduce using rule 79 (attcond -> NUMBER .)
-    EQ              reduce using rule 79 (attcond -> NUMBER .)
-    GE              reduce using rule 79 (attcond -> NUMBER .)
-    LE              reduce using rule 79 (attcond -> NUMBER .)
-    NE              reduce using rule 79 (attcond -> NUMBER .)
-    CMP             reduce using rule 79 (attcond -> NUMBER .)
-    SEQ             reduce using rule 79 (attcond -> NUMBER .)
-    SNE             reduce using rule 79 (attcond -> NUMBER .)
-    SLT             reduce using rule 79 (attcond -> NUMBER .)
-    SGT             reduce using rule 79 (attcond -> NUMBER .)
-    SLE             reduce using rule 79 (attcond -> NUMBER .)
-    SGE             reduce using rule 79 (attcond -> NUMBER .)
+    GT              reduce using rule 81 (attcond -> NUMBER .)
+    LT              reduce using rule 81 (attcond -> NUMBER .)
+    EQ              reduce using rule 81 (attcond -> NUMBER .)
+    GE              reduce using rule 81 (attcond -> NUMBER .)
+    LE              reduce using rule 81 (attcond -> NUMBER .)
+    NE              reduce using rule 81 (attcond -> NUMBER .)
+    CMP             reduce using rule 81 (attcond -> NUMBER .)
+    SEQ             reduce using rule 81 (attcond -> NUMBER .)
+    SNE             reduce using rule 81 (attcond -> NUMBER .)
+    SLT             reduce using rule 81 (attcond -> NUMBER .)
+    SGT             reduce using rule 81 (attcond -> NUMBER .)
+    SLE             reduce using rule 81 (attcond -> NUMBER .)
+    SGE             reduce using rule 81 (attcond -> NUMBER .)
     XOR             reduce using rule 73 (exp3 -> NUMBER .)
     TIMES           reduce using rule 73 (exp3 -> NUMBER .)
     DIVIDE          reduce using rule 73 (exp3 -> NUMBER .)
@@ -1573,14 +1475,104 @@ state 44
     SEMICOLON       reduce using rule 73 (exp3 -> NUMBER .)
     RPAREN          reduce using rule 73 (exp3 -> NUMBER .)
 
-  ! SEMICOLON       [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! XOR             [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! TIMES           [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! DIVIDE          [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! MODULO          [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! PLUS            [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! MINUS           [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! RPAREN          [ reduce using rule 79 (attcond -> NUMBER .) ]
+  ! SEMICOLON       [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! XOR             [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! TIMES           [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! DIVIDE          [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! MODULO          [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! PLUS            [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! MINUS           [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! RPAREN          [ reduce using rule 81 (attcond -> NUMBER .) ]
+
+
+state 43
+
+    (82) attcond -> TRUE .
+    (78) exp3 -> TRUE .
+
+  ! reduce/reduce conflict for XOR resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for TIMES resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for MODULO resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for PLUS resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for MINUS resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for SEMICOLON resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 78 (exp3 -> TRUE .)
+    GT              reduce using rule 82 (attcond -> TRUE .)
+    LT              reduce using rule 82 (attcond -> TRUE .)
+    EQ              reduce using rule 82 (attcond -> TRUE .)
+    GE              reduce using rule 82 (attcond -> TRUE .)
+    LE              reduce using rule 82 (attcond -> TRUE .)
+    NE              reduce using rule 82 (attcond -> TRUE .)
+    CMP             reduce using rule 82 (attcond -> TRUE .)
+    SEQ             reduce using rule 82 (attcond -> TRUE .)
+    SNE             reduce using rule 82 (attcond -> TRUE .)
+    SLT             reduce using rule 82 (attcond -> TRUE .)
+    SGT             reduce using rule 82 (attcond -> TRUE .)
+    SLE             reduce using rule 82 (attcond -> TRUE .)
+    SGE             reduce using rule 82 (attcond -> TRUE .)
+    XOR             reduce using rule 78 (exp3 -> TRUE .)
+    TIMES           reduce using rule 78 (exp3 -> TRUE .)
+    DIVIDE          reduce using rule 78 (exp3 -> TRUE .)
+    MODULO          reduce using rule 78 (exp3 -> TRUE .)
+    PLUS            reduce using rule 78 (exp3 -> TRUE .)
+    MINUS           reduce using rule 78 (exp3 -> TRUE .)
+    SEMICOLON       reduce using rule 78 (exp3 -> TRUE .)
+    RPAREN          reduce using rule 78 (exp3 -> TRUE .)
+
+  ! SEMICOLON       [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! XOR             [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! TIMES           [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! DIVIDE          [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! MODULO          [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! PLUS            [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! MINUS           [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! RPAREN          [ reduce using rule 82 (attcond -> TRUE .) ]
+
+
+state 44
+
+    (83) attcond -> FALSE .
+    (79) exp3 -> FALSE .
+
+  ! reduce/reduce conflict for XOR resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for TIMES resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for MODULO resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for PLUS resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for MINUS resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for SEMICOLON resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 79 (exp3 -> FALSE .)
+    GT              reduce using rule 83 (attcond -> FALSE .)
+    LT              reduce using rule 83 (attcond -> FALSE .)
+    EQ              reduce using rule 83 (attcond -> FALSE .)
+    GE              reduce using rule 83 (attcond -> FALSE .)
+    LE              reduce using rule 83 (attcond -> FALSE .)
+    NE              reduce using rule 83 (attcond -> FALSE .)
+    CMP             reduce using rule 83 (attcond -> FALSE .)
+    SEQ             reduce using rule 83 (attcond -> FALSE .)
+    SNE             reduce using rule 83 (attcond -> FALSE .)
+    SLT             reduce using rule 83 (attcond -> FALSE .)
+    SGT             reduce using rule 83 (attcond -> FALSE .)
+    SLE             reduce using rule 83 (attcond -> FALSE .)
+    SGE             reduce using rule 83 (attcond -> FALSE .)
+    XOR             reduce using rule 79 (exp3 -> FALSE .)
+    TIMES           reduce using rule 79 (exp3 -> FALSE .)
+    DIVIDE          reduce using rule 79 (exp3 -> FALSE .)
+    MODULO          reduce using rule 79 (exp3 -> FALSE .)
+    PLUS            reduce using rule 79 (exp3 -> FALSE .)
+    MINUS           reduce using rule 79 (exp3 -> FALSE .)
+    SEMICOLON       reduce using rule 79 (exp3 -> FALSE .)
+    RPAREN          reduce using rule 79 (exp3 -> FALSE .)
+
+  ! SEMICOLON       [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! XOR             [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! TIMES           [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! DIVIDE          [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! MODULO          [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! PLUS            [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! MINUS           [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! RPAREN          [ reduce using rule 83 (attcond -> FALSE .) ]
 
 
 state 45
@@ -1874,10 +1866,10 @@ state 49
     (63) exp -> . exp PLUS exp1
     (64) exp -> . exp MINUS exp1
     (65) exp -> . exp1
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (66) exp1 -> . exp1 TIMES exp2
     (67) exp1 -> . exp1 DIVIDE exp2
     (68) exp1 -> . exp1 MODULO exp2
@@ -1890,8 +1882,6 @@ state 49
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
     (70) exp2 -> . exp3 XOR exp2
     (71) exp2 -> . exp3
     (72) exp3 -> . LPAREN arithmetic RPAREN
@@ -1900,17 +1890,19 @@ state 49
     (75) exp3 -> . exp_condition
     (76) exp3 -> . call
     (77) exp3 -> . exp
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (78) exp3 -> . TRUE
+    (79) exp3 -> . FALSE
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
 
     LPAREN          shift and go to state 90
-    NUMBER          shift and go to state 44
+    NUMBER          shift and go to state 42
+    TRUE            shift and go to state 43
+    FALSE           shift and go to state 44
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
     ID              shift and go to state 6
 
     arithmetic                     shift and go to state 91
@@ -1918,9 +1910,7 @@ state 49
     exp                            shift and go to state 45
     attcond                        shift and go to state 33
     exp1                           shift and go to state 46
-    exp_assignment                 shift and go to state 43
-    true                           shift and go to state 36
-    false                          shift and go to state 37
+    exp_assignment                 shift and go to state 41
     exp2                           shift and go to state 47
     exp3                           shift and go to state 48
     call                           shift and go to state 51
@@ -2073,10 +2063,10 @@ state 54
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -2085,23 +2075,19 @@ state 54
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     LPAREN          shift and go to state 31
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
     exp_condition                  shift and go to state 93
     attcond                        shift and go to state 33
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 55
 
@@ -2122,6 +2108,8 @@ state 55
     (75) exp3 -> . exp_condition
     (76) exp3 -> . call
     (77) exp3 -> . exp
+    (78) exp3 -> . TRUE
+    (79) exp3 -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -2145,24 +2133,22 @@ state 55
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
-    (86) true -> . TRUE
-    (87) false -> . FALSE
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
 
     LPAREN          shift and go to state 49
     NUMBER          shift and go to state 95
+    TRUE            shift and go to state 97
+    FALSE           shift and go to state 98
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
     ID              shift and go to state 6
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
     arithmetic                     shift and go to state 94
     exp                            shift and go to state 45
@@ -2173,8 +2159,6 @@ state 55
     exp_condition                  shift and go to state 50
     call                           shift and go to state 51
     attcond                        shift and go to state 33
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 56
 
@@ -2281,6 +2265,8 @@ state 58
     (75) exp3 -> . exp_condition
     (76) exp3 -> . call
     (77) exp3 -> . exp
+    (78) exp3 -> . TRUE
+    (79) exp3 -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -2304,26 +2290,24 @@ state 58
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
-    (86) true -> . TRUE
-    (87) false -> . FALSE
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
 
     LPAREN          shift and go to state 49
     NUMBER          shift and go to state 95
+    TRUE            shift and go to state 97
+    FALSE           shift and go to state 98
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
     ID              shift and go to state 6
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    arithmetic                     shift and go to state 97
+    arithmetic                     shift and go to state 99
     exp                            shift and go to state 45
     exp1                           shift and go to state 46
     exp2                           shift and go to state 47
@@ -2332,8 +2316,6 @@ state 58
     exp_condition                  shift and go to state 50
     call                           shift and go to state 51
     attcond                        shift and go to state 33
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 59
 
@@ -2440,8 +2422,8 @@ state 61
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
 
-    for_assignments                shift and go to state 98
-    exp_assignment                 shift and go to state 99
+    for_assignments                shift and go to state 100
+    exp_assignment                 shift and go to state 101
 
 state 62
 
@@ -2470,8 +2452,8 @@ state 62
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (25) for -> . FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
     (28) dowhile -> . DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN
     (29) while -> . LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
@@ -2489,7 +2471,7 @@ state 62
     DO              shift and go to state 24
     LPAREN          shift and go to state 7
 
-    blockcode                      shift and go to state 100
+    blockcode                      shift and go to state 102
     command                        shift and go to state 4
     interations                    shift and go to state 8
     if                             shift and go to state 9
@@ -2520,10 +2502,10 @@ state 63
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -2532,23 +2514,19 @@ state 63
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     LPAREN          shift and go to state 31
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    exp_condition                  shift and go to state 101
+    exp_condition                  shift and go to state 103
     attcond                        shift and go to state 33
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 64
 
@@ -2565,63 +2543,63 @@ state 64
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
 
-    RPAREN          shift and go to state 102
+    RPAREN          shift and go to state 104
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
 
-    function_assignments           shift and go to state 103
+    function_assignments           shift and go to state 105
     exp_assignment                 shift and go to state 67
 
 state 65
 
-    (82) call -> ID LPAREN RPAREN .
+    (84) call -> ID LPAREN RPAREN .
 
-    IF              reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    RETURN          reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    BREAK           reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    CONTINUE        reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    ID_SC           reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    ID_LI           reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    INCREMENT       reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    DECREMENT       reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    ID              reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    FOR             reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    DO              reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    LPAREN          reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    SUB             reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    $end            reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    RBRACE          reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    XOR             reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    TIMES           reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    DIVIDE          reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    MODULO          reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    PLUS            reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    MINUS           reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    SEMICOLON       reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    RPAREN          reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    GT              reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    LT              reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    EQ              reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    GE              reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    LE              reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    NE              reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    CMP             reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    SEQ             reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    SNE             reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    SLT             reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    SGT             reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    SLE             reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    SGE             reduce using rule 82 (call -> ID LPAREN RPAREN .)
-    COMMA           reduce using rule 82 (call -> ID LPAREN RPAREN .)
+    IF              reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    RETURN          reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    BREAK           reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    CONTINUE        reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    ID_SC           reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    ID_LI           reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    INCREMENT       reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    DECREMENT       reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    ID              reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    FOR             reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    DO              reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    LPAREN          reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    SUB             reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    $end            reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    RBRACE          reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    XOR             reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    TIMES           reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    DIVIDE          reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    MODULO          reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    PLUS            reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    MINUS           reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    SEMICOLON       reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    RPAREN          reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    GT              reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    LT              reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    EQ              reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    GE              reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    LE              reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    NE              reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    CMP             reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    SEQ             reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    SNE             reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    SLT             reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    SGT             reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    SLE             reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    SGE             reduce using rule 84 (call -> ID LPAREN RPAREN .)
+    COMMA           reduce using rule 84 (call -> ID LPAREN RPAREN .)
 
 
 state 66
 
-    (83) call -> ID LPAREN function_assignments . RPAREN
+    (85) call -> ID LPAREN function_assignments . RPAREN
 
-    RPAREN          shift and go to state 104
+    RPAREN          shift and go to state 106
 
 
 state 67
@@ -2630,30 +2608,30 @@ state 67
     (33) function_assignments -> exp_assignment . COMMA function_assignments
 
     RPAREN          reduce using rule 32 (function_assignments -> exp_assignment .)
-    COMMA           shift and go to state 105
+    COMMA           shift and go to state 107
 
 
 state 68
 
     (41) exp_condition -> LPAREN exp_condition . RPAREN logic exp_condition_logic
 
-    RPAREN          shift and go to state 106
+    RPAREN          shift and go to state 108
 
 
 state 69
 
     (29) while -> LPAREN exp_condition RPAREN . LBRACE blockcode RBRACE
 
-    LBRACE          shift and go to state 107
+    LBRACE          shift and go to state 109
 
 
 state 70
 
     (34) exp_condition -> attcond GT . attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -2662,29 +2640,25 @@ state 70
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    attcond                        shift and go to state 108
+    attcond                        shift and go to state 110
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 71
 
     (35) exp_condition -> attcond LT . attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -2693,29 +2667,25 @@ state 71
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    attcond                        shift and go to state 109
+    attcond                        shift and go to state 111
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 72
 
     (36) exp_condition -> attcond EQ . attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -2724,29 +2694,25 @@ state 72
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    attcond                        shift and go to state 110
+    attcond                        shift and go to state 112
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 73
 
     (37) exp_condition -> attcond GE . attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -2755,29 +2721,25 @@ state 73
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    attcond                        shift and go to state 111
+    attcond                        shift and go to state 113
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 74
 
     (38) exp_condition -> attcond LE . attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -2786,29 +2748,25 @@ state 74
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    attcond                        shift and go to state 112
+    attcond                        shift and go to state 114
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 75
 
     (39) exp_condition -> attcond NE . attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -2817,29 +2775,25 @@ state 75
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    attcond                        shift and go to state 113
+    attcond                        shift and go to state 115
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 76
 
     (42) exp_condition -> attcond CMP . attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -2848,29 +2802,25 @@ state 76
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    attcond                        shift and go to state 114
+    attcond                        shift and go to state 116
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 77
 
     (43) exp_condition -> attcond SEQ . attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -2879,29 +2829,25 @@ state 77
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    attcond                        shift and go to state 115
+    attcond                        shift and go to state 117
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 78
 
     (44) exp_condition -> attcond SNE . attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -2910,29 +2856,25 @@ state 78
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    attcond                        shift and go to state 116
+    attcond                        shift and go to state 118
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 79
 
     (45) exp_condition -> attcond SLT . attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -2941,29 +2883,25 @@ state 79
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    attcond                        shift and go to state 117
+    attcond                        shift and go to state 119
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 80
 
     (46) exp_condition -> attcond SGT . attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -2972,29 +2910,25 @@ state 80
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    attcond                        shift and go to state 118
+    attcond                        shift and go to state 120
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 81
 
     (47) exp_condition -> attcond SLE . attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -3003,29 +2937,25 @@ state 81
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    attcond                        shift and go to state 119
+    attcond                        shift and go to state 121
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 82
 
     (48) exp_condition -> attcond SGE . attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -3034,21 +2964,17 @@ state 82
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    attcond                        shift and go to state 120
+    attcond                        shift and go to state 122
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 83
 
@@ -3086,6 +3012,8 @@ state 84
     (75) exp3 -> . exp_condition
     (76) exp3 -> . call
     (77) exp3 -> . exp
+    (78) exp3 -> . TRUE
+    (79) exp3 -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -3109,38 +3037,34 @@ state 84
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (63) exp -> . exp PLUS exp1
     (64) exp -> . exp MINUS exp1
     (65) exp -> . exp1
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
-    (86) true -> . TRUE
-    (87) false -> . FALSE
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
 
     LPAREN          shift and go to state 49
     NUMBER          shift and go to state 95
+    TRUE            shift and go to state 97
+    FALSE           shift and go to state 98
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
     ID              shift and go to state 6
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    exp                            shift and go to state 121
-    exp1                           shift and go to state 122
+    exp                            shift and go to state 123
+    exp1                           shift and go to state 124
     exp2                           shift and go to state 47
     exp3                           shift and go to state 48
     exp_assignment                 shift and go to state 96
     exp_condition                  shift and go to state 50
     call                           shift and go to state 51
     attcond                        shift and go to state 33
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 85
 
@@ -3157,6 +3081,8 @@ state 85
     (75) exp3 -> . exp_condition
     (76) exp3 -> . call
     (77) exp3 -> . exp
+    (78) exp3 -> . TRUE
+    (79) exp3 -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -3180,38 +3106,34 @@ state 85
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (63) exp -> . exp PLUS exp1
     (64) exp -> . exp MINUS exp1
     (65) exp -> . exp1
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
-    (86) true -> . TRUE
-    (87) false -> . FALSE
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
 
     LPAREN          shift and go to state 49
     NUMBER          shift and go to state 95
+    TRUE            shift and go to state 97
+    FALSE           shift and go to state 98
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
     ID              shift and go to state 6
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    exp                            shift and go to state 121
-    exp1                           shift and go to state 123
+    exp                            shift and go to state 123
+    exp1                           shift and go to state 125
     exp2                           shift and go to state 47
     exp3                           shift and go to state 48
     exp_assignment                 shift and go to state 96
     exp_condition                  shift and go to state 50
     call                           shift and go to state 51
     attcond                        shift and go to state 33
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 86
 
@@ -3224,6 +3146,8 @@ state 86
     (75) exp3 -> . exp_condition
     (76) exp3 -> . call
     (77) exp3 -> . exp
+    (78) exp3 -> . TRUE
+    (79) exp3 -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -3247,42 +3171,38 @@ state 86
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (63) exp -> . exp PLUS exp1
     (64) exp -> . exp MINUS exp1
     (65) exp -> . exp1
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (66) exp1 -> . exp1 TIMES exp2
     (67) exp1 -> . exp1 DIVIDE exp2
     (68) exp1 -> . exp1 MODULO exp2
     (69) exp1 -> . exp2
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     LPAREN          shift and go to state 49
     NUMBER          shift and go to state 95
+    TRUE            shift and go to state 97
+    FALSE           shift and go to state 98
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
     ID              shift and go to state 6
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
     exp1                           shift and go to state 46
-    exp2                           shift and go to state 124
+    exp2                           shift and go to state 126
     exp3                           shift and go to state 48
     exp_assignment                 shift and go to state 96
     exp_condition                  shift and go to state 50
     call                           shift and go to state 51
-    exp                            shift and go to state 121
+    exp                            shift and go to state 123
     attcond                        shift and go to state 33
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 87
 
@@ -3295,6 +3215,8 @@ state 87
     (75) exp3 -> . exp_condition
     (76) exp3 -> . call
     (77) exp3 -> . exp
+    (78) exp3 -> . TRUE
+    (79) exp3 -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -3318,42 +3240,38 @@ state 87
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (63) exp -> . exp PLUS exp1
     (64) exp -> . exp MINUS exp1
     (65) exp -> . exp1
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (66) exp1 -> . exp1 TIMES exp2
     (67) exp1 -> . exp1 DIVIDE exp2
     (68) exp1 -> . exp1 MODULO exp2
     (69) exp1 -> . exp2
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     LPAREN          shift and go to state 49
     NUMBER          shift and go to state 95
+    TRUE            shift and go to state 97
+    FALSE           shift and go to state 98
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
     ID              shift and go to state 6
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
     exp1                           shift and go to state 46
-    exp2                           shift and go to state 125
+    exp2                           shift and go to state 127
     exp3                           shift and go to state 48
     exp_assignment                 shift and go to state 96
     exp_condition                  shift and go to state 50
     call                           shift and go to state 51
-    exp                            shift and go to state 121
+    exp                            shift and go to state 123
     attcond                        shift and go to state 33
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 88
 
@@ -3366,6 +3284,8 @@ state 88
     (75) exp3 -> . exp_condition
     (76) exp3 -> . call
     (77) exp3 -> . exp
+    (78) exp3 -> . TRUE
+    (79) exp3 -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -3389,42 +3309,38 @@ state 88
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (63) exp -> . exp PLUS exp1
     (64) exp -> . exp MINUS exp1
     (65) exp -> . exp1
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (66) exp1 -> . exp1 TIMES exp2
     (67) exp1 -> . exp1 DIVIDE exp2
     (68) exp1 -> . exp1 MODULO exp2
     (69) exp1 -> . exp2
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     LPAREN          shift and go to state 49
     NUMBER          shift and go to state 95
+    TRUE            shift and go to state 97
+    FALSE           shift and go to state 98
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
     ID              shift and go to state 6
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
     exp1                           shift and go to state 46
-    exp2                           shift and go to state 126
+    exp2                           shift and go to state 128
     exp3                           shift and go to state 48
     exp_assignment                 shift and go to state 96
     exp_condition                  shift and go to state 50
     call                           shift and go to state 51
-    exp                            shift and go to state 121
+    exp                            shift and go to state 123
     attcond                        shift and go to state 33
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 89
 
@@ -3437,6 +3353,8 @@ state 89
     (75) exp3 -> . exp_condition
     (76) exp3 -> . call
     (77) exp3 -> . exp
+    (78) exp3 -> . TRUE
+    (79) exp3 -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -3460,42 +3378,38 @@ state 89
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (63) exp -> . exp PLUS exp1
     (64) exp -> . exp MINUS exp1
     (65) exp -> . exp1
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (66) exp1 -> . exp1 TIMES exp2
     (67) exp1 -> . exp1 DIVIDE exp2
     (68) exp1 -> . exp1 MODULO exp2
     (69) exp1 -> . exp2
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     LPAREN          shift and go to state 49
     NUMBER          shift and go to state 95
+    TRUE            shift and go to state 97
+    FALSE           shift and go to state 98
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
     ID              shift and go to state 6
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
     exp3                           shift and go to state 48
-    exp2                           shift and go to state 127
+    exp2                           shift and go to state 129
     exp_assignment                 shift and go to state 96
     exp_condition                  shift and go to state 50
     call                           shift and go to state 51
-    exp                            shift and go to state 121
+    exp                            shift and go to state 123
     attcond                        shift and go to state 33
     exp1                           shift and go to state 46
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
 state 90
 
@@ -3517,10 +3431,10 @@ state 90
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
     (62) arithmetic -> . exp
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (63) exp -> . exp PLUS exp1
     (64) exp -> . exp MINUS exp1
     (65) exp -> . exp1
@@ -3532,8 +3446,6 @@ state 90
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
     (66) exp1 -> . exp1 TIMES exp2
     (67) exp1 -> . exp1 DIVIDE exp2
     (68) exp1 -> . exp1 MODULO exp2
@@ -3546,26 +3458,26 @@ state 90
     (75) exp3 -> . exp_condition
     (76) exp3 -> . call
     (77) exp3 -> . exp
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (78) exp3 -> . TRUE
+    (79) exp3 -> . FALSE
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
 
     LPAREN          shift and go to state 90
-    NUMBER          shift and go to state 44
+    NUMBER          shift and go to state 42
+    TRUE            shift and go to state 43
+    FALSE           shift and go to state 44
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
     ID              shift and go to state 6
 
     exp_condition                  shift and go to state 92
     arithmetic                     shift and go to state 91
     attcond                        shift and go to state 33
     exp                            shift and go to state 45
-    exp_assignment                 shift and go to state 43
-    true                           shift and go to state 36
-    false                          shift and go to state 37
+    exp_assignment                 shift and go to state 41
     exp1                           shift and go to state 46
     exp2                           shift and go to state 47
     exp3                           shift and go to state 48
@@ -3575,7 +3487,7 @@ state 91
 
     (72) exp3 -> LPAREN arithmetic . RPAREN
 
-    RPAREN          shift and go to state 128
+    RPAREN          shift and go to state 130
 
 
 state 92
@@ -3584,7 +3496,7 @@ state 92
     (75) exp3 -> exp_condition .
 
   ! shift/reduce conflict for RPAREN resolved as shift
-    RPAREN          shift and go to state 106
+    RPAREN          shift and go to state 108
     XOR             reduce using rule 75 (exp3 -> exp_condition .)
     TIMES           reduce using rule 75 (exp3 -> exp_condition .)
     DIVIDE          reduce using rule 75 (exp3 -> exp_condition .)
@@ -3601,7 +3513,7 @@ state 93
     (16) if -> IF LPAREN exp_condition . RPAREN LBRACE blockcode RBRACE ELSE LBRACE blockcode RBRACE
     (17) if -> IF LPAREN exp_condition . RPAREN LBRACE blockcode RBRACE elsif
 
-    RPAREN          shift and go to state 129
+    RPAREN          shift and go to state 131
 
 
 state 94
@@ -3650,7 +3562,7 @@ state 94
 state 95
 
     (73) exp3 -> NUMBER .
-    (79) attcond -> NUMBER .
+    (81) attcond -> NUMBER .
 
   ! reduce/reduce conflict for IF resolved using rule 73 (exp3 -> NUMBER .)
   ! reduce/reduce conflict for RETURN resolved using rule 73 (exp3 -> NUMBER .)
@@ -3727,49 +3639,49 @@ state 95
     MINUS           reduce using rule 73 (exp3 -> NUMBER .)
     COMMA           reduce using rule 73 (exp3 -> NUMBER .)
 
-  ! IF              [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! RETURN          [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! BREAK           [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! CONTINUE        [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! ID_SC           [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! ID_LI           [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! INCREMENT       [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! DECREMENT       [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! ID              [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! FOR             [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! DO              [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! LPAREN          [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! SUB             [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! $end            [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! RBRACE          [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! GT              [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! LT              [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! EQ              [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! GE              [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! LE              [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! NE              [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! CMP             [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! SEQ             [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! SNE             [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! SLT             [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! SGT             [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! SLE             [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! SGE             [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! RPAREN          [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! SEMICOLON       [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! XOR             [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! TIMES           [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! DIVIDE          [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! MODULO          [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! PLUS            [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! MINUS           [ reduce using rule 79 (attcond -> NUMBER .) ]
-  ! COMMA           [ reduce using rule 79 (attcond -> NUMBER .) ]
+  ! IF              [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! RETURN          [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! BREAK           [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! CONTINUE        [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! ID_SC           [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! ID_LI           [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! INCREMENT       [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! DECREMENT       [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! ID              [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! FOR             [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! DO              [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! LPAREN          [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! SUB             [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! $end            [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! RBRACE          [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! GT              [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! LT              [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! EQ              [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! GE              [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! LE              [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! NE              [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! CMP             [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! SEQ             [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! SNE             [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! SLT             [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! SGT             [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! SLE             [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! SGE             [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! RPAREN          [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! SEMICOLON       [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! XOR             [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! TIMES           [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! DIVIDE          [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! MODULO          [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! PLUS            [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! MINUS           [ reduce using rule 81 (attcond -> NUMBER .) ]
+  ! COMMA           [ reduce using rule 81 (attcond -> NUMBER .) ]
 
 
 state 96
 
     (74) exp3 -> exp_assignment .
-    (78) attcond -> exp_assignment .
+    (80) attcond -> exp_assignment .
 
   ! reduce/reduce conflict for IF resolved using rule 74 (exp3 -> exp_assignment .)
   ! reduce/reduce conflict for RETURN resolved using rule 74 (exp3 -> exp_assignment .)
@@ -3846,46 +3758,284 @@ state 96
     MINUS           reduce using rule 74 (exp3 -> exp_assignment .)
     COMMA           reduce using rule 74 (exp3 -> exp_assignment .)
 
-  ! IF              [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! RETURN          [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! BREAK           [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! CONTINUE        [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! ID_SC           [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! ID_LI           [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! INCREMENT       [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! DECREMENT       [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! ID              [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! FOR             [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! DO              [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! LPAREN          [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! SUB             [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! $end            [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! RBRACE          [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! GT              [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! LT              [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! EQ              [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! GE              [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! LE              [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! NE              [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! CMP             [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! SEQ             [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! SNE             [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! SLT             [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! SGT             [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! SLE             [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! SGE             [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! RPAREN          [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! SEMICOLON       [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! XOR             [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! TIMES           [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! DIVIDE          [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! MODULO          [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! PLUS            [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! MINUS           [ reduce using rule 78 (attcond -> exp_assignment .) ]
-  ! COMMA           [ reduce using rule 78 (attcond -> exp_assignment .) ]
+  ! IF              [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! RETURN          [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! BREAK           [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! CONTINUE        [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! ID_SC           [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! ID_LI           [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! INCREMENT       [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! DECREMENT       [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! ID              [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! FOR             [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! DO              [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! LPAREN          [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! SUB             [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! $end            [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! RBRACE          [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! GT              [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! LT              [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! EQ              [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! GE              [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! LE              [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! NE              [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! CMP             [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! SEQ             [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! SNE             [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! SLT             [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! SGT             [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! SLE             [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! SGE             [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! RPAREN          [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! SEMICOLON       [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! XOR             [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! TIMES           [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! DIVIDE          [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! MODULO          [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! PLUS            [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! MINUS           [ reduce using rule 80 (attcond -> exp_assignment .) ]
+  ! COMMA           [ reduce using rule 80 (attcond -> exp_assignment .) ]
 
 
 state 97
+
+    (78) exp3 -> TRUE .
+    (82) attcond -> TRUE .
+
+  ! reduce/reduce conflict for IF resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for RETURN resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for BREAK resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for CONTINUE resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for ID_SC resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for ID_LI resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for INCREMENT resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for DECREMENT resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for ID resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for FOR resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for DO resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for LPAREN resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for SUB resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for $end resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for RBRACE resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for GT resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for LT resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for EQ resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for GE resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for LE resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for NE resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for CMP resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for SEQ resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for SNE resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for SLT resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for SGT resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for SLE resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for SGE resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for SEMICOLON resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for XOR resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for TIMES resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for MODULO resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for PLUS resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for MINUS resolved using rule 78 (exp3 -> TRUE .)
+  ! reduce/reduce conflict for COMMA resolved using rule 78 (exp3 -> TRUE .)
+    IF              reduce using rule 78 (exp3 -> TRUE .)
+    RETURN          reduce using rule 78 (exp3 -> TRUE .)
+    BREAK           reduce using rule 78 (exp3 -> TRUE .)
+    CONTINUE        reduce using rule 78 (exp3 -> TRUE .)
+    ID_SC           reduce using rule 78 (exp3 -> TRUE .)
+    ID_LI           reduce using rule 78 (exp3 -> TRUE .)
+    INCREMENT       reduce using rule 78 (exp3 -> TRUE .)
+    DECREMENT       reduce using rule 78 (exp3 -> TRUE .)
+    ID              reduce using rule 78 (exp3 -> TRUE .)
+    FOR             reduce using rule 78 (exp3 -> TRUE .)
+    DO              reduce using rule 78 (exp3 -> TRUE .)
+    LPAREN          reduce using rule 78 (exp3 -> TRUE .)
+    SUB             reduce using rule 78 (exp3 -> TRUE .)
+    $end            reduce using rule 78 (exp3 -> TRUE .)
+    RBRACE          reduce using rule 78 (exp3 -> TRUE .)
+    GT              reduce using rule 78 (exp3 -> TRUE .)
+    LT              reduce using rule 78 (exp3 -> TRUE .)
+    EQ              reduce using rule 78 (exp3 -> TRUE .)
+    GE              reduce using rule 78 (exp3 -> TRUE .)
+    LE              reduce using rule 78 (exp3 -> TRUE .)
+    NE              reduce using rule 78 (exp3 -> TRUE .)
+    CMP             reduce using rule 78 (exp3 -> TRUE .)
+    SEQ             reduce using rule 78 (exp3 -> TRUE .)
+    SNE             reduce using rule 78 (exp3 -> TRUE .)
+    SLT             reduce using rule 78 (exp3 -> TRUE .)
+    SGT             reduce using rule 78 (exp3 -> TRUE .)
+    SLE             reduce using rule 78 (exp3 -> TRUE .)
+    SGE             reduce using rule 78 (exp3 -> TRUE .)
+    RPAREN          reduce using rule 78 (exp3 -> TRUE .)
+    SEMICOLON       reduce using rule 78 (exp3 -> TRUE .)
+    XOR             reduce using rule 78 (exp3 -> TRUE .)
+    TIMES           reduce using rule 78 (exp3 -> TRUE .)
+    DIVIDE          reduce using rule 78 (exp3 -> TRUE .)
+    MODULO          reduce using rule 78 (exp3 -> TRUE .)
+    PLUS            reduce using rule 78 (exp3 -> TRUE .)
+    MINUS           reduce using rule 78 (exp3 -> TRUE .)
+    COMMA           reduce using rule 78 (exp3 -> TRUE .)
+
+  ! IF              [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! RETURN          [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! BREAK           [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! CONTINUE        [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! ID_SC           [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! ID_LI           [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! INCREMENT       [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! DECREMENT       [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! ID              [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! FOR             [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! DO              [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! LPAREN          [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! SUB             [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! $end            [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! RBRACE          [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! GT              [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! LT              [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! EQ              [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! GE              [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! LE              [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! NE              [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! CMP             [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! SEQ             [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! SNE             [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! SLT             [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! SGT             [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! SLE             [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! SGE             [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! RPAREN          [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! SEMICOLON       [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! XOR             [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! TIMES           [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! DIVIDE          [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! MODULO          [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! PLUS            [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! MINUS           [ reduce using rule 82 (attcond -> TRUE .) ]
+  ! COMMA           [ reduce using rule 82 (attcond -> TRUE .) ]
+
+
+state 98
+
+    (79) exp3 -> FALSE .
+    (83) attcond -> FALSE .
+
+  ! reduce/reduce conflict for IF resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for RETURN resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for BREAK resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for CONTINUE resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for ID_SC resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for ID_LI resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for INCREMENT resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for DECREMENT resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for ID resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for FOR resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for DO resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for LPAREN resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for SUB resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for $end resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for RBRACE resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for GT resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for LT resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for EQ resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for GE resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for LE resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for NE resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for CMP resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for SEQ resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for SNE resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for SLT resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for SGT resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for SLE resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for SGE resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for RPAREN resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for SEMICOLON resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for XOR resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for TIMES resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for DIVIDE resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for MODULO resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for PLUS resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for MINUS resolved using rule 79 (exp3 -> FALSE .)
+  ! reduce/reduce conflict for COMMA resolved using rule 79 (exp3 -> FALSE .)
+    IF              reduce using rule 79 (exp3 -> FALSE .)
+    RETURN          reduce using rule 79 (exp3 -> FALSE .)
+    BREAK           reduce using rule 79 (exp3 -> FALSE .)
+    CONTINUE        reduce using rule 79 (exp3 -> FALSE .)
+    ID_SC           reduce using rule 79 (exp3 -> FALSE .)
+    ID_LI           reduce using rule 79 (exp3 -> FALSE .)
+    INCREMENT       reduce using rule 79 (exp3 -> FALSE .)
+    DECREMENT       reduce using rule 79 (exp3 -> FALSE .)
+    ID              reduce using rule 79 (exp3 -> FALSE .)
+    FOR             reduce using rule 79 (exp3 -> FALSE .)
+    DO              reduce using rule 79 (exp3 -> FALSE .)
+    LPAREN          reduce using rule 79 (exp3 -> FALSE .)
+    SUB             reduce using rule 79 (exp3 -> FALSE .)
+    $end            reduce using rule 79 (exp3 -> FALSE .)
+    RBRACE          reduce using rule 79 (exp3 -> FALSE .)
+    GT              reduce using rule 79 (exp3 -> FALSE .)
+    LT              reduce using rule 79 (exp3 -> FALSE .)
+    EQ              reduce using rule 79 (exp3 -> FALSE .)
+    GE              reduce using rule 79 (exp3 -> FALSE .)
+    LE              reduce using rule 79 (exp3 -> FALSE .)
+    NE              reduce using rule 79 (exp3 -> FALSE .)
+    CMP             reduce using rule 79 (exp3 -> FALSE .)
+    SEQ             reduce using rule 79 (exp3 -> FALSE .)
+    SNE             reduce using rule 79 (exp3 -> FALSE .)
+    SLT             reduce using rule 79 (exp3 -> FALSE .)
+    SGT             reduce using rule 79 (exp3 -> FALSE .)
+    SLE             reduce using rule 79 (exp3 -> FALSE .)
+    SGE             reduce using rule 79 (exp3 -> FALSE .)
+    RPAREN          reduce using rule 79 (exp3 -> FALSE .)
+    SEMICOLON       reduce using rule 79 (exp3 -> FALSE .)
+    XOR             reduce using rule 79 (exp3 -> FALSE .)
+    TIMES           reduce using rule 79 (exp3 -> FALSE .)
+    DIVIDE          reduce using rule 79 (exp3 -> FALSE .)
+    MODULO          reduce using rule 79 (exp3 -> FALSE .)
+    PLUS            reduce using rule 79 (exp3 -> FALSE .)
+    MINUS           reduce using rule 79 (exp3 -> FALSE .)
+    COMMA           reduce using rule 79 (exp3 -> FALSE .)
+
+  ! IF              [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! RETURN          [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! BREAK           [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! CONTINUE        [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! ID_SC           [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! ID_LI           [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! INCREMENT       [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! DECREMENT       [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! ID              [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! FOR             [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! DO              [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! LPAREN          [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! SUB             [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! $end            [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! RBRACE          [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! GT              [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! LT              [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! EQ              [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! GE              [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! LE              [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! NE              [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! CMP             [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! SEQ             [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! SNE             [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! SLT             [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! SGT             [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! SLE             [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! SGE             [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! RPAREN          [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! SEMICOLON       [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! XOR             [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! TIMES           [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! DIVIDE          [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! MODULO          [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! PLUS            [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! MINUS           [ reduce using rule 83 (attcond -> FALSE .) ]
+  ! COMMA           [ reduce using rule 83 (attcond -> FALSE .) ]
+
+
+state 99
 
     (55) exp_assignment -> ID_LI EQUALS arithmetic .
 
@@ -3928,98 +4078,98 @@ state 97
     COMMA           reduce using rule 55 (exp_assignment -> ID_LI EQUALS arithmetic .)
 
 
-state 98
+state 100
 
     (25) for -> FOR LPAREN for_assignments . SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
 
-    SEMICOLON       shift and go to state 130
+    SEMICOLON       shift and go to state 132
 
 
-state 99
+state 101
 
     (26) for_assignments -> exp_assignment .
     (27) for_assignments -> exp_assignment . COMMA for_assignments
 
     SEMICOLON       reduce using rule 26 (for_assignments -> exp_assignment .)
     RPAREN          reduce using rule 26 (for_assignments -> exp_assignment .)
-    COMMA           shift and go to state 131
+    COMMA           shift and go to state 133
 
 
-state 100
+state 102
 
     (28) dowhile -> DO LBRACE blockcode . RBRACE WHILE LPAREN exp_condition RPAREN
 
-    RBRACE          shift and go to state 132
+    RBRACE          shift and go to state 134
 
 
-state 101
+state 103
 
     (15) if -> command IF LPAREN exp_condition . RPAREN
     (14) if -> IF LPAREN exp_condition . RPAREN LBRACE blockcode RBRACE
     (16) if -> IF LPAREN exp_condition . RPAREN LBRACE blockcode RBRACE ELSE LBRACE blockcode RBRACE
     (17) if -> IF LPAREN exp_condition . RPAREN LBRACE blockcode RBRACE elsif
 
-    RPAREN          shift and go to state 133
-
-
-state 102
-
-    (30) function -> SUB ID LPAREN RPAREN . LBRACE blockcode RBRACE
-
-    LBRACE          shift and go to state 134
-
-
-state 103
-
-    (31) function -> SUB ID LPAREN function_assignments . RPAREN LBRACE blockcode RBRACE
-
     RPAREN          shift and go to state 135
 
 
 state 104
 
-    (83) call -> ID LPAREN function_assignments RPAREN .
+    (30) function -> SUB ID LPAREN RPAREN . LBRACE blockcode RBRACE
 
-    IF              reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    RETURN          reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    BREAK           reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    CONTINUE        reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    ID_SC           reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    ID_LI           reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    INCREMENT       reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    DECREMENT       reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    ID              reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    FOR             reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    DO              reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    LPAREN          reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    SUB             reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    $end            reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    RBRACE          reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    XOR             reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    TIMES           reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    DIVIDE          reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    MODULO          reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    PLUS            reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    MINUS           reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    SEMICOLON       reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    RPAREN          reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    GT              reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    LT              reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    EQ              reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    GE              reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    LE              reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    NE              reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    CMP             reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    SEQ             reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    SNE             reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    SLT             reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    SGT             reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    SLE             reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    SGE             reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
-    COMMA           reduce using rule 83 (call -> ID LPAREN function_assignments RPAREN .)
+    LBRACE          shift and go to state 136
 
 
 state 105
+
+    (31) function -> SUB ID LPAREN function_assignments . RPAREN LBRACE blockcode RBRACE
+
+    RPAREN          shift and go to state 137
+
+
+state 106
+
+    (85) call -> ID LPAREN function_assignments RPAREN .
+
+    IF              reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    RETURN          reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    BREAK           reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    CONTINUE        reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    ID_SC           reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    ID_LI           reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    INCREMENT       reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    DECREMENT       reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    ID              reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    FOR             reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    DO              reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    LPAREN          reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    SUB             reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    $end            reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    RBRACE          reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    XOR             reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    TIMES           reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    DIVIDE          reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    MODULO          reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    PLUS            reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    MINUS           reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    SEMICOLON       reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    RPAREN          reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    GT              reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    LT              reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    EQ              reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    GE              reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    LE              reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    NE              reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    CMP             reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    SEQ             reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    SNE             reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    SLT             reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    SGT             reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    SLE             reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    SGE             reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+    COMMA           reduce using rule 85 (call -> ID LPAREN function_assignments RPAREN .)
+
+
+state 107
 
     (33) function_assignments -> exp_assignment COMMA . function_assignments
     (32) function_assignments -> . exp_assignment
@@ -4039,22 +4189,22 @@ state 105
     DECREMENT       shift and go to state 22
 
     exp_assignment                 shift and go to state 67
-    function_assignments           shift and go to state 136
+    function_assignments           shift and go to state 138
 
-state 106
+state 108
 
     (41) exp_condition -> LPAREN exp_condition RPAREN . logic exp_condition_logic
     (51) logic -> . LAND
     (52) logic -> . LOR
     (53) logic -> . LNOT
 
-    LAND            shift and go to state 138
-    LOR             shift and go to state 139
-    LNOT            shift and go to state 140
+    LAND            shift and go to state 140
+    LOR             shift and go to state 141
+    LNOT            shift and go to state 142
 
-    logic                          shift and go to state 137
+    logic                          shift and go to state 139
 
-state 107
+state 109
 
     (29) while -> LPAREN exp_condition RPAREN LBRACE . blockcode RBRACE
     (5) blockcode -> . command
@@ -4081,8 +4231,8 @@ state 107
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (25) for -> . FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
     (28) dowhile -> . DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN
     (29) while -> . LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
@@ -4100,7 +4250,7 @@ state 107
     DO              shift and go to state 24
     LPAREN          shift and go to state 7
 
-    blockcode                      shift and go to state 141
+    blockcode                      shift and go to state 143
     command                        shift and go to state 4
     interations                    shift and go to state 8
     if                             shift and go to state 9
@@ -4110,7 +4260,7 @@ state 107
     dowhile                        shift and go to state 16
     while                          shift and go to state 17
 
-state 108
+state 110
 
     (34) exp_condition -> attcond GT attcond .
 
@@ -4153,7 +4303,7 @@ state 108
     COMMA           reduce using rule 34 (exp_condition -> attcond GT attcond .)
 
 
-state 109
+state 111
 
     (35) exp_condition -> attcond LT attcond .
 
@@ -4196,7 +4346,7 @@ state 109
     COMMA           reduce using rule 35 (exp_condition -> attcond LT attcond .)
 
 
-state 110
+state 112
 
     (36) exp_condition -> attcond EQ attcond .
 
@@ -4239,7 +4389,7 @@ state 110
     COMMA           reduce using rule 36 (exp_condition -> attcond EQ attcond .)
 
 
-state 111
+state 113
 
     (37) exp_condition -> attcond GE attcond .
 
@@ -4282,7 +4432,7 @@ state 111
     COMMA           reduce using rule 37 (exp_condition -> attcond GE attcond .)
 
 
-state 112
+state 114
 
     (38) exp_condition -> attcond LE attcond .
 
@@ -4325,7 +4475,7 @@ state 112
     COMMA           reduce using rule 38 (exp_condition -> attcond LE attcond .)
 
 
-state 113
+state 115
 
     (39) exp_condition -> attcond NE attcond .
 
@@ -4368,7 +4518,7 @@ state 113
     COMMA           reduce using rule 39 (exp_condition -> attcond NE attcond .)
 
 
-state 114
+state 116
 
     (42) exp_condition -> attcond CMP attcond .
 
@@ -4411,7 +4561,7 @@ state 114
     COMMA           reduce using rule 42 (exp_condition -> attcond CMP attcond .)
 
 
-state 115
+state 117
 
     (43) exp_condition -> attcond SEQ attcond .
 
@@ -4454,7 +4604,7 @@ state 115
     COMMA           reduce using rule 43 (exp_condition -> attcond SEQ attcond .)
 
 
-state 116
+state 118
 
     (44) exp_condition -> attcond SNE attcond .
 
@@ -4497,7 +4647,7 @@ state 116
     COMMA           reduce using rule 44 (exp_condition -> attcond SNE attcond .)
 
 
-state 117
+state 119
 
     (45) exp_condition -> attcond SLT attcond .
 
@@ -4540,7 +4690,7 @@ state 117
     COMMA           reduce using rule 45 (exp_condition -> attcond SLT attcond .)
 
 
-state 118
+state 120
 
     (46) exp_condition -> attcond SGT attcond .
 
@@ -4583,7 +4733,7 @@ state 118
     COMMA           reduce using rule 46 (exp_condition -> attcond SGT attcond .)
 
 
-state 119
+state 121
 
     (47) exp_condition -> attcond SLE attcond .
 
@@ -4626,7 +4776,7 @@ state 119
     COMMA           reduce using rule 47 (exp_condition -> attcond SLE attcond .)
 
 
-state 120
+state 122
 
     (48) exp_condition -> attcond SGE attcond .
 
@@ -4669,7 +4819,7 @@ state 120
     COMMA           reduce using rule 48 (exp_condition -> attcond SGE attcond .)
 
 
-state 121
+state 123
 
     (77) exp3 -> exp .
     (63) exp -> exp . PLUS exp1
@@ -4719,7 +4869,7 @@ state 121
   ! MINUS           [ reduce using rule 77 (exp3 -> exp .) ]
 
 
-state 122
+state 124
 
     (63) exp -> exp PLUS exp1 .
     (66) exp1 -> exp1 . TIMES exp2
@@ -4847,7 +4997,7 @@ state 122
   ! COMMA           [ reduce using rule 65 (exp -> exp1 .) ]
 
 
-state 123
+state 125
 
     (64) exp -> exp MINUS exp1 .
     (66) exp1 -> exp1 . TIMES exp2
@@ -4975,7 +5125,7 @@ state 123
   ! COMMA           [ reduce using rule 65 (exp -> exp1 .) ]
 
 
-state 124
+state 126
 
     (66) exp1 -> exp1 TIMES exp2 .
     (69) exp1 -> exp2 .
@@ -5094,7 +5244,7 @@ state 124
   ! COMMA           [ reduce using rule 69 (exp1 -> exp2 .) ]
 
 
-state 125
+state 127
 
     (67) exp1 -> exp1 DIVIDE exp2 .
     (69) exp1 -> exp2 .
@@ -5213,7 +5363,7 @@ state 125
   ! COMMA           [ reduce using rule 69 (exp1 -> exp2 .) ]
 
 
-state 126
+state 128
 
     (68) exp1 -> exp1 MODULO exp2 .
     (69) exp1 -> exp2 .
@@ -5332,7 +5482,7 @@ state 126
   ! COMMA           [ reduce using rule 69 (exp1 -> exp2 .) ]
 
 
-state 127
+state 129
 
     (70) exp2 -> exp3 XOR exp2 .
     (69) exp1 -> exp2 .
@@ -5451,7 +5601,7 @@ state 127
   ! COMMA           [ reduce using rule 70 (exp2 -> exp3 XOR exp2 .) ]
 
 
-state 128
+state 130
 
     (72) exp3 -> LPAREN arithmetic RPAREN .
 
@@ -5494,16 +5644,16 @@ state 128
     COMMA           reduce using rule 72 (exp3 -> LPAREN arithmetic RPAREN .)
 
 
-state 129
+state 131
 
     (14) if -> IF LPAREN exp_condition RPAREN . LBRACE blockcode RBRACE
     (16) if -> IF LPAREN exp_condition RPAREN . LBRACE blockcode RBRACE ELSE LBRACE blockcode RBRACE
     (17) if -> IF LPAREN exp_condition RPAREN . LBRACE blockcode RBRACE elsif
 
-    LBRACE          shift and go to state 142
+    LBRACE          shift and go to state 144
 
 
-state 130
+state 132
 
     (25) for -> FOR LPAREN for_assignments SEMICOLON . exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
     (34) exp_condition -> . attcond GT attcond
@@ -5521,10 +5671,10 @@ state 130
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -5533,25 +5683,21 @@ state 130
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     LPAREN          shift and go to state 31
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    exp_condition                  shift and go to state 143
+    exp_condition                  shift and go to state 145
     attcond                        shift and go to state 33
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
-state 131
+state 133
 
     (27) for_assignments -> exp_assignment COMMA . for_assignments
     (26) for_assignments -> . exp_assignment
@@ -5570,17 +5716,17 @@ state 131
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
 
-    exp_assignment                 shift and go to state 99
-    for_assignments                shift and go to state 144
+    exp_assignment                 shift and go to state 101
+    for_assignments                shift and go to state 146
 
-state 132
+state 134
 
     (28) dowhile -> DO LBRACE blockcode RBRACE . WHILE LPAREN exp_condition RPAREN
 
-    WHILE           shift and go to state 145
+    WHILE           shift and go to state 147
 
 
-state 133
+state 135
 
     (15) if -> command IF LPAREN exp_condition RPAREN .
     (14) if -> IF LPAREN exp_condition RPAREN . LBRACE blockcode RBRACE
@@ -5602,10 +5748,10 @@ state 133
     SUB             reduce using rule 15 (if -> command IF LPAREN exp_condition RPAREN .)
     $end            reduce using rule 15 (if -> command IF LPAREN exp_condition RPAREN .)
     RBRACE          reduce using rule 15 (if -> command IF LPAREN exp_condition RPAREN .)
-    LBRACE          shift and go to state 142
+    LBRACE          shift and go to state 144
 
 
-state 134
+state 136
 
     (30) function -> SUB ID LPAREN RPAREN LBRACE . blockcode RBRACE
     (5) blockcode -> . command
@@ -5632,8 +5778,8 @@ state 134
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (25) for -> . FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
     (28) dowhile -> . DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN
     (29) while -> . LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
@@ -5651,7 +5797,7 @@ state 134
     DO              shift and go to state 24
     LPAREN          shift and go to state 7
 
-    blockcode                      shift and go to state 146
+    blockcode                      shift and go to state 148
     command                        shift and go to state 4
     interations                    shift and go to state 8
     if                             shift and go to state 9
@@ -5661,59 +5807,59 @@ state 134
     dowhile                        shift and go to state 16
     while                          shift and go to state 17
 
-state 135
+state 137
 
     (31) function -> SUB ID LPAREN function_assignments RPAREN . LBRACE blockcode RBRACE
 
-    LBRACE          shift and go to state 147
+    LBRACE          shift and go to state 149
 
 
-state 136
+state 138
 
     (33) function_assignments -> exp_assignment COMMA function_assignments .
 
     RPAREN          reduce using rule 33 (function_assignments -> exp_assignment COMMA function_assignments .)
 
 
-state 137
+state 139
 
     (41) exp_condition -> LPAREN exp_condition RPAREN logic . exp_condition_logic
     (49) exp_condition_logic -> . LPAREN exp_condition RPAREN
     (50) exp_condition_logic -> . LPAREN exp_condition RPAREN logic LPAREN exp_condition RPAREN
 
-    LPAREN          shift and go to state 148
+    LPAREN          shift and go to state 150
 
-    exp_condition_logic            shift and go to state 149
+    exp_condition_logic            shift and go to state 151
 
-state 138
+state 140
 
     (51) logic -> LAND .
 
     LPAREN          reduce using rule 51 (logic -> LAND .)
 
 
-state 139
+state 141
 
     (52) logic -> LOR .
 
     LPAREN          reduce using rule 52 (logic -> LOR .)
 
 
-state 140
+state 142
 
     (53) logic -> LNOT .
 
     LPAREN          reduce using rule 53 (logic -> LNOT .)
 
 
-state 141
+state 143
 
     (29) while -> LPAREN exp_condition RPAREN LBRACE blockcode . RBRACE
 
-    RBRACE          shift and go to state 150
+    RBRACE          shift and go to state 152
 
 
-state 142
+state 144
 
     (14) if -> IF LPAREN exp_condition RPAREN LBRACE . blockcode RBRACE
     (16) if -> IF LPAREN exp_condition RPAREN LBRACE . blockcode RBRACE ELSE LBRACE blockcode RBRACE
@@ -5742,8 +5888,8 @@ state 142
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (25) for -> . FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
     (28) dowhile -> . DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN
     (29) while -> . LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
@@ -5761,7 +5907,7 @@ state 142
     DO              shift and go to state 24
     LPAREN          shift and go to state 7
 
-    blockcode                      shift and go to state 151
+    blockcode                      shift and go to state 153
     command                        shift and go to state 4
     interations                    shift and go to state 8
     if                             shift and go to state 9
@@ -5771,14 +5917,14 @@ state 142
     dowhile                        shift and go to state 16
     while                          shift and go to state 17
 
-state 143
+state 145
 
     (25) for -> FOR LPAREN for_assignments SEMICOLON exp_condition . SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
 
-    SEMICOLON       shift and go to state 152
+    SEMICOLON       shift and go to state 154
 
 
-state 144
+state 146
 
     (27) for_assignments -> exp_assignment COMMA for_assignments .
 
@@ -5786,21 +5932,21 @@ state 144
     RPAREN          reduce using rule 27 (for_assignments -> exp_assignment COMMA for_assignments .)
 
 
-state 145
+state 147
 
     (28) dowhile -> DO LBRACE blockcode RBRACE WHILE . LPAREN exp_condition RPAREN
 
-    LPAREN          shift and go to state 153
+    LPAREN          shift and go to state 155
 
 
-state 146
+state 148
 
     (30) function -> SUB ID LPAREN RPAREN LBRACE blockcode . RBRACE
 
-    RBRACE          shift and go to state 154
+    RBRACE          shift and go to state 156
 
 
-state 147
+state 149
 
     (31) function -> SUB ID LPAREN function_assignments RPAREN LBRACE . blockcode RBRACE
     (5) blockcode -> . command
@@ -5827,8 +5973,8 @@ state 147
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (25) for -> . FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
     (28) dowhile -> . DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN
     (29) while -> . LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
@@ -5846,7 +5992,7 @@ state 147
     DO              shift and go to state 24
     LPAREN          shift and go to state 7
 
-    blockcode                      shift and go to state 155
+    blockcode                      shift and go to state 157
     command                        shift and go to state 4
     interations                    shift and go to state 8
     if                             shift and go to state 9
@@ -5856,7 +6002,7 @@ state 147
     dowhile                        shift and go to state 16
     while                          shift and go to state 17
 
-state 148
+state 150
 
     (49) exp_condition_logic -> LPAREN . exp_condition RPAREN
     (50) exp_condition_logic -> LPAREN . exp_condition RPAREN logic LPAREN exp_condition RPAREN
@@ -5875,10 +6021,10 @@ state 148
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -5887,25 +6033,21 @@ state 148
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     LPAREN          shift and go to state 31
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    exp_condition                  shift and go to state 156
+    exp_condition                  shift and go to state 158
     attcond                        shift and go to state 33
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
-state 149
+state 151
 
     (41) exp_condition -> LPAREN exp_condition RPAREN logic exp_condition_logic .
 
@@ -5948,7 +6090,7 @@ state 149
     COMMA           reduce using rule 41 (exp_condition -> LPAREN exp_condition RPAREN logic exp_condition_logic .)
 
 
-state 150
+state 152
 
     (29) while -> LPAREN exp_condition RPAREN LBRACE blockcode RBRACE .
 
@@ -5969,16 +6111,16 @@ state 150
     RBRACE          reduce using rule 29 (while -> LPAREN exp_condition RPAREN LBRACE blockcode RBRACE .)
 
 
-state 151
+state 153
 
     (14) if -> IF LPAREN exp_condition RPAREN LBRACE blockcode . RBRACE
     (16) if -> IF LPAREN exp_condition RPAREN LBRACE blockcode . RBRACE ELSE LBRACE blockcode RBRACE
     (17) if -> IF LPAREN exp_condition RPAREN LBRACE blockcode . RBRACE elsif
 
-    RBRACE          shift and go to state 157
+    RBRACE          shift and go to state 159
 
 
-state 152
+state 154
 
     (25) for -> FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON . for_assignments RPAREN LBRACE blockcode RBRACE
     (26) for_assignments -> . exp_assignment
@@ -5997,10 +6139,10 @@ state 152
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
 
-    for_assignments                shift and go to state 158
-    exp_assignment                 shift and go to state 99
+    for_assignments                shift and go to state 160
+    exp_assignment                 shift and go to state 101
 
-state 153
+state 155
 
     (28) dowhile -> DO LBRACE blockcode RBRACE WHILE LPAREN . exp_condition RPAREN
     (34) exp_condition -> . attcond GT attcond
@@ -6018,10 +6160,10 @@ state 153
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -6030,25 +6172,21 @@ state 153
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     LPAREN          shift and go to state 31
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    exp_condition                  shift and go to state 159
+    exp_condition                  shift and go to state 161
     attcond                        shift and go to state 33
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
 
-state 154
+state 156
 
     (30) function -> SUB ID LPAREN RPAREN LBRACE blockcode RBRACE .
 
@@ -6068,22 +6206,22 @@ state 154
     $end            reduce using rule 30 (function -> SUB ID LPAREN RPAREN LBRACE blockcode RBRACE .)
 
 
-state 155
+state 157
 
     (31) function -> SUB ID LPAREN function_assignments RPAREN LBRACE blockcode . RBRACE
 
-    RBRACE          shift and go to state 160
+    RBRACE          shift and go to state 162
 
 
-state 156
+state 158
 
     (49) exp_condition_logic -> LPAREN exp_condition . RPAREN
     (50) exp_condition_logic -> LPAREN exp_condition . RPAREN logic LPAREN exp_condition RPAREN
 
-    RPAREN          shift and go to state 161
+    RPAREN          shift and go to state 163
 
 
-state 157
+state 159
 
     (14) if -> IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE .
     (16) if -> IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE . ELSE LBRACE blockcode RBRACE
@@ -6106,26 +6244,26 @@ state 157
     SUB             reduce using rule 14 (if -> IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE .)
     $end            reduce using rule 14 (if -> IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE .)
     RBRACE          reduce using rule 14 (if -> IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE .)
-    ELSE            shift and go to state 162
-    ELSIF           shift and go to state 164
+    ELSE            shift and go to state 164
+    ELSIF           shift and go to state 166
 
-    elsif                          shift and go to state 163
+    elsif                          shift and go to state 165
 
-state 158
+state 160
 
     (25) for -> FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments . RPAREN LBRACE blockcode RBRACE
 
-    RPAREN          shift and go to state 165
+    RPAREN          shift and go to state 167
 
 
-state 159
+state 161
 
     (28) dowhile -> DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition . RPAREN
 
-    RPAREN          shift and go to state 166
+    RPAREN          shift and go to state 168
 
 
-state 160
+state 162
 
     (31) function -> SUB ID LPAREN function_assignments RPAREN LBRACE blockcode RBRACE .
 
@@ -6145,7 +6283,7 @@ state 160
     $end            reduce using rule 31 (function -> SUB ID LPAREN function_assignments RPAREN LBRACE blockcode RBRACE .)
 
 
-state 161
+state 163
 
     (49) exp_condition_logic -> LPAREN exp_condition RPAREN .
     (50) exp_condition_logic -> LPAREN exp_condition RPAREN . logic LPAREN exp_condition RPAREN
@@ -6190,20 +6328,20 @@ state 161
     SLE             reduce using rule 49 (exp_condition_logic -> LPAREN exp_condition RPAREN .)
     SGE             reduce using rule 49 (exp_condition_logic -> LPAREN exp_condition RPAREN .)
     COMMA           reduce using rule 49 (exp_condition_logic -> LPAREN exp_condition RPAREN .)
-    LAND            shift and go to state 138
-    LOR             shift and go to state 139
-    LNOT            shift and go to state 140
+    LAND            shift and go to state 140
+    LOR             shift and go to state 141
+    LNOT            shift and go to state 142
 
-    logic                          shift and go to state 167
+    logic                          shift and go to state 169
 
-state 162
+state 164
 
     (16) if -> IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE ELSE . LBRACE blockcode RBRACE
 
-    LBRACE          shift and go to state 168
+    LBRACE          shift and go to state 170
 
 
-state 163
+state 165
 
     (17) if -> IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE elsif .
 
@@ -6224,22 +6362,22 @@ state 163
     RBRACE          reduce using rule 17 (if -> IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE elsif .)
 
 
-state 164
+state 166
 
     (18) elsif -> ELSIF . LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
     (19) elsif -> ELSIF . LPAREN exp_condition RPAREN LBRACE blockcode RBRACE elsif2
 
-    LPAREN          shift and go to state 169
+    LPAREN          shift and go to state 171
 
 
-state 165
+state 167
 
     (25) for -> FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN . LBRACE blockcode RBRACE
 
-    LBRACE          shift and go to state 170
+    LBRACE          shift and go to state 172
 
 
-state 166
+state 168
 
     (28) dowhile -> DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN .
 
@@ -6260,14 +6398,14 @@ state 166
     RBRACE          reduce using rule 28 (dowhile -> DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN .)
 
 
-state 167
+state 169
 
     (50) exp_condition_logic -> LPAREN exp_condition RPAREN logic . LPAREN exp_condition RPAREN
 
-    LPAREN          shift and go to state 171
+    LPAREN          shift and go to state 173
 
 
-state 168
+state 170
 
     (16) if -> IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE ELSE LBRACE . blockcode RBRACE
     (5) blockcode -> . command
@@ -6294,113 +6432,8 @@ state 168
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
-    (25) for -> . FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
-    (28) dowhile -> . DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN
-    (29) while -> . LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
-
-    RETURN          shift and go to state 12
-    BREAK           shift and go to state 13
-    CONTINUE        shift and go to state 14
-    IF              shift and go to state 18
-    ID_SC           shift and go to state 19
-    ID_LI           shift and go to state 20
-    INCREMENT       shift and go to state 21
-    DECREMENT       shift and go to state 22
-    ID              shift and go to state 6
-    FOR             shift and go to state 23
-    DO              shift and go to state 24
-    LPAREN          shift and go to state 7
-
-    blockcode                      shift and go to state 172
-    command                        shift and go to state 4
-    interations                    shift and go to state 8
-    if                             shift and go to state 9
-    exp_assignment                 shift and go to state 10
-    call                           shift and go to state 11
-    for                            shift and go to state 15
-    dowhile                        shift and go to state 16
-    while                          shift and go to state 17
-
-state 169
-
-    (18) elsif -> ELSIF LPAREN . exp_condition RPAREN LBRACE blockcode RBRACE
-    (19) elsif -> ELSIF LPAREN . exp_condition RPAREN LBRACE blockcode RBRACE elsif2
-    (34) exp_condition -> . attcond GT attcond
-    (35) exp_condition -> . attcond LT attcond
-    (36) exp_condition -> . attcond EQ attcond
-    (37) exp_condition -> . attcond GE attcond
-    (38) exp_condition -> . attcond LE attcond
-    (39) exp_condition -> . attcond NE attcond
-    (40) exp_condition -> . attcond
-    (41) exp_condition -> . LPAREN exp_condition RPAREN logic exp_condition_logic
-    (42) exp_condition -> . attcond CMP attcond
-    (43) exp_condition -> . attcond SEQ attcond
-    (44) exp_condition -> . attcond SNE attcond
-    (45) exp_condition -> . attcond SLT attcond
-    (46) exp_condition -> . attcond SGT attcond
-    (47) exp_condition -> . attcond SLE attcond
-    (48) exp_condition -> . attcond SGE attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
-    (54) exp_assignment -> . ID_SC EQUALS arithmetic
-    (55) exp_assignment -> . ID_LI EQUALS arithmetic
-    (56) exp_assignment -> . ID_SC
-    (57) exp_assignment -> . ID_LI
-    (58) exp_assignment -> . INCREMENT ID_SC
-    (59) exp_assignment -> . DECREMENT ID_SC
-    (60) exp_assignment -> . ID_SC INCREMENT
-    (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
-
-    LPAREN          shift and go to state 31
-    NUMBER          shift and go to state 35
-    ID_SC           shift and go to state 19
-    ID_LI           shift and go to state 20
-    INCREMENT       shift and go to state 21
-    DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
-
-    exp_condition                  shift and go to state 173
-    attcond                        shift and go to state 33
-    exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
-
-state 170
-
-    (25) for -> FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE . blockcode RBRACE
-    (5) blockcode -> . command
-    (6) blockcode -> . command blockcode
-    (7) command -> . interations
-    (8) command -> . if
-    (9) command -> . exp_assignment
-    (10) command -> . call
-    (11) command -> . RETURN return SEMICOLON
-    (12) command -> . BREAK SEMICOLON
-    (13) command -> . CONTINUE SEMICOLON
-    (22) interations -> . for
-    (23) interations -> . dowhile
-    (24) interations -> . while
-    (14) if -> . IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
-    (15) if -> . command IF LPAREN exp_condition RPAREN
-    (16) if -> . IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE ELSE LBRACE blockcode RBRACE
-    (17) if -> . IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE elsif
-    (54) exp_assignment -> . ID_SC EQUALS arithmetic
-    (55) exp_assignment -> . ID_LI EQUALS arithmetic
-    (56) exp_assignment -> . ID_SC
-    (57) exp_assignment -> . ID_LI
-    (58) exp_assignment -> . INCREMENT ID_SC
-    (59) exp_assignment -> . DECREMENT ID_SC
-    (60) exp_assignment -> . ID_SC INCREMENT
-    (61) exp_assignment -> . ID_SC DECREMENT
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (25) for -> . FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
     (28) dowhile -> . DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN
     (29) while -> . LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
@@ -6430,6 +6463,107 @@ state 170
 
 state 171
 
+    (18) elsif -> ELSIF LPAREN . exp_condition RPAREN LBRACE blockcode RBRACE
+    (19) elsif -> ELSIF LPAREN . exp_condition RPAREN LBRACE blockcode RBRACE elsif2
+    (34) exp_condition -> . attcond GT attcond
+    (35) exp_condition -> . attcond LT attcond
+    (36) exp_condition -> . attcond EQ attcond
+    (37) exp_condition -> . attcond GE attcond
+    (38) exp_condition -> . attcond LE attcond
+    (39) exp_condition -> . attcond NE attcond
+    (40) exp_condition -> . attcond
+    (41) exp_condition -> . LPAREN exp_condition RPAREN logic exp_condition_logic
+    (42) exp_condition -> . attcond CMP attcond
+    (43) exp_condition -> . attcond SEQ attcond
+    (44) exp_condition -> . attcond SNE attcond
+    (45) exp_condition -> . attcond SLT attcond
+    (46) exp_condition -> . attcond SGT attcond
+    (47) exp_condition -> . attcond SLE attcond
+    (48) exp_condition -> . attcond SGE attcond
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
+    (54) exp_assignment -> . ID_SC EQUALS arithmetic
+    (55) exp_assignment -> . ID_LI EQUALS arithmetic
+    (56) exp_assignment -> . ID_SC
+    (57) exp_assignment -> . ID_LI
+    (58) exp_assignment -> . INCREMENT ID_SC
+    (59) exp_assignment -> . DECREMENT ID_SC
+    (60) exp_assignment -> . ID_SC INCREMENT
+    (61) exp_assignment -> . ID_SC DECREMENT
+
+    LPAREN          shift and go to state 31
+    NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
+    ID_SC           shift and go to state 19
+    ID_LI           shift and go to state 20
+    INCREMENT       shift and go to state 21
+    DECREMENT       shift and go to state 22
+
+    exp_condition                  shift and go to state 175
+    attcond                        shift and go to state 33
+    exp_assignment                 shift and go to state 34
+
+state 172
+
+    (25) for -> FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE . blockcode RBRACE
+    (5) blockcode -> . command
+    (6) blockcode -> . command blockcode
+    (7) command -> . interations
+    (8) command -> . if
+    (9) command -> . exp_assignment
+    (10) command -> . call
+    (11) command -> . RETURN return SEMICOLON
+    (12) command -> . BREAK SEMICOLON
+    (13) command -> . CONTINUE SEMICOLON
+    (22) interations -> . for
+    (23) interations -> . dowhile
+    (24) interations -> . while
+    (14) if -> . IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
+    (15) if -> . command IF LPAREN exp_condition RPAREN
+    (16) if -> . IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE ELSE LBRACE blockcode RBRACE
+    (17) if -> . IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE elsif
+    (54) exp_assignment -> . ID_SC EQUALS arithmetic
+    (55) exp_assignment -> . ID_LI EQUALS arithmetic
+    (56) exp_assignment -> . ID_SC
+    (57) exp_assignment -> . ID_LI
+    (58) exp_assignment -> . INCREMENT ID_SC
+    (59) exp_assignment -> . DECREMENT ID_SC
+    (60) exp_assignment -> . ID_SC INCREMENT
+    (61) exp_assignment -> . ID_SC DECREMENT
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
+    (25) for -> . FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
+    (28) dowhile -> . DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN
+    (29) while -> . LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
+
+    RETURN          shift and go to state 12
+    BREAK           shift and go to state 13
+    CONTINUE        shift and go to state 14
+    IF              shift and go to state 18
+    ID_SC           shift and go to state 19
+    ID_LI           shift and go to state 20
+    INCREMENT       shift and go to state 21
+    DECREMENT       shift and go to state 22
+    ID              shift and go to state 6
+    FOR             shift and go to state 23
+    DO              shift and go to state 24
+    LPAREN          shift and go to state 7
+
+    blockcode                      shift and go to state 176
+    command                        shift and go to state 4
+    interations                    shift and go to state 8
+    if                             shift and go to state 9
+    exp_assignment                 shift and go to state 10
+    call                           shift and go to state 11
+    for                            shift and go to state 15
+    dowhile                        shift and go to state 16
+    while                          shift and go to state 17
+
+state 173
+
     (50) exp_condition_logic -> LPAREN exp_condition RPAREN logic LPAREN . exp_condition RPAREN
     (34) exp_condition -> . attcond GT attcond
     (35) exp_condition -> . attcond LT attcond
@@ -6446,10 +6580,10 @@ state 171
     (46) exp_condition -> . attcond SGT attcond
     (47) exp_condition -> . attcond SLE attcond
     (48) exp_condition -> . attcond SGE attcond
-    (78) attcond -> . exp_assignment
-    (79) attcond -> . NUMBER
-    (80) attcond -> . true
-    (81) attcond -> . false
+    (80) attcond -> . exp_assignment
+    (81) attcond -> . NUMBER
+    (82) attcond -> . TRUE
+    (83) attcond -> . FALSE
     (54) exp_assignment -> . ID_SC EQUALS arithmetic
     (55) exp_assignment -> . ID_LI EQUALS arithmetic
     (56) exp_assignment -> . ID_SC
@@ -6458,54 +6592,50 @@ state 171
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (86) true -> . TRUE
-    (87) false -> . FALSE
 
     LPAREN          shift and go to state 31
     NUMBER          shift and go to state 35
+    TRUE            shift and go to state 36
+    FALSE           shift and go to state 37
     ID_SC           shift and go to state 19
     ID_LI           shift and go to state 20
     INCREMENT       shift and go to state 21
     DECREMENT       shift and go to state 22
-    TRUE            shift and go to state 38
-    FALSE           shift and go to state 39
 
-    exp_condition                  shift and go to state 175
+    exp_condition                  shift and go to state 177
     attcond                        shift and go to state 33
     exp_assignment                 shift and go to state 34
-    true                           shift and go to state 36
-    false                          shift and go to state 37
-
-state 172
-
-    (16) if -> IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE ELSE LBRACE blockcode . RBRACE
-
-    RBRACE          shift and go to state 176
-
-
-state 173
-
-    (18) elsif -> ELSIF LPAREN exp_condition . RPAREN LBRACE blockcode RBRACE
-    (19) elsif -> ELSIF LPAREN exp_condition . RPAREN LBRACE blockcode RBRACE elsif2
-
-    RPAREN          shift and go to state 177
-
 
 state 174
 
-    (25) for -> FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode . RBRACE
+    (16) if -> IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE ELSE LBRACE blockcode . RBRACE
 
     RBRACE          shift and go to state 178
 
 
 state 175
 
-    (50) exp_condition_logic -> LPAREN exp_condition RPAREN logic LPAREN exp_condition . RPAREN
+    (18) elsif -> ELSIF LPAREN exp_condition . RPAREN LBRACE blockcode RBRACE
+    (19) elsif -> ELSIF LPAREN exp_condition . RPAREN LBRACE blockcode RBRACE elsif2
 
     RPAREN          shift and go to state 179
 
 
 state 176
+
+    (25) for -> FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode . RBRACE
+
+    RBRACE          shift and go to state 180
+
+
+state 177
+
+    (50) exp_condition_logic -> LPAREN exp_condition RPAREN logic LPAREN exp_condition . RPAREN
+
+    RPAREN          shift and go to state 181
+
+
+state 178
 
     (16) if -> IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE ELSE LBRACE blockcode RBRACE .
 
@@ -6526,15 +6656,15 @@ state 176
     RBRACE          reduce using rule 16 (if -> IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE ELSE LBRACE blockcode RBRACE .)
 
 
-state 177
+state 179
 
     (18) elsif -> ELSIF LPAREN exp_condition RPAREN . LBRACE blockcode RBRACE
     (19) elsif -> ELSIF LPAREN exp_condition RPAREN . LBRACE blockcode RBRACE elsif2
 
-    LBRACE          shift and go to state 180
+    LBRACE          shift and go to state 182
 
 
-state 178
+state 180
 
     (25) for -> FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE .
 
@@ -6555,7 +6685,7 @@ state 178
     RBRACE          reduce using rule 25 (for -> FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE .)
 
 
-state 179
+state 181
 
     (50) exp_condition_logic -> LPAREN exp_condition RPAREN logic LPAREN exp_condition RPAREN .
 
@@ -6598,7 +6728,7 @@ state 179
     COMMA           reduce using rule 50 (exp_condition_logic -> LPAREN exp_condition RPAREN logic LPAREN exp_condition RPAREN .)
 
 
-state 180
+state 182
 
     (18) elsif -> ELSIF LPAREN exp_condition RPAREN LBRACE . blockcode RBRACE
     (19) elsif -> ELSIF LPAREN exp_condition RPAREN LBRACE . blockcode RBRACE elsif2
@@ -6626,8 +6756,8 @@ state 180
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (25) for -> . FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
     (28) dowhile -> . DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN
     (29) while -> . LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
@@ -6645,7 +6775,7 @@ state 180
     DO              shift and go to state 24
     LPAREN          shift and go to state 7
 
-    blockcode                      shift and go to state 181
+    blockcode                      shift and go to state 183
     command                        shift and go to state 4
     interations                    shift and go to state 8
     if                             shift and go to state 9
@@ -6655,15 +6785,15 @@ state 180
     dowhile                        shift and go to state 16
     while                          shift and go to state 17
 
-state 181
+state 183
 
     (18) elsif -> ELSIF LPAREN exp_condition RPAREN LBRACE blockcode . RBRACE
     (19) elsif -> ELSIF LPAREN exp_condition RPAREN LBRACE blockcode . RBRACE elsif2
 
-    RBRACE          shift and go to state 182
+    RBRACE          shift and go to state 184
 
 
-state 182
+state 184
 
     (18) elsif -> ELSIF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE .
     (19) elsif -> ELSIF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE . elsif2
@@ -6687,13 +6817,13 @@ state 182
     SUB             reduce using rule 18 (elsif -> ELSIF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE .)
     $end            reduce using rule 18 (elsif -> ELSIF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE .)
     RBRACE          reduce using rule 18 (elsif -> ELSIF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE .)
-    ELSE            shift and go to state 185
-    ELSIF           shift and go to state 164
+    ELSE            shift and go to state 187
+    ELSIF           shift and go to state 166
 
-    elsif2                         shift and go to state 183
-    elsif                          shift and go to state 184
+    elsif2                         shift and go to state 185
+    elsif                          shift and go to state 186
 
-state 183
+state 185
 
     (19) elsif -> ELSIF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE elsif2 .
 
@@ -6714,7 +6844,7 @@ state 183
     RBRACE          reduce using rule 19 (elsif -> ELSIF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE elsif2 .)
 
 
-state 184
+state 186
 
     (20) elsif2 -> elsif .
 
@@ -6735,14 +6865,14 @@ state 184
     RBRACE          reduce using rule 20 (elsif2 -> elsif .)
 
 
-state 185
+state 187
 
     (21) elsif2 -> ELSE . LBRACE blockcode RBRACE
 
-    LBRACE          shift and go to state 186
+    LBRACE          shift and go to state 188
 
 
-state 186
+state 188
 
     (21) elsif2 -> ELSE LBRACE . blockcode RBRACE
     (5) blockcode -> . command
@@ -6769,8 +6899,8 @@ state 186
     (59) exp_assignment -> . DECREMENT ID_SC
     (60) exp_assignment -> . ID_SC INCREMENT
     (61) exp_assignment -> . ID_SC DECREMENT
-    (82) call -> . ID LPAREN RPAREN
-    (83) call -> . ID LPAREN function_assignments RPAREN
+    (84) call -> . ID LPAREN RPAREN
+    (85) call -> . ID LPAREN function_assignments RPAREN
     (25) for -> . FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
     (28) dowhile -> . DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN
     (29) while -> . LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
@@ -6788,7 +6918,7 @@ state 186
     DO              shift and go to state 24
     LPAREN          shift and go to state 7
 
-    blockcode                      shift and go to state 187
+    blockcode                      shift and go to state 189
     command                        shift and go to state 4
     interations                    shift and go to state 8
     if                             shift and go to state 9
@@ -6798,14 +6928,14 @@ state 186
     dowhile                        shift and go to state 16
     while                          shift and go to state 17
 
-state 187
+state 189
 
     (21) elsif2 -> ELSE LBRACE blockcode . RBRACE
 
-    RBRACE          shift and go to state 188
+    RBRACE          shift and go to state 190
 
 
-state 188
+state 190
 
     (21) elsif2 -> ELSE LBRACE blockcode RBRACE .
 
@@ -6864,43 +6994,51 @@ WARNING: shift/reduce conflict for DIVIDE in state 46 resolved as shift
 WARNING: shift/reduce conflict for MODULO in state 46 resolved as shift
 WARNING: shift/reduce conflict for XOR in state 48 resolved as shift
 WARNING: shift/reduce conflict for RPAREN in state 92 resolved as shift
-WARNING: shift/reduce conflict for PLUS in state 121 resolved as shift
-WARNING: shift/reduce conflict for MINUS in state 121 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 122 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 122 resolved as shift
-WARNING: shift/reduce conflict for MODULO in state 122 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 122 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 122 resolved as shift
-WARNING: shift/reduce conflict for MODULO in state 122 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 123 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 123 resolved as shift
-WARNING: shift/reduce conflict for MODULO in state 123 resolved as shift
-WARNING: shift/reduce conflict for TIMES in state 123 resolved as shift
-WARNING: shift/reduce conflict for DIVIDE in state 123 resolved as shift
-WARNING: shift/reduce conflict for MODULO in state 123 resolved as shift
-WARNING: reduce/reduce conflict in state 41 resolved using rule (exp_condition -> attcond)
-WARNING: rejected rule (return -> attcond) in state 41
-WARNING: reduce/reduce conflict in state 43 resolved using rule (exp3 -> exp_assignment)
-WARNING: rejected rule (attcond -> exp_assignment) in state 43
-WARNING: reduce/reduce conflict in state 44 resolved using rule (exp3 -> NUMBER)
-WARNING: rejected rule (attcond -> NUMBER) in state 44
+WARNING: shift/reduce conflict for PLUS in state 123 resolved as shift
+WARNING: shift/reduce conflict for MINUS in state 123 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 124 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 124 resolved as shift
+WARNING: shift/reduce conflict for MODULO in state 124 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 124 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 124 resolved as shift
+WARNING: shift/reduce conflict for MODULO in state 124 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 125 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 125 resolved as shift
+WARNING: shift/reduce conflict for MODULO in state 125 resolved as shift
+WARNING: shift/reduce conflict for TIMES in state 125 resolved as shift
+WARNING: shift/reduce conflict for DIVIDE in state 125 resolved as shift
+WARNING: shift/reduce conflict for MODULO in state 125 resolved as shift
+WARNING: reduce/reduce conflict in state 39 resolved using rule (exp_condition -> attcond)
+WARNING: rejected rule (return -> attcond) in state 39
+WARNING: reduce/reduce conflict in state 41 resolved using rule (exp3 -> exp_assignment)
+WARNING: rejected rule (attcond -> exp_assignment) in state 41
+WARNING: reduce/reduce conflict in state 42 resolved using rule (exp3 -> NUMBER)
+WARNING: rejected rule (attcond -> NUMBER) in state 42
+WARNING: reduce/reduce conflict in state 43 resolved using rule (exp3 -> TRUE)
+WARNING: rejected rule (attcond -> TRUE) in state 43
+WARNING: reduce/reduce conflict in state 44 resolved using rule (exp3 -> FALSE)
+WARNING: rejected rule (attcond -> FALSE) in state 44
 WARNING: reduce/reduce conflict in state 45 resolved using rule (arithmetic -> exp)
 WARNING: rejected rule (exp3 -> exp) in state 45
 WARNING: reduce/reduce conflict in state 95 resolved using rule (exp3 -> NUMBER)
 WARNING: rejected rule (attcond -> NUMBER) in state 95
 WARNING: reduce/reduce conflict in state 96 resolved using rule (exp3 -> exp_assignment)
 WARNING: rejected rule (attcond -> exp_assignment) in state 96
-WARNING: reduce/reduce conflict in state 122 resolved using rule (exp -> exp PLUS exp1)
-WARNING: rejected rule (exp -> exp1) in state 122
-WARNING: reduce/reduce conflict in state 123 resolved using rule (exp -> exp MINUS exp1)
-WARNING: rejected rule (exp -> exp1) in state 123
-WARNING: reduce/reduce conflict in state 124 resolved using rule (exp1 -> exp1 TIMES exp2)
-WARNING: rejected rule (exp1 -> exp2) in state 124
-WARNING: reduce/reduce conflict in state 125 resolved using rule (exp1 -> exp1 DIVIDE exp2)
-WARNING: rejected rule (exp1 -> exp2) in state 125
-WARNING: reduce/reduce conflict in state 126 resolved using rule (exp1 -> exp1 MODULO exp2)
+WARNING: reduce/reduce conflict in state 97 resolved using rule (exp3 -> TRUE)
+WARNING: rejected rule (attcond -> TRUE) in state 97
+WARNING: reduce/reduce conflict in state 98 resolved using rule (exp3 -> FALSE)
+WARNING: rejected rule (attcond -> FALSE) in state 98
+WARNING: reduce/reduce conflict in state 124 resolved using rule (exp -> exp PLUS exp1)
+WARNING: rejected rule (exp -> exp1) in state 124
+WARNING: reduce/reduce conflict in state 125 resolved using rule (exp -> exp MINUS exp1)
+WARNING: rejected rule (exp -> exp1) in state 125
+WARNING: reduce/reduce conflict in state 126 resolved using rule (exp1 -> exp1 TIMES exp2)
 WARNING: rejected rule (exp1 -> exp2) in state 126
-WARNING: reduce/reduce conflict in state 127 resolved using rule (exp1 -> exp2)
-WARNING: rejected rule (exp2 -> exp3 XOR exp2) in state 127
+WARNING: reduce/reduce conflict in state 127 resolved using rule (exp1 -> exp1 DIVIDE exp2)
+WARNING: rejected rule (exp1 -> exp2) in state 127
+WARNING: reduce/reduce conflict in state 128 resolved using rule (exp1 -> exp1 MODULO exp2)
+WARNING: rejected rule (exp1 -> exp2) in state 128
+WARNING: reduce/reduce conflict in state 129 resolved using rule (exp1 -> exp2)
+WARNING: rejected rule (exp2 -> exp3 XOR exp2) in state 129
 WARNING: Rule (return -> attcond) is never reduced
 WARNING: Rule (exp2 -> exp3 XOR exp2) is never reduced
