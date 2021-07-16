@@ -2,6 +2,7 @@ import ply.yacc as yacc
 import ply.lex as lex
 from src.Lexicon.lexico import tokens
 
+
 def p_init(p):
     '''init : blockcode init
         | function init
@@ -9,10 +10,12 @@ def p_init(p):
         | function
         '''
 
+
 def p_blockcode(P):
     ''' blockcode : command
         | command blockcode
     '''
+
 
 def p_command(p):
     ''' command : interations
@@ -24,23 +27,34 @@ def p_command(p):
         | CONTINUE SEMICOLON
     '''
 
+
 def p_if(p):
     '''
-        if : IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
-        | command IF LPAREN exp_condition RPAREN
-        | IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE ELSE LBRACE blockcode RBRACE
-        | IF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE elsif
+        if : IF LPAREN exp_condition RPAREN if_statement
     '''
+    # | command IF LPAREN exp_condition RPAREN.
+
+
+def p_if_statement(p):
+    '''
+        if_statement :  LBRACE blockcode RBRACE
+            | LBRACE blockcode RBRACE ELSE LBRACE blockcode RBRACE
+            | LBRACE blockcode RBRACE elsif
+    '''
+
+
 def p_elsif(p):
     '''
         elsif : ELSIF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
         | ELSIF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE elsif2
     '''
+
 def p_elsif2(p):
     '''
         elsif2 : elsif
             | ELSE LBRACE blockcode RBRACE
     '''
+
 
 def p_interations(p):
     '''
@@ -49,29 +63,39 @@ def p_interations(p):
        | while
     '''
 
+
 def p_for(p):
     ''' for : FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE'''
+
 
 def p_for_assignments(p):
     ''' for_assignments : exp_assignment
         | exp_assignment COMMA for_assignments
     '''
 
+
 def p_dowhile(p):
     ''' dowhile :  DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN '''
 
+
 def p_while(p):
-    ''' while :  LPAREN exp_condition RPAREN LBRACE blockcode RBRACE '''
+    ''' while : WHILE LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
+            | WHILE LPAREN exp_condition RPAREN LBRACE RBRACE
+    '''
+
+
 
 def p_function(p):
     ''' function : SUB ID LPAREN RPAREN LBRACE blockcode RBRACE
         | SUB ID LPAREN function_assignments RPAREN LBRACE blockcode RBRACE
     '''
 
+
 def p_function_assignments(p):
     ''' function_assignments : exp_assignment
         | exp_assignment COMMA function_assignments
     '''
+
 
 def p_exp_condition(p):
     # | ((exp_condition) [LOGIC (exp_condition)]*)
@@ -92,11 +116,14 @@ def p_exp_condition(p):
             | attcond SLE attcond
             | attcond SGE attcond
     '''
+
+
 def p_exp_condition_logic(p):
     '''
         exp_condition_logic : LPAREN exp_condition RPAREN
         | LPAREN exp_condition RPAREN logic LPAREN exp_condition RPAREN
     '''
+
 
 def p_logic(p):
     '''
@@ -104,6 +131,7 @@ def p_logic(p):
             | LOR
             | LNOT
     '''
+
 
 def p_exp_assignment(p):
     ''' exp_assignment : ID_SC EQUALS arithmetic
@@ -116,10 +144,12 @@ def p_exp_assignment(p):
         | ID_SC DECREMENT
     '''
 
+
 def p_arithmetic(p):
     '''
         arithmetic : exp
     '''
+
 
 def p_exp(p):
     '''
@@ -127,6 +157,7 @@ def p_exp(p):
             | exp MINUS exp1
             | exp1
     '''
+
 
 def p_exp1(p):
     '''
@@ -136,11 +167,13 @@ def p_exp1(p):
             | exp2
     '''
 
+
 def p_exp2(p):
     '''
     exp2 : exp3 XOR exp2
         | exp3
     '''
+
 
 def p_exp3(p):
     '''
@@ -154,6 +187,7 @@ def p_exp3(p):
         | FALSE
     '''
 
+
 def p_attcond(p):
     ''' attcond : exp_assignment
         | NUMBER
@@ -161,11 +195,13 @@ def p_attcond(p):
         | FALSE
     '''
 
+
 def p_call(p):
     '''
         call : ID LPAREN RPAREN
             | ID LPAREN function_assignments RPAREN
     '''
+
 
 def p_return(p):
     ''' return : attcond
@@ -176,10 +212,10 @@ def p_return(p):
 parser = yacc.yacc()
 
 while True:
- try:
-     s = input('perl > ')
- except EOFError:
-     break
- if not s: continue
- result = parser.parse(s)
- print(result)
+    try:
+        s = input('perl > ')
+    except EOFError:
+        break
+    if not s: continue
+    result = parser.parse(s)
+    print(result)
