@@ -49,6 +49,7 @@ def p_elsif(p):
         | ELSIF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE elsif2
     '''
 
+
 def p_elsif2(p):
     '''
         elsif2 : elsif
@@ -84,7 +85,6 @@ def p_while(p):
     '''
 
 
-
 def p_function(p):
     ''' function : SUB ID LPAREN RPAREN LBRACE blockcode RBRACE
         | SUB ID LPAREN function_assignments RPAREN LBRACE blockcode RBRACE
@@ -98,25 +98,65 @@ def p_function_assignments(p):
 
 
 def p_exp_condition(p):
-    # | ((exp_condition) [LOGIC (exp_condition)]*)
+    # todo: tenta fazer assim exp_condition : exp_condition symbol exp_condition_nextNivel
     '''
-    exp_condition : attcond GT attcond
-            | attcond LT attcond
-            | attcond EQ attcond
-            | attcond GE attcond
-            | attcond LE attcond
-            | attcond NE attcond
-            | attcond
-            | LPAREN exp_condition RPAREN logic exp_condition_logic
-            | attcond CMP attcond
-            | attcond SEQ attcond
-            | attcond SNE attcond
-            | attcond SLT attcond
-            | attcond SGT attcond
-            | attcond SLE attcond
-            | attcond SGE attcond
+    exp_condition : exp_condition GT exp_condition_2
+        | exp_condition LT exp_condition_2
+        | exp_condition_2
     '''
 
+
+def p_exp_condition_2(p):
+    '''
+    exp_condition_2 : exp_condition_2 GE exp_condition_3
+        | exp_condition_2 LE exp_condition_3
+        | exp_condition_3
+    '''
+
+
+def p_exp_condition_3(p):
+    '''
+    exp_condition_3 : exp_condition_3 EQ exp_condition_4
+        | exp_condition_3 NE exp_condition_4
+        | exp_condition_4
+    '''
+
+
+def p_exp_condition_4(p):
+    '''
+    exp_condition_4 : exp_condition_4 SGT exp_condition_5
+        | exp_condition_4 SLT exp_condition_5
+        | exp_condition_5
+    '''
+
+
+def p_exp_condition_5(p):
+    '''
+    exp_condition_5 : exp_condition_5 SGE exp_condition_6
+        | exp_condition_5 SLE exp_condition_6
+        | exp_condition_6
+    '''
+
+
+def p_exp_condition_6(p):
+    '''
+    exp_condition_6 : exp_condition_6 SEQ exp_condition_7
+        | exp_condition_6 SNE exp_condition_7
+        | exp_condition_7
+    '''
+
+
+def p_exp_condition_7(p):
+    '''
+    exp_condition_7 : exp_condition_7 CMP exp_condition_8
+        | exp_condition_8
+    '''
+
+def p_exp_condition_8(P):
+    '''
+    exp_condition_8 : attcond
+        | LPAREN exp_condition RPAREN logic exp_condition_logic
+    '''
 
 def p_exp_condition_logic(p):
     '''

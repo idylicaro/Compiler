@@ -13,13 +13,6 @@ reserved = {
     'tr': 'TR',
     'unless': 'UNLESS',
     'until': 'UNTIL',
-    'lt': 'SLT',
-    'gt': 'SGT',
-    'le': 'SLE',
-    'ge': 'SGE',
-    'eq': 'SEQ',
-    'ne': 'SNE',
-
 }
 
 tokens = [
@@ -32,6 +25,7 @@ tokens = [
              'LSHIFT', 'RSHIFT',
              'LOR', 'LAND', 'LNOT',
              'LT', 'LE', 'GT', 'GE', 'EQ', 'NE',
+             'SLT', 'SGT', 'SLE', 'SGE', 'SEQ', 'SNE',
 
              # Assignment (=, *=, /=, %=, +=, -=, <<=, >>=, &=, ^=, |=)
              'EQUALS', 'TIMESEQUAL', 'DIVEQUAL', 'MODEQUAL', 'PLUSEQUAL', 'MINUSEQUAL',
@@ -89,8 +83,31 @@ def t_CMP(t): r'cmp'; return t
 
 def t_SUB(t): r'sub'; return t
 
+
 def t_TRUE(t): r'true'; return t
+
+
 def t_FALSE(t): r'false'; return t
+
+
+def t_SLT(t): r'lt'; return t
+
+
+def t_SGT(t): r'gt'; return t
+
+
+def t_SGE(t): r'ge'; return t
+
+
+def t_SLE(t): r'le'; return t
+
+
+def t_SEQ(t): r'eq'; return t
+
+
+def t_SNE(t): r'ne'; return t
+
+
 # Operators
 t_PLUS = r'\+'
 t_MINUS = r'-'
