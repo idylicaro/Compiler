@@ -1,95 +1,139 @@
-** First version PERL**
+# **Grammar**
+# What is capitalized is TOKEN
 
-INIT -> BLOCKCODE INIT | FUNCTION INIT | BLOCKCODE | FUNCTION
+init : command init
+        | command
+        | function init
+        | function
 
-BLOCKCODE -> COMMAND | COMMAND BLOCKCODE  
-COMMAND -> INTERATIONS | IF | EXP_ASSIGNMENT | CALL |  return RETURN; | break; | continue;
+blockcode : command
+    | blockcode command
 
-EXP_ASSIGNMENT -> IDENTIFIER_SC = ARITHMETIC | IDENTIFIER_LI = ARITHMETIC |
-                IDENTIFIER_SC | IDENTIFIER_LI |
-                | ++IDENTIFIER_SC | --IDENTIFIER_SC | IDENTIFIER_SC++ | IDENTIFIER_SC--
+command : interations
+    | if
+    | exp SEMICOLON
+    | call SEMICOLON
+    | RETURN return SEMICOLON
+    | BREAK SEMICOLON
+    | CONTINUE SEMICOLON
 
-IDENTIFIER_SC -> $[a-zA-Z][a-zA-Z0-9]*
-IDENTIFIER_LI -> @[a-zA-Z][a-zA-Z0-9]*
-IDENTIFIER -> [a-zA-Z][a-zA-Z0-9]*
+if : IF LPAREN exp RPAREN if_statement
+    # | command IF LPAREN exp RPAREN.
+
+if_statement :  LBRACE blockcode RBRACE
+        | LBRACE blockcode RBRACE ELSE LBRACE blockcode RBRACE
+        | LBRACE blockcode RBRACE elsif
+
+elsif : ELSIF LPAREN exp RPAREN LBRACE blockcode RBRACE
+    | ELSIF LPAREN exp RPAREN LBRACE blockcode RBRACE elsif2
+
+    elsif2 : elsif
+        | ELSE LBRACE blockcode RBRACE
+
+    interations :  for
+    | dowhile
+    | while
+
+for : FOR LPAREN for_assignments SEMICOLON exp SEMICOLON for_assignments RPAREN LBRACE blockcode RBRA
+
+for_assignments : exp
+    | exp COMMA for_assignments
+
+dowhile :  DO LBRACE blockcode RBRACE WHILE LPAREN exp RPARE
+
+while : WHILE LPAREN exp RPAREN LBRACE blockcode RBRACE
+    | WHILE LPAREN exp RPAREN LBRACE RBRACE
+
+function : SUB ID LPAREN RPAREN LBRACE blockcode RBRACE
+    | SUB ID LPAREN function_assignments RPAREN LBRACE blockcode RBRACE
+
+function_assignments : exp
+    | exp COMMA function_assignments
+
+call : ID LPAREN RPAREN
+    | ID LPAREN function_assignments RPAREN
+
+return : exp
+
+exp : ID_SC EQUALS exp_lor
+    | ID_LI EQUALS exp_lor
+    | ID_SC MINUSEQUAL exp_lor
+    | ID_SC PLUSEQUAL exp_lor
+    | ID_SC MODEQUAL exp_lor
+    | ID_SC DIVEQUAL exp_lor
+    | ID_SC TIMESEQUAL exp_lor
+    | exp_lor
 
 
-IF -> if (EXP_CONDITION) IF_STATEMENT
-   | COMMAND if(EXP_CONDITION) /* essa regra aqui talvez n possa pq command vai pra if ai da SHIFT/REDUCE*/
+exp_lor : exp_lor LOR exp_land
+    | exp_land
 
-IF_STATEMENT -> {BLOCKCODE}
-    | {BLOCKCODE}else{BLOCKCODE}
-    | {BLOCKCODE} ELSIF
+exp_land : exp_land LAND exp_or
+    | exp_or
 
-ELSIF -> elsif(EXP_CONDITION){BLOCKCODE} | elsif(EXP_CONDITION){BLOCKCODE}ELSIF2
-ELSIF2 -> ELSIF | else{BLOCKCODE}
+exp_or : exp_or OR exp_and
+    | exp_and
 
-INTERATIONS -> FOR | DOWHILE | WHILE 
+exp_and : exp_and AND exp_comp
+    | exp_comp_eq
 
-FOR -> for(FOR_ASSIGNMENTS; [EXP_CONDITION]; FOR_ASSIGNMENTS){BLOCKCODE}
-FOR_ASSIGNMENTS -> EXP_ASSIGNMENT | EXP_ASSIGNMENT , FOR_ASSIGNMENTS
+exp_comp_eq : exp_comp_eq EQ exp_comp
+    | exp_comp_eq NE exp_comp
+    | exp_comp_eq SEQ exp_comp
+    | exp_comp_eq SNE exp_comp
+    | exp_comp_eq CMP exp_comp
+    | exp_comp
 
-DOWHILE -> do{BLOCKCODE}while(EXP_CONDITION)
-WHILE -> while(EXP_CONDITION){BLOCKCODE} | while(EXP_CONDITION){}
+exp_comp : exp_comp GT exp_plusminus
+    | exp_comp LT exp_plusminus
+    | exp_comp GE exp_plusminus
+    | exp_comp LE exp_plusminus
+    | exp_comp SLT exp_plusminus
+    | exp_comp SGT exp_plusminus
+    | exp_comp SGE exp_plusminus
+    | exp_comp SLE exp_plusminus
+    | exp_plusminus
 
 
-FUNCTION -> sub IDENTIFIER(){BLOCKCODE} | sub IDENTIFIER(FUNCTION_ASSIGNMENTS){BLOCKCODE}
-FUNCTION_ASSIGNMENTS -> EXP_ASSIGNMENT | EXP_ASSIGNMENT , FUNCTION_ASSIGNMENTS
+exp_plusminus : exp_plusminus PLUS exp_times_divides
+    | exp_plusminus MINUS exp_times_divides
+    | exp_times_divides
 
-EXP_CONDITION -> ATTCOND > ATTCOND | ATTCOND < ATTCOND |
-            ATTCOND == ATTCOND | ATTCOND >= ATTCOND |
-            ATTCOND <= ATTCOND | ATTCOND != ATTCOND |
 
-            ATTCOND cmp ATTCOND | ATTCOND eq ATTCOND | 
-            ATTCOND ne ATTCOND | ATTCOND lt ATTCOND |
-            ATTCOND gt ATTCOND | ATTCOND le ATTCOND |
-            ATTCOND ge ATTCOND
-            ATTCOND | ((CONDITION) [LOGIC (CONDITION)]*) |
+exp_times_divides : exp_times_divides TIMES exp_lnot
+    | exp_times_divides DIVIDE exp_lnot
+    | exp_times_divides MODULO exp_lnot
+    | exp_lnot
 
-EXP_CONDITION -> EXP_CONDITION > EXP_CONDITION_2
-    | EXP_CONDITION < EXP_CONDITION_2
-    | EXP_CONDITION_2
 
-EXP_CONDITION_2 -> EXP_CONDITION_2 >= EXP_CONDITION_3
-    | EXP_CONDITION_2 <= EXP_CONDITION_3
-    | EXP_CONDITION_3
+exp_lnot : XOR exp_lnot
+    | exp_decrement_increment
 
-EXP_CONDITION_3 -> EXP_CONDITION_3 == EXP_CONDITION_4
-    | EXP_CONDITION_3 != EXP_CONDITION_4
-    | EXP_CONDITION_4
 
-EXP_CONDITION_4 -> EXP_CONDITION_4 gt EXP_CONDITION_5
-    | EXP_CONDITION_4 lt EXP_CONDITION_5
-    | EXP_CONDITION_5
+exp_decrement_increment :
+    | INCREMENT  ID_SC
+    | DECREMENT ID_SC
+    | ID_SC INCREMENT
+    | ID_SC DECREMENT
+    | exp_lastlayer
 
-EXP_CONDITION_5 -> EXP_CONDITION_5 ge EXP_CONDITION_6
-    | EXP_CONDITION_5 le EXP_CONDITION_6
-    | EXP_CONDITION_6
+    exp_lastlayer : LPAREN exp RPAREN
+    | ID_SC
+    | ID_LI
+    | NUMBER
+    | call
+    | TRUE
+    | FALSE
 
-EXP_CONDITION_6 -> EXP_CONDITION_6 eq EXP_CONDITION_7
-    | EXP_CONDITION_6 ne EXP_CONDITION_7
-    | EXP_CONDITION_7
 
-EXP_CONDITION_7 -> EXP_CONDITION_7 cmp EXP_CONDITION_8
-    | EXP_CONDITION_8
 
-EXP_CONDITION_8 -> ATTCOND
-    | (EXP_CONDITION) LOGIC EXP_CONDITION_LOGIC
+parser = yacc.yacc()
 
-EXP_CONDITION_LOGIC -> (EXP_CONDITION)
-        | (EXP_CONDITION) LOGIC (EXP_CONDITION)
-
-LOGIC -> && | || | ! |
-
-ATTCOND -> EXP_ASSIGNMENT | NUMBER | true | false
-
-RETURN -> ATTCOND | ARITHMETIC
-
-CALL -> IDENTIFIER() | IDENTIFIER(FUNCTION_ASSIGNMENTS)
-
-ARITHMETIC -> EXP
-EXP -> EXP + EXP1 | EXP - EXP1 | EXP1
-EXP1 -> EXP1 * EXP2 | EXP1 / EXP2 | EXP2
-EXP2 -> EXP3 ^ EXP2 | EXP3
-EXP3 -> ( ARITHMETIC ) | NUMBER | EXP_ASSIGNMENT | CALL | EXP 
-
+while True:
+    try:
+        s = input('perl > ')
+    except EOFError:
+        break
+    if not s: continue
+    result = parser.parse(s)
+    print(result)
