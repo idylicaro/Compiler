@@ -4,24 +4,23 @@ from src.Lexicon.lexico import tokens
 
 
 def p_init(p):
-    '''init : blockcode init
+    '''init : command init
+        | command
         | function init
-        | blockcode
         | function
         '''
 
-
 def p_blockcode(P):
     ''' blockcode : command
-        | command blockcode
+        | blockcode command
     '''
 
 
 def p_command(p):
     ''' command : interations
         | if
-        | exp_assignment
-        | call
+        | exp SEMICOLON
+        | call SEMICOLON
         | RETURN return SEMICOLON
         | BREAK SEMICOLON
         | CONTINUE SEMICOLON
@@ -30,9 +29,9 @@ def p_command(p):
 
 def p_if(p):
     '''
-        if : IF LPAREN exp_condition RPAREN if_statement
+        if : IF LPAREN exp RPAREN if_statement
     '''
-    # | command IF LPAREN exp_condition RPAREN.
+    # | command IF LPAREN exp RPAREN.
 
 
 def p_if_statement(p):
@@ -45,8 +44,8 @@ def p_if_statement(p):
 
 def p_elsif(p):
     '''
-        elsif : ELSIF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
-        | ELSIF LPAREN exp_condition RPAREN LBRACE blockcode RBRACE elsif2
+        elsif : ELSIF LPAREN exp RPAREN LBRACE blockcode RBRACE
+        | ELSIF LPAREN exp RPAREN LBRACE blockcode RBRACE elsif2
     '''
 
 
@@ -66,22 +65,22 @@ def p_interations(p):
 
 
 def p_for(p):
-    ''' for : FOR LPAREN for_assignments SEMICOLON exp_condition SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE'''
+    ''' for : FOR LPAREN for_assignments SEMICOLON exp SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE'''
 
 
 def p_for_assignments(p):
-    ''' for_assignments : exp_assignment
-        | exp_assignment COMMA for_assignments
+    ''' for_assignments : exp
+        | exp COMMA for_assignments
     '''
 
 
 def p_dowhile(p):
-    ''' dowhile :  DO LBRACE blockcode RBRACE WHILE LPAREN exp_condition RPAREN '''
+    ''' dowhile :  DO LBRACE blockcode RBRACE WHILE LPAREN exp RPAREN '''
 
 
 def p_while(p):
-    ''' while : WHILE LPAREN exp_condition RPAREN LBRACE blockcode RBRACE
-            | WHILE LPAREN exp_condition RPAREN LBRACE RBRACE
+    ''' while : WHILE LPAREN exp RPAREN LBRACE blockcode RBRACE
+            | WHILE LPAREN exp RPAREN LBRACE RBRACE
     '''
 
 
@@ -92,147 +91,8 @@ def p_function(p):
 
 
 def p_function_assignments(p):
-    ''' function_assignments : exp_assignment
-        | exp_assignment COMMA function_assignments
-    '''
-
-
-def p_exp_condition(p):
-    # todo: tenta fazer assim exp_condition : exp_condition symbol exp_condition_nextNivel
-    '''
-    exp_condition : exp_condition GT exp_condition_2
-        | exp_condition LT exp_condition_2
-        | exp_condition_2
-    '''
-
-
-def p_exp_condition_2(p):
-    '''
-    exp_condition_2 : exp_condition_2 GE exp_condition_3
-        | exp_condition_2 LE exp_condition_3
-        | exp_condition_3
-    '''
-
-
-def p_exp_condition_3(p):
-    '''
-    exp_condition_3 : exp_condition_3 EQ exp_condition_4
-        | exp_condition_3 NE exp_condition_4
-        | exp_condition_4
-    '''
-
-
-def p_exp_condition_4(p):
-    '''
-    exp_condition_4 : exp_condition_4 SGT exp_condition_5
-        | exp_condition_4 SLT exp_condition_5
-        | exp_condition_5
-    '''
-
-
-def p_exp_condition_5(p):
-    '''
-    exp_condition_5 : exp_condition_5 SGE exp_condition_6
-        | exp_condition_5 SLE exp_condition_6
-        | exp_condition_6
-    '''
-
-
-def p_exp_condition_6(p):
-    '''
-    exp_condition_6 : exp_condition_6 SEQ exp_condition_7
-        | exp_condition_6 SNE exp_condition_7
-        | exp_condition_7
-    '''
-
-
-def p_exp_condition_7(p):
-    '''
-    exp_condition_7 : exp_condition_7 CMP exp_condition_8
-        | exp_condition_8
-    '''
-
-def p_exp_condition_8(P):
-    '''
-    exp_condition_8 : attcond
-        | LPAREN exp_condition RPAREN logic exp_condition_logic
-    '''
-
-def p_exp_condition_logic(p):
-    '''
-        exp_condition_logic : LPAREN exp_condition RPAREN
-        | LPAREN exp_condition RPAREN logic LPAREN exp_condition RPAREN
-    '''
-
-
-def p_logic(p):
-    '''
-        logic : LAND
-            | LOR
-            | LNOT
-    '''
-
-
-def p_exp_assignment(p):
-    ''' exp_assignment : ID_SC EQUALS arithmetic
-        | ID_LI EQUALS arithmetic
-        | ID_SC
-        | ID_LI
-        | INCREMENT ID_SC
-        | DECREMENT ID_SC
-        | ID_SC INCREMENT
-        | ID_SC DECREMENT
-    '''
-
-
-def p_arithmetic(p):
-    '''
-        arithmetic : exp
-    '''
-
-
-def p_exp(p):
-    '''
-        exp : exp PLUS exp1
-            | exp MINUS exp1
-            | exp1
-    '''
-
-
-def p_exp1(p):
-    '''
-        exp1 : exp1 TIMES exp2
-            | exp1 DIVIDE exp2
-            | exp1 MODULO exp2
-            | exp2
-    '''
-
-
-def p_exp2(p):
-    '''
-    exp2 : exp3 XOR exp2
-        | exp3
-    '''
-
-
-def p_exp3(p):
-    '''
-    exp3 : LPAREN arithmetic RPAREN
-        | NUMBER
-        | exp_assignment
-        | exp_condition
-        | call
-        | exp
-        | TRUE
-        | FALSE
-    '''
-
-
-def p_attcond(p):
-    ''' attcond : exp_assignment
-        | NUMBER
-        | TRUE
-        | FALSE
+    ''' function_assignments : exp
+        | exp COMMA function_assignments
     '''
 
 
@@ -244,9 +104,115 @@ def p_call(p):
 
 
 def p_return(p):
-    ''' return : attcond
-        | arithmetic
-     '''
+    ''' return : exp '''
+
+
+def p_exp(p):
+    ''' exp : ID_SC EQUALS exp_lor
+        | ID_LI EQUALS exp_lor
+        | ID_SC MINUSEQUAL exp_lor
+        | ID_SC PLUSEQUAL exp_lor
+        | ID_SC MODEQUAL exp_lor
+        | ID_SC DIVEQUAL exp_lor
+        | ID_SC TIMESEQUAL exp_lor
+        | exp_lor
+    '''
+
+
+def p_exp_lor(p):
+    '''
+        exp_lor : exp_lor LOR exp_land
+            | exp_land
+    '''
+
+def p_exp_land(p):
+    '''
+        exp_land : exp_land LAND exp_or
+            | exp_or
+    '''
+
+def p_exp_or(p):
+    '''
+        exp_or : exp_or OR exp_and
+            | exp_and
+    '''
+
+def p_exp_and(p):
+    '''
+        exp_and : exp_and AND exp_comp
+            | exp_comp_eq
+    '''
+
+def p_exp_comp_eq(p):
+    '''
+        exp_comp_eq : exp_comp_eq EQ exp_comp
+            | exp_comp_eq NE exp_comp
+            | exp_comp_eq SEQ exp_comp
+            | exp_comp_eq SNE exp_comp
+            | exp_comp_eq CMP exp_comp
+            | exp_comp
+    '''
+
+def p_exp_comp(p):
+    '''
+        exp_comp : exp_comp GT exp_plusminus
+            | exp_comp LT exp_plusminus
+            | exp_comp GE exp_plusminus
+            | exp_comp LE exp_plusminus
+            | exp_comp SLT exp_plusminus
+            | exp_comp SGT exp_plusminus
+            | exp_comp SGE exp_plusminus
+            | exp_comp SLE exp_plusminus
+            | exp_plusminus
+    '''
+
+
+def p_exp_plusminus(p):
+    '''
+        exp_plusminus : exp_plusminus PLUS exp_times_divides
+            | exp_plusminus MINUS exp_times_divides
+            | exp_times_divides
+    '''
+
+
+def p_exp_times_divides(p):
+    '''
+        exp_times_divides : exp_times_divides TIMES exp_lnot
+            | exp_times_divides DIVIDE exp_lnot
+            | exp_times_divides MODULO exp_lnot
+            | exp_lnot
+    '''
+
+
+def p_exp_lnot(p):
+    '''
+    exp_lnot : XOR exp_lnot
+        | exp_decrement_increment
+    '''
+
+
+def p_exp_decrement_increment(p):
+    '''
+    exp_decrement_increment :
+        | INCREMENT  ID_SC
+        | DECREMENT ID_SC
+        | ID_SC INCREMENT
+        | ID_SC DECREMENT
+        | exp_lastlayer
+    '''
+
+def p_exo_lastlayer(p):
+    '''
+        exp_lastlayer : LPAREN exp RPAREN
+        | ID_SC
+        | ID_LI
+        | NUMBER
+        | call
+        | TRUE
+        | FALSE
+    '''
+
+
 
 
 parser = yacc.yacc()
