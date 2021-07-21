@@ -10,6 +10,7 @@ def p_init(p):
         | function
         '''
 
+
 def p_blockcode(P):
     ''' blockcode : command
         | blockcode command
