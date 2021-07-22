@@ -21,7 +21,6 @@ def p_command(p):
     ''' command : interations
         | if
         | exp SEMICOLON
-        | call SEMICOLON
         | RETURN return SEMICOLON
         | BREAK SEMICOLON
         | CONTINUE SEMICOLON
@@ -194,8 +193,7 @@ def p_exp_lnot(p):
 
 def p_exp_decrement_increment(p):
     '''
-    exp_decrement_increment :
-        | INCREMENT  ID_SC
+    exp_decrement_increment : INCREMENT  ID_SC
         | DECREMENT ID_SC
         | ID_SC INCREMENT
         | ID_SC DECREMENT
