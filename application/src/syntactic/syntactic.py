@@ -1,6 +1,7 @@
 import ply.yacc as yacc
 import ply.lex as lex
 from src.Lexicon.lexico import tokens
+from .abstractSyntax.index import *
 
 
 def p_init(p):
@@ -8,7 +9,17 @@ def p_init(p):
         | command
         | function init
         | function
-        '''
+    '''
+    if isinstance(p[1], Command):
+        if p[2] is not None:
+            InitCommandInit(p[1], p[2])
+        else:
+            InitCommand(p[1])
+    if isinstance(p[1], Function):
+        if p[2] is not None:
+            InitFunctionInit(p[1], p[2])
+        else:
+            InitFunction(p[1])
 
 
 def p_blockcode(P):
@@ -19,19 +30,12 @@ def p_blockcode(P):
 
 def p_command(p):
     ''' command : interations
-        | if
+        | IF LPAREN exp RPAREN if_statement
         | exp SEMICOLON
         | RETURN return SEMICOLON
         | BREAK SEMICOLON
         | CONTINUE SEMICOLON
     '''
-
-
-def p_if(p):
-    '''
-        if : IF LPAREN exp RPAREN if_statement
-    '''
-    # | command IF LPAREN exp RPAREN.
 
 
 def p_if_statement(p):
@@ -58,29 +62,16 @@ def p_elsif2(p):
 
 def p_interations(p):
     '''
-       interations :  for
-       | dowhile
-       | while
+       interations :  FOR LPAREN for_assignments SEMICOLON exp SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
+       | DO LBRACE blockcode RBRACE WHILE LPAREN exp RPAREN
+       | WHILE LPAREN exp RPAREN LBRACE blockcode RBRACE
+       | WHILE LPAREN exp RPAREN LBRACE RBRACE
     '''
-
-
-def p_for(p):
-    ''' for : FOR LPAREN for_assignments SEMICOLON exp SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE'''
 
 
 def p_for_assignments(p):
     ''' for_assignments : exp
         | exp COMMA for_assignments
-    '''
-
-
-def p_dowhile(p):
-    ''' dowhile :  DO LBRACE blockcode RBRACE WHILE LPAREN exp RPAREN '''
-
-
-def p_while(p):
-    ''' while : WHILE LPAREN exp RPAREN LBRACE blockcode RBRACE
-            | WHILE LPAREN exp RPAREN LBRACE RBRACE
     '''
 
 
@@ -125,11 +116,13 @@ def p_exp_lor(p):
             | exp_land
     '''
 
+
 def p_exp_land(p):
     '''
         exp_land : exp_land LAND exp_or
             | exp_or
     '''
+
 
 def p_exp_or(p):
     '''
@@ -137,11 +130,13 @@ def p_exp_or(p):
             | exp_and
     '''
 
+
 def p_exp_and(p):
     '''
         exp_and : exp_and AND exp_comp
             | exp_comp_eq
     '''
+
 
 def p_exp_comp_eq(p):
     '''
@@ -152,6 +147,7 @@ def p_exp_comp_eq(p):
             | exp_comp_eq CMP exp_comp
             | exp_comp
     '''
+
 
 def p_exp_comp(p):
     '''
@@ -193,12 +189,13 @@ def p_exp_lnot(p):
 
 def p_exp_decrement_increment(p):
     '''
-    exp_decrement_increment : INCREMENT  ID_SC
+    exp_decrement_increment : INCREMENT ID_SC
         | DECREMENT ID_SC
         | ID_SC INCREMENT
         | ID_SC DECREMENT
         | exp_lastlayer
     '''
+
 
 def p_exo_lastlayer(p):
     '''
@@ -210,8 +207,6 @@ def p_exo_lastlayer(p):
         | TRUE
         | FALSE
     '''
-
-
 
 
 parser = yacc.yacc()
