@@ -1,7 +1,7 @@
 from abstractClasses import If, IfStatement, Elsif, Elsif2
 
 
-class If(If):
+class IfStm(If):
     def __init__(self, exp, ifStm):
         self.stm = exp
         self.stm2 = ifStm

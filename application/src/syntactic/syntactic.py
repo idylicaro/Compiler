@@ -22,10 +22,14 @@ def p_init(p):
             InitFunction(p[1])
 
 
-def p_blockcode(P):
+def p_blockcode(p):
     ''' blockcode : command
         | blockcode command
     '''
+    if p[2] is not None:
+        BlockcodeBcdCommand(p[1], p[2])
+    else:
+        BlockcodeCommand(p[1])
 
 
 def p_command(p):
@@ -36,7 +40,19 @@ def p_command(p):
         | BREAK SEMICOLON
         | CONTINUE SEMICOLON
     '''
-
+    if p[1] == tokens.IF:
+        p[0] = IfStm(p[3], p[5])
+    elif p[1] == tokens.RETURN:
+        p[0] = ReturnStm(p[2])
+    elif p[1] == tokens.BREAK:
+        pass
+    elif p[1] == tokens.CONTINUE:
+        pass
+    elif isinstance(p[1], Exp):
+        ExpAssignmentIdSc(p[1])
+    else:
+        pass
+        # how do make it?
 
 def p_if_statement(p):
     '''
