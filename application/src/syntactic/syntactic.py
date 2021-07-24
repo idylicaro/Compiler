@@ -96,13 +96,24 @@ def p_interations(p):
        | WHILE LPAREN exp RPAREN LBRACE blockcode RBRACE
        | WHILE LPAREN exp RPAREN LBRACE RBRACE
     '''
-
+    if p[1] == tokens.FOR:
+        p[0] = InterationsFor(p[3], p[5], p[7], p[10])
+    elif p[1] == tokens.DO:
+        p[0] = InterationsDoWhile(p[3], p[7])
+    else:
+        if p[6] == tokens.RBRACE:
+            p[0] = InterationsWhileBlank(p[3])
+        else:
+            p[0] = InterationsWhile(p[3], p[6])
 
 def p_for_assignments(p):
     ''' for_assignments : exp
         | exp COMMA for_assignments
     '''
-
+    if p[2] == tokens.COMMA:
+        p[0] = ForAssignmentsComma(p[1], p[3])
+    else  :
+        p[0] = ForAssignmentsComma(p[1])
 
 def p_function(p):
     ''' function : SUB ID LPAREN RPAREN LBRACE blockcode RBRACE
