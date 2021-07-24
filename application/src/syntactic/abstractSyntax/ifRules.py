@@ -19,8 +19,9 @@ class IfStatementBlockcodeElse(IfStatement):
 
 
 class IfStatementBlockcodeElsif(IfStatement):
-    def __init__(self, elsif):
-        self.stm = elsif
+    def __init__(self, blockcode, elsif):
+        self.stm = blockcode
+        self.stm2 = elsif
 
 
 class ElsifStm(Elsif):

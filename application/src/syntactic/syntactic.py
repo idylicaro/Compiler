@@ -49,10 +49,11 @@ def p_command(p):
     elif p[1] == tokens.CONTINUE:
         pass
     elif isinstance(p[1], Exp):
-        ExpAssignmentIdSc(p[1])
-    else:
-        pass
+        p[0] = ExpAssignmentIdSc(p[1])
+    else:  # iterations
+        p[0] = CommandInterations(p[1])
         # how do make it?
+
 
 def p_if_statement(p):
     '''
@@ -60,20 +61,32 @@ def p_if_statement(p):
             | LBRACE blockcode RBRACE ELSE LBRACE blockcode RBRACE
             | LBRACE blockcode RBRACE elsif
     '''
-
+    if p[4] == tokens.ELSE:
+        p[0] = IfStatementBlockcodeElse(p[2], p[6])
+    elif isinstance(p[4], Elsif):
+        p[0] = IfStatementBlockcodeElsif(p[2], p[4])
+    else:
+        p[0] = IfStatementBlockcode(p[2])
 
 def p_elsif(p):
     '''
         elsif : ELSIF LPAREN exp RPAREN LBRACE blockcode RBRACE
         | ELSIF LPAREN exp RPAREN LBRACE blockcode RBRACE elsif2
     '''
-
+    if isinstance(p[8], Elsif2):
+        p[0] = ElsifStmElsif2(p[3], p[6], p[8])
+    else:
+        p[0] = ElsifStm(p[3],p[6])
 
 def p_elsif2(p):
     '''
         elsif2 : elsif
             | ELSE LBRACE blockcode RBRACE
     '''
+    if isinstance(p[1], Elsif):
+        p[0] = Elsif2Elsif(p[1])
+    else :
+        p[0] = Elsif2Else(p[1])
 
 
 def p_interations(p):
