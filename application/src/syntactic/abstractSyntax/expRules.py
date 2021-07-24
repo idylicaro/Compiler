@@ -31,6 +31,11 @@ class ExpAssignmentIdScMode(Exp):
         self.id = id
         self.stm2 = exp_lor
 
+class ExpAssignmentIdScDivequal(Exp):
+    def __init__(self, id, exp_lor):
+        self.id = id
+        self.stm2 = exp_lor
+
 
 class ExpAssignmentIdScTimes(Exp):
     def __init__(self, id, exp_lor):
@@ -43,128 +48,133 @@ class ExpAssignmentLor(Exp):
         self.stm = exp_lor
 
 
-class ExpLor(Exp):
+class ExpLorStm(ExpLor):
     def __init__(self, exp_lor, exp_land):
         self.stm = exp_lor
         self.stm2 = exp_land
 
 
-class ExpLorJustLand(Exp):
+class ExpLorJustLand(ExpLor):
     def __init__(self, exp_land):
         self.stm2 = exp_land
 
 
-class ExpLand(Exp):
+class ExpLandStm(ExpLand):
     def __init__(self, exp_land, exp_or):
         self.stm = exp_land
         self.stm2 = exp_or
 
 
-class ExpLandJustOr(Exp):
+class ExpLandJustOr(ExpLand):
     def __init__(self, exp_or):
         self.stm = exp_or
 
 
-class ExpOr(Exp):
+class ExpOrStm(ExpOr):
     def __init__(self, exp_or, exp_and):
         self.stm = exp_or
         self.stm2 = exp_and
 
 
-class ExpOrJustAnd(Exp):
+class ExpOrJustAnd(ExpOr):
     def __init__(self, exp_and):
         self.stm = exp_and
 
 
-class ExpAnd(Exp):
+class ExpAndStm(ExpAnd):
     def __init__(self, exp_and, exp_comp_eq):
         self.stm = exp_and
         self.stm2 = exp_comp_eq
 
 
-class ExpAndJustCompEq(Exp):
+class ExpAndJustCompEq(ExpAnd):
     def __init__(self, exp_comp_eq):
         self.stm = exp_comp_eq
 
 
-class ExpCompEqEQ(Exp):
+class ExpCompEqEQ(ExpCompEq):
     def __init__(self, expComp, expComp2):
         self.expComp = expComp
         self.expComp2 = expComp2
 
 
-class ExpCompEqNE(Exp):
+class ExpCompEqNE(ExpCompEq):
     def __init__(self, expComp, expComp2):
         self.expComp = expComp
         self.expComp2 = expComp2
 
 
-class ExpCompEqSEQ(Exp):
+class ExpCompEqSEQ(ExpCompEq):
     def __init__(self, expComp, expComp2):
         self.expComp = expComp
         self.expComp2 = expComp2
 
 
-class ExpCompEqSNE(Exp):
+class ExpCompEqSNE(ExpCompEq):
     def __init__(self, expComp, expComp2):
         self.expComp = expComp
         self.expComp2 = expComp2
 
 
-class ExpCompEqCMP(Exp):
+class ExpCompEqCMP(ExpCompEq):
     def __init__(self, expComp, expComp2):
         self.expComp = expComp
         self.expComp2 = expComp2
 
 
-class ExpCompEqJust(Exp):
+class ExpCompEqJust(ExpCompEq):
     def __init__(self, expComp):
         self.expComp = expComp
 
 
-class ExpCompGt(Exp):
+class ExpCompGt(ExpComp):
     def __init__(self, expComp, expCompPlus):
         self.stm = expComp
         self.stm2 = expCompPlus
 
 
-class ExpCompLt(Exp):
+class ExpCompLt(ExpComp):
+    def __init__(self, expComp, expCompPlus):
+        self.stm = expComp
+        self.stm2 = expCompPlus
+
+class ExpCompGe(ExpComp):
     def __init__(self, expComp, expCompPlus):
         self.stm = expComp
         self.stm2 = expCompPlus
 
 
-class ExpCompLe(Exp):
+class ExpCompLe(ExpComp):
     def __init__(self, expComp, expCompPlus):
         self.stm = expComp
         self.stm2 = expCompPlus
 
 
-class ExpCompSlt(Exp):
+class ExpCompSlt(ExpComp):
     def __init__(self, expComp, expCompPlus):
         self.stm = expComp
         self.stm2 = expCompPlus
 
 
-class ExpCompSgt(Exp):
+class ExpCompSgt(ExpComp):
     def __init__(self, expComp, expCompPlus):
         self.stm = expComp
         self.stm2 = expCompPlus
 
 
-class ExpCompSge(Exp):
+class ExpCompSge(ExpComp):
     def __init__(self, expComp, expCompPlus):
         self.stm = expComp
         self.stm2 = expCompPlus
 
 
-class ExpCompSle(Exp):
+class ExpCompSle(ExpComp):
     def __init__(self, expComp, expCompPlus):
         self.stm = expComp
         self.stm2 = expCompPlus
 
 
-class ExpCompJustPlus(Exp):
+class ExpCompJustPlus(ExpComp):
     def __init__(self, expCompPlus):
         self.stm = expCompPlus
 
@@ -271,8 +281,6 @@ class ExpLastlayerCall(ExpLastLayer):
 
 class ExpLastlayerTrue(ExpLastLayer):
     pass
-    # def __init__(self, call):
-    #     self.call = call
 
 
 class ExpLastlayerFalse(ExpLastLayer):
