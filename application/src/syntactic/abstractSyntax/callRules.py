@@ -1,12 +1,12 @@
 from abstractClasses import Call
 
 
-# todo: here do you need to save the ID?
-
 class CallStm(Call):
-    def __init__(self, function_assignments):
+    def __init__(self, id, function_assignments):
+        self.id = id
         self.stm = function_assignments
 
 
 class CallStmBlank(Call):
-    pass
+    def __init__(self, id):
+        self.id = id

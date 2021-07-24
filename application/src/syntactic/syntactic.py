@@ -68,6 +68,7 @@ def p_if_statement(p):
     else:
         p[0] = IfStatementBlockcode(p[2])
 
+
 def p_elsif(p):
     '''
         elsif : ELSIF LPAREN exp RPAREN LBRACE blockcode RBRACE
@@ -76,7 +77,8 @@ def p_elsif(p):
     if isinstance(p[8], Elsif2):
         p[0] = ElsifStmElsif2(p[3], p[6], p[8])
     else:
-        p[0] = ElsifStm(p[3],p[6])
+        p[0] = ElsifStm(p[3], p[6])
+
 
 def p_elsif2(p):
     '''
@@ -85,7 +87,7 @@ def p_elsif2(p):
     '''
     if isinstance(p[1], Elsif):
         p[0] = Elsif2Elsif(p[1])
-    else :
+    else:
         p[0] = Elsif2Else(p[1])
 
 
@@ -106,25 +108,35 @@ def p_interations(p):
         else:
             p[0] = InterationsWhile(p[3], p[6])
 
+
 def p_for_assignments(p):
     ''' for_assignments : exp
         | exp COMMA for_assignments
     '''
     if p[2] == tokens.COMMA:
         p[0] = ForAssignmentsComma(p[1], p[3])
-    else  :
+    else:
         p[0] = ForAssignmentsComma(p[1])
+
 
 def p_function(p):
     ''' function : SUB ID LPAREN RPAREN LBRACE blockcode RBRACE
         | SUB ID LPAREN function_assignments RPAREN LBRACE blockcode RBRACE
     '''
+    if p[4] == tokens.RPAREN:
+        p[0] = FunctionStmNoParams(p[2], p[6])
+    else:
+        p[0] = FunctionStm(p[2], p[4], p[7])
 
 
 def p_function_assignments(p):
     ''' function_assignments : exp
         | exp COMMA function_assignments
     '''
+    if p[2] == tokens.COMMA:
+        p[0] = FunctionAssignmentsStmComma(p[1], p[3])
+    else:
+        p[0] = FunctionAssignmentsStm(p[1])
 
 
 def p_call(p):
@@ -132,10 +144,15 @@ def p_call(p):
         call : ID LPAREN RPAREN
             | ID LPAREN function_assignments RPAREN
     '''
+    if p[3] == tokens.RPAREN:
+        p[0] = CallStm(p[1], p[3])
+    else:
+        p[0] = CallStmBlank(p[1])
 
 
 def p_return(p):
     ''' return : exp '''
+    p[0] = ReturnStm(p[1])
 
 
 def p_exp(p):

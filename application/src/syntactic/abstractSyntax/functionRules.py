@@ -1,14 +1,15 @@
 from abstractClasses import Function, FunctionAssignments
 
 
-# todo: here do you need to save the ID?
 class FunctionStmNoParams(Function):
-    def __init__(self, blockcode):
+    def __init__(self, id, blockcode):
+        self.id = id
         self.stm = blockcode
 
 
 class FunctionStm(Function):
-    def __init__(self, function_assignments, blockcode):
+    def __init__(self, id, function_assignments, blockcode):
+        self.id = id
         self.stm = function_assignments
         self.stm2 = blockcode
 
