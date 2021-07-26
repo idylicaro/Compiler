@@ -1,4 +1,4 @@
-from abstractClasses import Exp, ExpOr, ExpAnd, ExpLor, ExpLand, ExpLnot, ExpComp, ExpCompEq, ExpPlusMinus, \
+from .abstractClasses import Exp, ExpOr, ExpAnd, ExpLor, ExpLand, ExpLnot, ExpComp, ExpCompEq, ExpPlusMinus, \
     ExpTimesDivides, ExpDecrementIncrement, ExpLastLayer
 
 

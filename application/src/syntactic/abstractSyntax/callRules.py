@@ -1,4 +1,4 @@
-from abstractClasses import Call
+from .abstractClasses import Call
 
 
 class CallStm(Call):

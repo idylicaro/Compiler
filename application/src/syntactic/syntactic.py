@@ -1,7 +1,7 @@
 import ply.yacc as yacc
 import ply.lex as lex
 from src.Lexicon.lexico import tokens
-from .abstractSyntax.index import *
+from src.syntactic.abstractSyntax.index import *
 
 
 def p_init(p):

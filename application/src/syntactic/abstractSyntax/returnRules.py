@@ -1,4 +1,4 @@
-from abstractClasses import Return
+from .abstractClasses import Return
 
 
 class ReturnStm(Return):

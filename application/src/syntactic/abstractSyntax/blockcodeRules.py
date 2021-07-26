@@ -1,4 +1,4 @@
-from abstractClasses import Blockcode
+from .abstractClasses import Blockcode
 
 
 class BlockcodeCommand(Blockcode):

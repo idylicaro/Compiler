@@ -1,4 +1,4 @@
-from abstractClasses import If, IfStatement, Elsif, Elsif2
+from .abstractClasses import If, IfStatement, Elsif, Elsif2
 
 
 class IfStm(If):

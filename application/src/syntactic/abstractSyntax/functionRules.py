@@ -1,4 +1,4 @@
-from abstractClasses import Function, FunctionAssignments
+from .abstractClasses import Function, FunctionAssignments
 
 
 class FunctionStmNoParams(Function):

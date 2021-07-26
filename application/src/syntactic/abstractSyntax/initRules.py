@@ -1,4 +1,4 @@
-from abstractClasses import Init
+from .abstractClasses import Init
 
 
 class InitCommandInit(Init):

@@ -1,4 +1,4 @@
-from abstractClasses import Command
+from .abstractClasses import Command
 
 
 class CommandInterations(Command):

@@ -1,4 +1,4 @@
-from abstractClasses import Interations, For, ForAssignments, DoWhile, While
+from .abstractClasses import Interations, For, ForAssignments, DoWhile, While
 
 
 class InterationsFor(Interations):
