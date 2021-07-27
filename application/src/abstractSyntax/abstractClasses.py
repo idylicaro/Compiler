@@ -111,3 +111,10 @@ class ExpDecrementIncrement(ABC):
 
 class ExpLastLayer(ABC):
     pass
+
+
+class Continue(ABC):
+    pass
+
+class Break(ABC):
+    pass

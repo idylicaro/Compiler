@@ -1,8 +1,7 @@
 import ply.yacc as yacc
 import ply.lex as lex
-from src.Lexicon.lexico import tokens, lexer
-from src.syntactic.Visitor.VisitorPrettyPrinter import VisitorPrettyPrinter
-from src.syntactic.abstractSyntax.index import *
+from .Visitor.VisitorPrettyPrinter import VisitorPrettyPrinter
+from .abstractSyntax.index import *
 
 
 def p_init(p):
@@ -41,16 +40,16 @@ def p_command(p):
         | BREAK SEMICOLON
         | CONTINUE SEMICOLON
     '''
-    if p[1] == tokens.IF:
+    if p[1] == 'if':
         p[0] = IfStm(p[3], p[5])
-    elif p[1] == tokens.RETURN:
+    elif p[1] == 'return':
         p[0] = ReturnStm(p[2])
-    elif p[1] == tokens.BREAK:
-        pass
-    elif p[1] == tokens.CONTINUE:
-        pass
+    elif p[1] == 'break':
+        p[0] = BreakStm()
+    elif p[1] == 'continue':
+        p[0] = ContinueStm()
     elif isinstance(p[1], Exp):
-        p[0] = ExpAssignmentIdSc(p[1])
+        p[0] = p[1]
     else:  # iterations
         p[0] = CommandInterations(p[1])
 
@@ -62,7 +61,7 @@ def p_if_statement(p):
             | LBRACE blockcode RBRACE ELSE LBRACE blockcode RBRACE
             | LBRACE blockcode RBRACE elsif
     '''
-    if p[4] == tokens.ELSE:
+    if p[4] == 'else':
         p[0] = IfStatementBlockcodeElse(p[2], p[6])
     elif isinstance(p[4], Elsif):
         p[0] = IfStatementBlockcodeElsif(p[2], p[4])
@@ -99,12 +98,12 @@ def p_interations(p):
        | WHILE LPAREN exp RPAREN LBRACE blockcode RBRACE
        | WHILE LPAREN exp RPAREN LBRACE RBRACE
     '''
-    if p[1] == tokens.FOR:
+    if p[1] == 'for':
         p[0] = InterationsFor(p[3], p[5], p[7], p[10])
-    elif p[1] == tokens.DO:
+    elif p[1] == 'do':
         p[0] = InterationsDoWhile(p[3], p[7])
     else:
-        if p[6] == tokens.RBRACE:
+        if p[6] == '}':
             p[0] = InterationsWhileBlank(p[3])
         else:
             p[0] = InterationsWhile(p[3], p[6])
@@ -114,7 +113,7 @@ def p_for_assignments(p):
     ''' for_assignments : exp
         | exp COMMA for_assignments
     '''
-    if p[2] == tokens.COMMA:
+    if p[2] == ',':
         p[0] = ForAssignmentsComma(p[1], p[3])
     else:
         p[0] = ForAssignmentsComma(p[1])
@@ -124,7 +123,7 @@ def p_function(p):
     ''' function : SUB ID LPAREN RPAREN LBRACE blockcode RBRACE
         | SUB ID LPAREN function_assignments RPAREN LBRACE blockcode RBRACE
     '''
-    if p[4] == tokens.RPAREN:
+    if p[4] == ')':
         p[0] = FunctionStmNoParams(p[2], p[6])
     else:
         p[0] = FunctionStm(p[2], p[4], p[7])
@@ -134,7 +133,7 @@ def p_function_assignments(p):
     ''' function_assignments : exp
         | exp COMMA function_assignments
     '''
-    if p[2] == tokens.COMMA:
+    if p[2] == ',':
         p[0] = FunctionAssignmentsStmComma(p[1], p[3])
     else:
         p[0] = FunctionAssignmentsStm(p[1])
@@ -145,7 +144,7 @@ def p_call(p):
         call : ID LPAREN RPAREN
             | ID LPAREN function_assignments RPAREN
     '''
-    if p[3] == tokens.RPAREN:
+    if p[3] == ')':
         p[0] = CallStm(p[1], p[3])
     else:
         p[0] = CallStmBlank(p[1])
