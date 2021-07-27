@@ -117,7 +117,7 @@ exp_decrement_increment :
     | ID_SC DECREMENT
     | exp_lastlayer
 
-    exp_lastlayer : LPAREN exp RPAREN
+exp_lastlayer : LPAREN exp RPAREN
     | ID_SC
     | ID_LI
     | NUMBER

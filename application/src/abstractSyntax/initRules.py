@@ -6,6 +6,9 @@ class InitCommandInit(Init):
         self.stm = cmd
         self.stm2 = init
 
+    def accept(self, visitor):
+        visitor.visitInitCommandInit(self)
+
 
 class InitCommand(Init):
     def __init__(self, cmd):

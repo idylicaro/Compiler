@@ -1,6 +1,7 @@
 import ply.yacc as yacc
 import ply.lex as lex
-from src.Lexicon.lexico import tokens
+from src.Lexicon.lexico import tokens, lexer
+from src.syntactic.Visitor.VisitorPrettyPrinter import VisitorPrettyPrinter
 from src.syntactic.abstractSyntax.index import *
 
 
@@ -52,7 +53,7 @@ def p_command(p):
         p[0] = ExpAssignmentIdSc(p[1])
     else:  # iterations
         p[0] = CommandInterations(p[1])
-        # how do make it?
+
 
 
 def p_if_statement(p):
@@ -333,7 +334,7 @@ def p_exp_decrement_increment(p):
     else:
         p[0] = ExpDecrementIncrementJustLastLayer(p[1])
 
-def p_exo_lastlayer(p):
+def p_exp_lastlayer(p):
     '''
         exp_lastlayer : LPAREN exp RPAREN
         | ID_SC
@@ -354,15 +355,22 @@ def p_exo_lastlayer(p):
         p[0] = ExpLastlayerCall(p[1])
     elif p[1] == tokens.LPAREN:
         p[0] = ExpLastlayerExp(p[1])
-    # todo: TRUE and FALSE...
+    elif p[1] == tokens.TRUE:
+        p[0] = ExpLastlayerTrue()
+    else:
+        p[0] = ExpLastlayerFalse()
 
 parser = yacc.yacc()
 
 while True:
     try:
-        s = input('perl > ')
+        more = open('test.txt','r' )
+        if more:
+            s = lexer.input(more)
     except EOFError:
         break
     if not s: continue
     result = parser.parse(s)
+    visitor = VisitorPrettyPrinter()
+    result.accept(visitor)
     print(result)

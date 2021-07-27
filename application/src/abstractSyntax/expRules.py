@@ -31,6 +31,7 @@ class ExpAssignmentIdScMode(Exp):
         self.id = id
         self.stm2 = exp_lor
 
+
 class ExpAssignmentIdScDivequal(Exp):
     def __init__(self, id, exp_lor):
         self.id = id
@@ -137,6 +138,7 @@ class ExpCompLt(ExpComp):
     def __init__(self, expComp, expCompPlus):
         self.stm = expComp
         self.stm2 = expCompPlus
+
 
 class ExpCompGe(ExpComp):
     def __init__(self, expComp, expCompPlus):
