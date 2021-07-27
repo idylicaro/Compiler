@@ -141,6 +141,8 @@ t_RSHIFTEQUAL = r'>>='
 t_ANDEQUAL = r'&='
 t_OREQUAL = r'\|='
 t_XOREQUAL = r'\^='
+t_INCREMENT = r'\++'
+t_DECREMENT = r'\--'
 
 # Delimeters
 t_LPAREN = r'\('

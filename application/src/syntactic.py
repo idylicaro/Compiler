@@ -116,7 +116,7 @@ def p_for_assignments(p):
     if p[2] == ',':
         p[0] = ForAssignmentsComma(p[1], p[3])
     else:
-        p[0] = ForAssignmentsComma(p[1])
+        p[0] = p[1]
 
 
 def p_function(p):
@@ -165,19 +165,19 @@ def p_exp(p):
         | ID_SC TIMESEQUAL exp_lor
         | exp_lor
     '''
-    if p[1] == tokens.ID_SC and p[2] == tokens.EQUALS:
+    if p[1][0] == '$' and p[2] == '=':
         p[0] = ExpAssignmentIdSc(p[1], p[3])
-    elif p[1] == tokens.ID_LI and p[2] == tokens.EQUALS:
+    elif p[1][0] == '@' and p[2] == '=':
         p[0] = ExpAssignmentIdLi(p[1], p[3])
-    elif p[2] == tokens.MINUSEQUAL:
+    elif p[2] == '-=':
         p[0] = ExpAssignmentIdScMinus(p[1], p[3])
-    elif p[2] == tokens.PLUSEQUAL:
+    elif p[2] == '+=':
         p[0] = ExpAssignmentIdScPlus(p[1], p[3])
-    elif p[2] == tokens.MODEQUAL:
+    elif p[2] == '%=':
         p[0] = ExpAssignmentIdScMode(p[1], p[3])
-    elif p[2] == tokens.DIVEQUAL:
+    elif p[2] == '/=':
         p[0] = ExpAssignmentIdScDivequal(p[1], p[3])
-    elif p[2] == tokens.TIMESEQUAL:
+    elif p[2] == '*=':
         p[0] = ExpAssignmentIdScTimes(p[1], p[3])
     else:
         p[0] = ExpAssignmentLor(p[1])
@@ -187,7 +187,7 @@ def p_exp_lor(p):
         exp_lor : exp_lor LOR exp_land
             | exp_land
     '''
-    if p[2] == tokens.LOR:
+    if p[2] == '||':
         p[0] = ExpLorStm(p[1], p[3])
     else:
         p[0] = ExpLorJustLand(p[1])
@@ -197,7 +197,7 @@ def p_exp_land(p):
         exp_land : exp_land LAND exp_or
             | exp_or
     '''
-    if p[2] == tokens.LAND:
+    if p[2] == '&&':
         p[0] = ExpLandStm(p[1], p[3])
     else:
         p[0] = ExpLandJustOr(p[1])
@@ -207,7 +207,7 @@ def p_exp_or(p):
         exp_or : exp_or OR exp_and
             | exp_and
     '''
-    if p[2] == tokens.OR:
+    if p[2] == '|':
         p[0] = ExpOrStm(p[1], p[3])
     else:
         p[0] = ExpOrJustAnd(p[1])
@@ -217,7 +217,7 @@ def p_exp_and(p):
         exp_and : exp_and AND exp_comp
             | exp_comp_eq
     '''
-    if p[2] == tokens.AND:
+    if p[2] == '&':
         p[0] = ExpAndStm(p[1], p[3])
     else:
         p[0] = ExpAndJustCompEq(p[1])
@@ -231,15 +231,15 @@ def p_exp_comp_eq(p):
             | exp_comp_eq CMP exp_comp
             | exp_comp
     '''
-    if p[2] == tokens.EQ:
+    if p[2] == '==':
         p[0] = ExpCompEqEQ(p[1], p[3])
-    elif p[2] == tokens.NE:
+    elif p[2] == '!=':
         p[0] = ExpCompEqNE(p[1], p[3])
-    elif p[2] == tokens.SEQ:
+    elif p[2] == 'eq':
         p[0] = ExpCompEqSEQ(p[1], p[3])
-    elif p[2] == tokens.SNE:
+    elif p[2] == 'ne':
         p[0] = ExpCompEqSNE(p[1], p[3])
-    elif p[2] == tokens.CMP:
+    elif p[2] == 'cmp':
         p[0] = ExpCompEqCMP(p[1], p[3])
     else:
         p[0] = ExpCompEqJust(p[1])
@@ -256,21 +256,21 @@ def p_exp_comp(p):
             | exp_comp SLE exp_plusminus
             | exp_plusminus
     '''
-    if p[2] == tokens.GT:
+    if p[2] == '>':
         p[0] = ExpCompGt(p[1], p[3])
-    elif p[2] == tokens.LT:
+    elif p[2] == '<':
         p[0] = ExpCompLt(p[1], p[3])
-    elif p[2] == tokens.GE:
+    elif p[2] == '>=':
         p[0] = ExpCompGe(p[1], p[3])
-    elif p[2] == tokens.LE:
+    elif p[2] == '<=':
         p[0] = ExpCompLe(p[1], p[3])
-    elif p[2] == tokens.SLT:
+    elif p[2] == 'lt':
         p[0] = ExpCompSlt(p[1], p[3])
-    elif p[2] == tokens.SGT:
+    elif p[2] == 'gt':
         p[0] = ExpCompSgt(p[1], p[3])
-    elif p[2] == tokens.SGE:
+    elif p[2] == 'ge':
         p[0] = ExpCompSge(p[1], p[3])
-    elif p[2] == tokens.SLE:
+    elif p[2] == 'le':
         p[0] = ExpCompSle(p[1], p[3])
     else:
         p[0] = ExpCompJustPlus(p[1])
@@ -281,9 +281,9 @@ def p_exp_plusminus(p):
             | exp_plusminus MINUS exp_times_divides
             | exp_times_divides
     '''
-    if p[2] == tokens.PLUS:
+    if p[2] == '+':
         p[0] = ExpPlusMinusPlus(p[1], p[3])
-    elif p[2] == tokens.MINUS:
+    elif p[2] == '-':
         p[0] = ExpPlusMinusMinus(p[1], p[3])
     else:
         p[0] = ExpPlusMinusJustTimes(p[1])
@@ -295,11 +295,11 @@ def p_exp_times_divides(p):
             | exp_times_divides MODULO exp_lnot
             | exp_lnot
     '''
-    if p[2] == tokens.TIMES:
+    if p[2] == '*':
         p[0] = ExpTimesDividesTimes(p[1], p[3])
-    elif p[2] == tokens.DIVIDE:
+    elif p[2] == '/':
         p[0] = ExpTimesDividesDivide(p[1], p[3])
-    elif p[2] == tokens.MODULO:
+    elif p[2] == '%':
         p[0] = ExpTimesDividesModulo(p[1], p[3])
     else:
         p[0] = ExpTimesDividesJustLnot(p[1])
@@ -309,8 +309,8 @@ def p_exp_lnot(p):
     exp_lnot : XOR exp_lnot
         | exp_decrement_increment
     '''
-    if p[1] == tokens.XOR:
-        p[0] =  ExpLnotXor(p[2])
+    if p[1] == '^':
+        p[0] = ExpLnotXor(p[2])
     else:
         p[0] = ExpLnotJustDecrementIncrement(p[1])
 
@@ -322,13 +322,13 @@ def p_exp_decrement_increment(p):
         | ID_SC DECREMENT
         | exp_lastlayer
     '''
-    if p[1] == tokens.INCREMENT:
+    if p[1] == '++':
         p[0] = ExpDecrementPreIncrement(p[2])
-    elif p[1] == tokens.DECREMENT:
+    elif p[1] == '--':
         p[0] = ExpDecrementPreDecrement(p[2])
-    elif p[2] == tokens.INCREMENT:
+    elif p[2] == '++':
         p[0] = ExpDecrementPosIncrement(p[1])
-    elif p[2] == tokens.DECREMENT:
+    elif p[2] == '--':
         p[0] = ExpDecrementPosDecrement(p[1])
     else:
         p[0] = ExpDecrementIncrementJustLastLayer(p[1])
@@ -344,20 +344,21 @@ def p_exp_lastlayer(p):
         | FALSE
     '''
 
-    if p[1] == tokens.ID_SC:
-        p[0] = ExpLastlayerIdSc(p[1])
-    elif p[1] == tokens.ID_LI:
-        p[0] = ExpLastlayerIdLi(p[1])
-    elif p[1] == tokens.NUMBER:
+    if isinstance(p[1], int):  # NUMBER
         p[0] = ExpLastlayerIdNumber(p[1])
-    elif isinstance(p[1], Call):
-        p[0] = ExpLastlayerCall(p[1])
-    elif p[1] == tokens.LPAREN:
-        p[0] = ExpLastlayerExp(p[1])
-    elif p[1] == tokens.TRUE:
-        p[0] = ExpLastlayerTrue()
     else:
-        p[0] = ExpLastlayerFalse()
+        if p[1][0] == '$':  # ID_SC
+            p[0] = ExpLastlayerIdSc(p[1])
+        elif p[1][0] == '@':  # ID_LI
+            p[0] = ExpLastlayerIdLi(p[1])
+        elif isinstance(p[1], Call):
+            p[0] = ExpLastlayerCall(p[1])
+        elif p[1] == '(':
+            p[0] = ExpLastlayerExp(p[1])
+        elif p[1] == 'true':
+            p[0] = ExpLastlayerTrue()
+        else:
+            p[0] = ExpLastlayerFalse()
 
 parser = yacc.yacc()
 
