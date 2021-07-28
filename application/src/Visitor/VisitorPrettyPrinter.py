@@ -53,3 +53,23 @@ class VisitorPrettyPrinter(AbstractVisitor):
         functionAssignmentsStmComma.stm.accept(self)
         print(',')
         functionAssignmentsStmComma.stm2.accept(self)
+
+    def visitCommandInterations(self, commandInterations):
+        commandInterations.stm.accept(self)
+
+    def visitCommandExp(self, commandExp):
+        commandExp.stm.accept(self)
+        print(';')
+
+    def visitCommandReturn(self, commandReturn):
+        print('return')
+        commandReturn.stm.accept(self)
+        print(';')
+
+    def visitCommandBreak(self, commandBreak):
+        commandBreak.stm.accept(self)
+        print(';')
+
+    def visitCommandContinue(self, commandContinue):
+        commandContinue.stm.accept(self)
+        print(';')

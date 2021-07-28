@@ -26,7 +26,6 @@ class AbstractVisitor(ABC):
     def visitBlockcodeBcdCommand(self, blockcodeBcdCommand):
         pass
 
-
     @abstractmethod
     def visitFunctionStmNoParams(self, functionStmNoParams):
         pass
@@ -42,3 +41,22 @@ class AbstractVisitor(ABC):
     @abstractmethod
     def visitFunctionAssignmentsStmComma(self, functionAssignmentsStmComma):
         pass
+
+    @abstractmethod
+    def visitCommandInterations(self, commandInterations):
+        pass
+
+    @abstractmethod
+    def visitCommandExp(self, commandExp):
+        pass
+    @abstractmethod
+    def visitCommandReturn(self, commandReturn):
+        pass
+    @abstractmethod
+    def visitCommandBreak(self, commandBreak):
+        pass
+    @abstractmethod
+    def visitCommandContinue(self, commandContinue):
+        pass
+
+
