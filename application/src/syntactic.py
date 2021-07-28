@@ -1,7 +1,7 @@
 import ply.yacc as yacc
 import ply.lex as lex
-from .Visitor.VisitorPrettyPrinter import VisitorPrettyPrinter
-from .abstractSyntax.index import *
+from Visitor.VisitorPrettyPrinter import VisitorPrettyPrinter
+from abstractSyntax.index import *
 
 
 def p_init(p):
@@ -52,7 +52,6 @@ def p_command(p):
         p[0] = p[1]
     else:  # iterations
         p[0] = CommandInterations(p[1])
-
 
 
 def p_if_statement(p):
@@ -182,6 +181,7 @@ def p_exp(p):
     else:
         p[0] = ExpAssignmentLor(p[1])
 
+
 def p_exp_lor(p):
     '''
         exp_lor : exp_lor LOR exp_land
@@ -191,6 +191,7 @@ def p_exp_lor(p):
         p[0] = ExpLorStm(p[1], p[3])
     else:
         p[0] = ExpLorJustLand(p[1])
+
 
 def p_exp_land(p):
     '''
@@ -202,6 +203,7 @@ def p_exp_land(p):
     else:
         p[0] = ExpLandJustOr(p[1])
 
+
 def p_exp_or(p):
     '''
         exp_or : exp_or OR exp_and
@@ -212,6 +214,7 @@ def p_exp_or(p):
     else:
         p[0] = ExpOrJustAnd(p[1])
 
+
 def p_exp_and(p):
     '''
         exp_and : exp_and AND exp_comp
@@ -221,6 +224,7 @@ def p_exp_and(p):
         p[0] = ExpAndStm(p[1], p[3])
     else:
         p[0] = ExpAndJustCompEq(p[1])
+
 
 def p_exp_comp_eq(p):
     '''
@@ -243,6 +247,7 @@ def p_exp_comp_eq(p):
         p[0] = ExpCompEqCMP(p[1], p[3])
     else:
         p[0] = ExpCompEqJust(p[1])
+
 
 def p_exp_comp(p):
     '''
@@ -275,6 +280,7 @@ def p_exp_comp(p):
     else:
         p[0] = ExpCompJustPlus(p[1])
 
+
 def p_exp_plusminus(p):
     '''
         exp_plusminus : exp_plusminus PLUS exp_times_divides
@@ -287,6 +293,7 @@ def p_exp_plusminus(p):
         p[0] = ExpPlusMinusMinus(p[1], p[3])
     else:
         p[0] = ExpPlusMinusJustTimes(p[1])
+
 
 def p_exp_times_divides(p):
     '''
@@ -304,6 +311,7 @@ def p_exp_times_divides(p):
     else:
         p[0] = ExpTimesDividesJustLnot(p[1])
 
+
 def p_exp_lnot(p):
     '''
     exp_lnot : XOR exp_lnot
@@ -313,6 +321,7 @@ def p_exp_lnot(p):
         p[0] = ExpLnotXor(p[2])
     else:
         p[0] = ExpLnotJustDecrementIncrement(p[1])
+
 
 def p_exp_decrement_increment(p):
     '''
@@ -332,6 +341,7 @@ def p_exp_decrement_increment(p):
         p[0] = ExpDecrementPosDecrement(p[1])
     else:
         p[0] = ExpDecrementIncrementJustLastLayer(p[1])
+
 
 def p_exp_lastlayer(p):
     '''
@@ -360,13 +370,16 @@ def p_exp_lastlayer(p):
         else:
             p[0] = ExpLastlayerFalse()
 
+
 parser = yacc.yacc()
 
 while True:
     try:
-        more = open('test.txt','r' )
-        if more:
-            s = lexer.input(more)
+        text = open('src/test.txt')
+        lines = text.readlines()
+        s = ''
+        for l in lines:
+            s += l
     except EOFError:
         break
     if not s: continue
