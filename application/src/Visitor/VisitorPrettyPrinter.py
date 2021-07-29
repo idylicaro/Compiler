@@ -5,7 +5,7 @@ class VisitorPrettyPrinter(AbstractVisitor):
 
     def visitInitCommandInit(self, initCommandInit):
         initCommandInit.stm.accept(self)
-        print(';') # acho que não pode printar aqui, tem que printar dentro do proprio command
+        print(';')  # acho que não pode printar aqui, tem que printar dentro do proprio command
         initCommandInit.stm2.accept(self)
 
     def visitInitCommand(self, initCommand):
@@ -26,7 +26,7 @@ class VisitorPrettyPrinter(AbstractVisitor):
         blockcodeBcdCommand.stm2.accept(self)
 
     def visitFunctionStmNoParams(self, functionStmNoParams):
-        #todo: o id ele chama o accept ou da um print apenas ?
+        # todo: o id ele chama o accept ou da um print apenas ?
         print('sub')
         # functionStmNoParams.id.accept(self)
         print(functionStmNoParams.id)
@@ -73,3 +73,58 @@ class VisitorPrettyPrinter(AbstractVisitor):
     def visitCommandContinue(self, commandContinue):
         commandContinue.stm.accept(self)
         print(';')
+
+    def visitIfStm(self, ifStm):
+        print('if')
+        print('(')
+        ifStm.stm.accept(self)
+        print(')')
+        ifStm.stm2.accept(self)
+
+    def visitIfStatementBlockcode(self, ifStatementBlockcode):
+        print('{')
+        ifStatementBlockcode.stm.accept(self)
+        print('}')
+
+    def visitIfStatementBlockcodeElse(self, ifStatementBlockcodeElse):
+        print('{')
+        ifStatementBlockcodeElse.stm.accept(self)
+        print('}')
+        print('else')
+        print('{')
+        ifStatementBlockcodeElse.stm2.accept(self)
+        print('}')
+
+    def visitIfStatementBlockcodeElsif(self, ifStatementBlockcodeElsif):
+        print('{')
+        ifStatementBlockcodeElsif.stm.accept(self)
+        print('}')
+        ifStatementBlockcodeElsif.stm2.accept(self)
+
+    def visitElsifStm(self, elsifStm):
+        print('elsif')
+        print('(')
+        elsifStm.stm.accept(self)
+        print(')')
+        print('{')
+        elsifStm.stm2.accept(self)
+        print('}')
+
+    def visitElsifStmElsif2(self, elsifStmElsif2):
+        print('elsif')
+        print('(')
+        elsifStmElsif2.stm.accept(self)
+        print(')')
+        print('{')
+        elsifStmElsif2.stm2.accept(self)
+        print('}')
+        elsifStmElsif2.stm3.accept(self)
+
+    def visitElsif2Elsif(self, elsif2Elsif):
+        elsif2Elsif.stm.accept(self)
+
+    def visitElsif2Else(self, elsif2Else):
+        print('else')
+        print('{')
+        elsif2Else.stm.accept(self)
+        print('}')

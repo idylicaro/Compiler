@@ -6,10 +6,16 @@ class IfStm(If):
         self.stm = exp
         self.stm2 = ifStm
 
+    def accept(self, visitor):
+        visitor.visitIfStm(self)
+
 
 class IfStatementBlockcode(IfStatement):
     def __init__(self, blockcode):
         self.stm = blockcode
+
+    def accept(self, visitor):
+        visitor.visitIfStatementBlockcode(self)
 
 
 class IfStatementBlockcodeElse(IfStatement):
@@ -17,17 +23,26 @@ class IfStatementBlockcodeElse(IfStatement):
         self.stm = blockcode
         self.stm2 = blockcode2
 
+    def accept(self, visitor):
+        visitor.visitIfStatementBlockcodeElse(self)
+
 
 class IfStatementBlockcodeElsif(IfStatement):
     def __init__(self, blockcode, elsif):
         self.stm = blockcode
         self.stm2 = elsif
 
+    def accept(self, visitor):
+        visitor.visitIfStatementBlockcodeElsif(self)
+
 
 class ElsifStm(Elsif):
     def __init__(self, exp, blockcode):
         self.stm = exp
         self.stm2 = blockcode
+
+    def accept(self, visitor):
+        visitor.visitElsifStm(self)
 
 
 class ElsifStmElsif2(Elsif):
@@ -36,12 +51,21 @@ class ElsifStmElsif2(Elsif):
         self.stm2 = blockcode
         self.stm3 = elsif
 
+    def accept(self, visitor):
+        visitor.visitElsifStmElsif2(self)
+
 
 class Elsif2Elsif(Elsif2):
     def __init__(self, elsif):
         self.stm = elsif
 
+    def accept(self, visitor):
+        visitor.visitElsif2Elsif(self)
+
 
 class Elsif2Else(Elsif2):
     def __init__(self, blockcode):
         self.stm = blockcode
+
+    def accept(self, visitor):
+        visitor.visitElsif2Else(self)

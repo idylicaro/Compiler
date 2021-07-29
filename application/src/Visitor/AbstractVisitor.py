@@ -59,4 +59,34 @@ class AbstractVisitor(ABC):
     def visitCommandContinue(self, commandContinue):
         pass
 
+    @abstractmethod
+    def visitIfStm(self, ifStm):
+        pass
 
+    @abstractmethod
+    def visitIfStatementBlockcode(self, ifStatementBlockcode):
+        pass
+
+    @abstractmethod
+    def visitIfStatementBlockcodeElse(self, ifStatementBlockcodeElse):
+        pass
+
+    @abstractmethod
+    def visitIfStatementBlockcodeElsif(self, ifStatementBlockcodeElsif):
+        pass
+
+    @abstractmethod
+    def visitElsifStm(self, elsifStm):
+        pass
+
+    @abstractmethod
+    def visitElsifStmElsif2(self, elsifStmElsif2):
+        pass
+
+    @abstractmethod
+    def visitElsif2Elsif(self, elsif2Elsif):
+        pass
+
+    @abstractmethod
+    def visitElsif2Else(self, elsif2Else):
+        pass
