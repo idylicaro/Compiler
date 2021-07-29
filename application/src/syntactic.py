@@ -1,5 +1,5 @@
 import ply.yacc as yacc
-import ply.lex as lex
+from lexico import *
 from Visitor.VisitorPrettyPrinter import VisitorPrettyPrinter
 from abstractSyntax.index import *
 

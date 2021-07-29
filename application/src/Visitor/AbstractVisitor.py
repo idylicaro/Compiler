@@ -90,3 +90,27 @@ class AbstractVisitor(ABC):
     @abstractmethod
     def visitElsif2Else(self, elsif2Else):
         pass
+
+    @abstractmethod
+    def visitInterationsFor(self, interationsFor):
+        pass
+
+    @abstractmethod
+    def visitInterationsDoWhile(self, interationsDoWhile):
+        pass
+
+    @abstractmethod
+    def visitInterationsWhile(self, interationsDoWhile):
+        pass
+
+    @abstractmethod
+    def visitInterationsWhileBlank(self, interationsDoWhile):
+        pass
+
+    @abstractmethod
+    def visitForAssignmentsExp(self, forAssignmentsExp):
+        pass
+
+    @abstractmethod
+    def visitForAssignmentsComma(self, forAssignmentsComma):
+        pass

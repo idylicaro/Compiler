@@ -201,22 +201,22 @@ def t_error(t):
 # Build the lexer
 lexer = lex.lex()
 
-# Test it out
-data = '''
-$_a
-@_b
-ab
-if(){}
-'''
+# # Test it out
+# data = '''
+# $_a
+# @_b
+# ab
+# if(){}
+# '''
+#
+# # Give the lexer some input
+# lexer.input(data)
 
-# Give the lexer some input
-lexer.input(data)
-
-while True:
-    tok = lexer.token()
-    if not tok:
-        break
-    print(tok.type, tok.value, tok.lineno, tok.lexpos)
+# while True:
+#     tok = lexer.token()
+#     if not tok:
+#         break
+#     print(tok.type, tok.value, tok.lineno, tok.lexpos)
 
 # for tok in lexer:
 #     print(tok.type, tok.value, tok.lineno, tok.lexpos)

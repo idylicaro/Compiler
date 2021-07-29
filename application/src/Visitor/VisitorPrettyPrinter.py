@@ -5,7 +5,6 @@ class VisitorPrettyPrinter(AbstractVisitor):
 
     def visitInitCommandInit(self, initCommandInit):
         initCommandInit.stm.accept(self)
-        print(';')  # acho que não pode printar aqui, tem que printar dentro do proprio command
         initCommandInit.stm2.accept(self)
 
     def visitInitCommand(self, initCommand):
@@ -26,9 +25,7 @@ class VisitorPrettyPrinter(AbstractVisitor):
         blockcodeBcdCommand.stm2.accept(self)
 
     def visitFunctionStmNoParams(self, functionStmNoParams):
-        # todo: o id ele chama o accept ou da um print apenas ?
         print('sub')
-        # functionStmNoParams.id.accept(self)
         print(functionStmNoParams.id)
         print('()')
         print('{')
@@ -37,7 +34,6 @@ class VisitorPrettyPrinter(AbstractVisitor):
 
     def visitFunctionStm(self, functionStm):
         print('sub')
-        # functionStm.id.accept(self)
         print(functionStm.id)
         print('(')
         functionStm.stm.accept(self)
@@ -128,3 +124,51 @@ class VisitorPrettyPrinter(AbstractVisitor):
         print('{')
         elsif2Else.stm.accept(self)
         print('}')
+
+    def visitInterationsFor(self, interationsFor):
+        print('for')
+        print('(')
+        interationsFor.stm.accept(self)
+        print(';')
+        interationsFor.stm2.accept(self)
+        print(';')
+        interationsFor.stm3.accept(self)
+        print(')')
+        print('{')
+        interationsFor.stm4.accept(self)
+        print('}')
+
+    def visitInterationsDoWhile(self, interationsDoWhile):
+        print('do')
+        print('{')
+        interationsDoWhile.stm.accept(self)
+        print('}')
+        print('while')
+        print('(')
+        interationsDoWhile.stm2.accept(self)
+        print(')')
+
+    def visitInterationsWhile(self, interationsWhile):
+        print('while')
+        print('(')
+        interationsWhile.stm.accept(self)
+        print(')')
+        print('{')
+        interationsWhile.stm2.accept(self)
+        print('}')
+
+    def visitInterationsWhileBlank(self, interationsWhileBlank):
+        print('while')
+        print('(')
+        interationsWhileBlank.stm.accept(self)
+        print(')')
+        print('{')
+        print('}')
+
+    def visitForAssignmentsExp(self, forAssignmentsExp):
+        forAssignmentsExp.stm.accept(self)
+
+    def visitForAssignmentsComma(self, forAssignmentsComma):
+        forAssignmentsComma.stm.accept(self)
+        print(',')
+        forAssignmentsComma.stm2.accept(self)
