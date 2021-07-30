@@ -185,3 +185,196 @@ class VisitorPrettyPrinter(AbstractVisitor):
 
     def visitReturnStm(self, returnStm):
         returnStm.stm.accept(self)
+
+
+    def visitExpAssignmentIdSc(self, expAssignmentIdSc):
+        print(expAssignmentIdSc.id)
+        print('=')
+        expAssignmentIdSc.stm.accept(self)
+
+    def visitExpAssignmentIdLi(self, expAssignmentIdLi):
+        print(expAssignmentIdLi.id)
+        print('=')
+        expAssignmentIdLi.stm.accept(self)
+
+    def visitExpAssignmentIdScMinus(self, expAssignmentIdScMinus):
+        print(expAssignmentIdScMinus.id)
+        print('-=')
+        expAssignmentIdScMinus.stm.accept(self)
+
+    def visitExpAssignmentIdScPlus(self, expAssignmentIdScPlus):
+        print(expAssignmentIdScPlus.id)
+        print('+=')
+        expAssignmentIdScPlus.stm.accept(self)
+
+    def visitExpAssignmentIdScMode(self, expAssignmentIdScMode):
+        print(expAssignmentIdScMode.id)
+        print('%=')
+        expAssignmentIdScMode.stm.accept(self)
+
+    def visitExpAssignmentIdScDivequal(self, expAssignmentIdScDivequal):
+        print(expAssignmentIdScDivequal.id)
+        print('/=')
+        expAssignmentIdScDivequal.stm.accept(self)
+
+    def visitExpAssignmentIdScTimes(self, expAssignmentIdScTimes):
+        print(expAssignmentIdScTimes.id)
+        print('*=')
+        expAssignmentIdScTimes.stm.accept(self)
+
+    def visitExpAssignmentLor(self, expAssignmentLor):
+        expAssignmentLor.stm.accept(self)
+
+    # todo: add prints...
+    def visitExpLorStm(self, expLorStm):
+        expLorStm.stm.accept(self)
+        expLorStm.stm2.accept(self)
+
+    def visitExpLorJustLand(self, expLorJustLand):
+        expLorJustLand.stm.accept(self)
+
+    def visitExpLandStm(self, expLandStm):
+        expLandStm.stm.accept(self)
+        expLandStm.stm2.accept(self)
+
+    def visitExpLandJustOr(self, expLandJustOr):
+        expLandJustOr.stm.accept(self)
+
+    def visitExpOrStm(self, expOrStm):
+        expOrStm.stm.accept(self)
+        expOrStm.stm2.accept(self)
+
+    def visitExpOrJustAnd(self, expOrJustAnd):
+        expOrJustAnd.stm.accept(self)
+
+    def visitExpAndStm(self, expAndStm):
+        expAndStm.stm.accept(self)
+        expAndStm.stm2.accept(self)
+
+    def visitExpAndJustCompEq(self, expAndJustCompEq):
+        expAndJustCompEq.stm.accept(self)
+
+    def visitExpCompEqEQ(self, expCompEqEQ):
+        expCompEqEQ.stm.accept(self)
+        expCompEqEQ.stm2.accept(self)
+
+    def visitExpCompEqNE(self, expCompEqNE):
+        expCompEqNE.stm.accept(self)
+        expCompEqNE.stm2.accept(self)
+
+    def visitExpCompEqSEQ(self, expCompEqSEQ):
+        expCompEqSEQ.stm.accept(self)
+        expCompEqSEQ.stm2.accept(self)
+
+    def visitExpCompEqSNE(self, expCompEqSNE):
+        expCompEqSNE.stm.accept(self)
+        expCompEqSNE.stm2.accept(self)
+
+    def visitExpCompEqCMP(self, expCompEqCMP):
+        expCompEqCMP.stm.accept(self)
+
+    def visitExpCompEqJust(self, expCompEqJust):
+        expCompEqJust.stm.accept(self)
+
+    def visitExpCompGt(self, expCompGt):
+        expCompGt.stm.accept(self)
+        expCompGt.stm2.accept(self)
+
+    def visitExpCompLt(self, expCompLt):
+        expCompLt.stm.accept(self)
+        expCompLt.stm2.accept(self)
+
+    def visitExpCompGe(self, expCompGe):
+        expCompGe.stm.accept(self)
+        expCompGe.stm2.accept(self)
+
+    def visitExpCompLe(self, expCompLe):
+        expCompLe.stm.accept(self)
+        expCompLe.stm2.accept(self)
+
+    def visitExpCompSlt(self, expCompSlt):
+        expCompSlt.stm.accept(self)
+        expCompSlt.stm2.accept(self)
+
+    def visitExpCompSgt(self, expCompSgt):
+        expCompSgt.stm.accept(self)
+        expCompSgt.stm2.accept(self)
+
+    def visitExpCompSge(self, expCompSge):
+        expCompSge.stm.accept(self)
+        expCompSge.stm2.accept(self)
+
+    def visitExpCompSle(self, expCompSle):
+        expCompSle.stm.accept(self)
+        expCompSle.stm2.accept(self)
+
+    def visitExpCompJustPlus(self, expCompJustPlus):
+        expCompJustPlus.stm.accept(self)
+
+    def visitExpPlusMinusPlus(self, expPlusMinusPlus):
+        expPlusMinusPlus.stm.accept(self)
+        expPlusMinusPlus.stm2.accept(self)
+
+    def visitExpPlusMinusMinus(self, expPlusMinusMinus):
+        expPlusMinusMinus.stm.accept(self)
+        expPlusMinusMinus.stm2.accept(self)
+
+    def visitExpPlusMinusJustTimes(self, expPlusMinusJustTimes):
+        expPlusMinusJustTimes.stm.accept(self)
+
+    def visitExpTimesDividesTimes(self, expTimesDividesTimes):
+        expTimesDividesTimes.stm.accept(self)
+        expTimesDividesTimes.stm2.accept(self)
+
+    def visitExpTimesDividesDivide(self, expTimesDividesDivide):
+        expTimesDividesDivide.stm.accept(self)
+        expTimesDividesDivide.stm2.accept(self)
+
+    def visitExpTimesDividesModulo(self, expTimesDividesModulo):
+        expTimesDividesModulo.stm.accept(self)
+        expTimesDividesModulo.stm2.accept(self)
+
+    def visitExpTimesDividesJustLnot(self, expTimesDividesJustLnot):
+        expTimesDividesJustLnot.stm.accept(self)
+
+    def visitExpLnotXor(self, expLnotXor):
+        expLnotXor.stm.accept(self)
+
+    def visitExpLnotJustDecrementIncrement(self, expLnotJustDecrementIncrement):
+        expLnotJustDecrementIncrement.stm.accept(self)
+
+    def visitExpDecrementPreIncrement(self, expDecrementPreIncrement):
+        expDecrementPreIncrement.stm.accept(self)
+
+    def visitExpDecrementPosIncrement(self, expDecrementPosIncrement):
+        expDecrementPosIncrement.stm.accept(self)
+
+    def visitExpDecrementPreDecrement(self, expDecrementPreDecrement):
+        expDecrementPreDecrement.stm.accept(self)
+
+    def visitExpDecrementPosDecrement(self, expDecrementPosDecrement):
+        expDecrementPosDecrement.stm.accept(self)
+
+    def visitExpDecrementIncrementJustLastLayer(self, expDecrementIncrementJustLastLayer):
+        expDecrementIncrementJustLastLayer.stm.accept(self)
+
+    def visitExpLastlayerExp(self, expLastlayerExp):
+        expLastlayerExp.stm.accept(self)
+
+    def visitExpLastlayerIdSc(self, expLastlayerIdSc):
+        expLastlayerIdSc.stm.accept(self)
+
+    def visitExpLastlayerIdLi(self, expLastlayerIdLi):
+        expLastlayerIdLi.stm.accept(self)
+
+    def visitExpLastlayerIdNumber(self, expLastlayerIdNumber):
+        expLastlayerIdNumber.stm.accept(self)
+
+    def visitExpLastlayerCall(self, expLastlayerCall):
+        expLastlayerCall.stm.accept(self)
+
+    def visitExpLastlayerTrue(self, expLastlayerTrue):
+        expLastlayerTrue.stm.accept(self)
+
+    def visitExpLastlayerFalse(self, expLastlayerFalse):
+        expLastlayerFalse.stm.accept(self)
