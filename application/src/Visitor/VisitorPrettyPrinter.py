@@ -172,3 +172,16 @@ class VisitorPrettyPrinter(AbstractVisitor):
         forAssignmentsComma.stm.accept(self)
         print(',')
         forAssignmentsComma.stm2.accept(self)
+
+    def visitCallStm(self, callStm):
+        print(callStm.id)
+        print('(')
+        callStm.stm.accept(self)
+        print(')')
+
+    def visitCallStmBlank(self, callStmBlank):
+        print(callStmBlank.id)
+        print('()')
+
+    def visitReturnStm(self, returnStm):
+        returnStm.stm.accept(self)

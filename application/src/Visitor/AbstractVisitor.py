@@ -114,3 +114,15 @@ class AbstractVisitor(ABC):
     @abstractmethod
     def visitForAssignmentsComma(self, forAssignmentsComma):
         pass
+
+    @abstractmethod
+    def visitCallStm(self, callStm):
+        pass
+
+    @abstractmethod
+    def visitCallStmBlank(self, callStmBlank):
+        pass
+
+    @abstractmethod
+    def visitReturnStm(self, returnStm):
+        pass
