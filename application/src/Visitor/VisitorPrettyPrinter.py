@@ -368,37 +368,39 @@ class VisitorPrettyPrinter(AbstractVisitor):
         expLnotJustDecrementIncrement.stm.accept(self)
 
     def visitExpDecrementPreIncrement(self, expDecrementPreIncrement):
-        expDecrementPreIncrement.stm.accept(self)
+        print('++', expDecrementPreIncrement.id)
 
     def visitExpDecrementPosIncrement(self, expDecrementPosIncrement):
-        expDecrementPosIncrement.stm.accept(self)
+        print(expDecrementPosIncrement.id, '++')
 
     def visitExpDecrementPreDecrement(self, expDecrementPreDecrement):
-        expDecrementPreDecrement.stm.accept(self)
+        print('--', expDecrementPreDecrement.id)
 
     def visitExpDecrementPosDecrement(self, expDecrementPosDecrement):
-        expDecrementPosDecrement.stm.accept(self)
+        print(expDecrementPosDecrement.id, '--')
 
     def visitExpDecrementIncrementJustLastLayer(self, expDecrementIncrementJustLastLayer):
         expDecrementIncrementJustLastLayer.stm.accept(self)
 
     def visitExpLastlayerExp(self, expLastlayerExp):
+        print('(')
         expLastlayerExp.stm.accept(self)
+        print(')')
 
     def visitExpLastlayerIdSc(self, expLastlayerIdSc):
-        expLastlayerIdSc.stm.accept(self)
+        print(expLastlayerIdSc.id)
 
     def visitExpLastlayerIdLi(self, expLastlayerIdLi):
-        expLastlayerIdLi.stm.accept(self)
+        print(expLastlayerIdLi.id)
 
     def visitExpLastlayerIdNumber(self, expLastlayerIdNumber):
-        expLastlayerIdNumber.stm.accept(self)
+        print(expLastlayerIdNumber.num)
 
     def visitExpLastlayerCall(self, expLastlayerCall):
         expLastlayerCall.stm.accept(self)
 
     def visitExpLastlayerTrue(self, expLastlayerTrue):
-        expLastlayerTrue.stm.accept(self)
+        print('true')
 
     def visitExpLastlayerFalse(self, expLastlayerFalse):
-        expLastlayerFalse.stm.accept(self)
+        print('false')

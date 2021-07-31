@@ -378,7 +378,7 @@ class ExpLastlayerIdNumber(ExpLastLayer):
 
 class ExpLastlayerCall(ExpLastLayer):
     def __init__(self, call):
-        self.call = call
+        self.stm = call
 
     def accept(self, visitor):
         visitor.visitExpLastlayerCall(self)
