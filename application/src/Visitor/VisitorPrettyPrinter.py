@@ -225,9 +225,9 @@ class VisitorPrettyPrinter(AbstractVisitor):
     def visitExpAssignmentLor(self, expAssignmentLor):
         expAssignmentLor.stm.accept(self)
 
-    # todo: add prints...
     def visitExpLorStm(self, expLorStm):
         expLorStm.stm.accept(self)
+        print('')
         expLorStm.stm2.accept(self)
 
     def visitExpLorJustLand(self, expLorJustLand):
@@ -235,6 +235,7 @@ class VisitorPrettyPrinter(AbstractVisitor):
 
     def visitExpLandStm(self, expLandStm):
         expLandStm.stm.accept(self)
+        print('&&')
         expLandStm.stm2.accept(self)
 
     def visitExpLandJustOr(self, expLandJustOr):
@@ -242,6 +243,7 @@ class VisitorPrettyPrinter(AbstractVisitor):
 
     def visitExpOrStm(self, expOrStm):
         expOrStm.stm.accept(self)
+        print('||')
         expOrStm.stm2.accept(self)
 
     def visitExpOrJustAnd(self, expOrJustAnd):
@@ -249,6 +251,7 @@ class VisitorPrettyPrinter(AbstractVisitor):
 
     def visitExpAndStm(self, expAndStm):
         expAndStm.stm.accept(self)
+        print('&')
         expAndStm.stm2.accept(self)
 
     def visitExpAndJustCompEq(self, expAndJustCompEq):
@@ -256,56 +259,70 @@ class VisitorPrettyPrinter(AbstractVisitor):
 
     def visitExpCompEqEQ(self, expCompEqEQ):
         expCompEqEQ.stm.accept(self)
+        print('==')
         expCompEqEQ.stm2.accept(self)
 
     def visitExpCompEqNE(self, expCompEqNE):
         expCompEqNE.stm.accept(self)
+        print('!-')
         expCompEqNE.stm2.accept(self)
 
     def visitExpCompEqSEQ(self, expCompEqSEQ):
         expCompEqSEQ.stm.accept(self)
+        print('eq')
         expCompEqSEQ.stm2.accept(self)
 
     def visitExpCompEqSNE(self, expCompEqSNE):
         expCompEqSNE.stm.accept(self)
+        print('ne')
         expCompEqSNE.stm2.accept(self)
 
     def visitExpCompEqCMP(self, expCompEqCMP):
         expCompEqCMP.stm.accept(self)
+        print('cmp')
+        expCompEqCMP.stm2.accept(self)
 
     def visitExpCompEqJust(self, expCompEqJust):
         expCompEqJust.stm.accept(self)
 
     def visitExpCompGt(self, expCompGt):
         expCompGt.stm.accept(self)
+        print('>')
         expCompGt.stm2.accept(self)
 
     def visitExpCompLt(self, expCompLt):
         expCompLt.stm.accept(self)
+        print('<')
         expCompLt.stm2.accept(self)
 
     def visitExpCompGe(self, expCompGe):
         expCompGe.stm.accept(self)
+        print('>=')
         expCompGe.stm2.accept(self)
 
     def visitExpCompLe(self, expCompLe):
         expCompLe.stm.accept(self)
+        print('<=')
         expCompLe.stm2.accept(self)
 
     def visitExpCompSlt(self, expCompSlt):
         expCompSlt.stm.accept(self)
+        print('lt')
         expCompSlt.stm2.accept(self)
 
     def visitExpCompSgt(self, expCompSgt):
         expCompSgt.stm.accept(self)
+        print('gt')
         expCompSgt.stm2.accept(self)
 
     def visitExpCompSge(self, expCompSge):
         expCompSge.stm.accept(self)
+        print('ge')
         expCompSge.stm2.accept(self)
 
     def visitExpCompSle(self, expCompSle):
         expCompSle.stm.accept(self)
+        print('le')
         expCompSle.stm2.accept(self)
 
     def visitExpCompJustPlus(self, expCompJustPlus):
@@ -313,10 +330,12 @@ class VisitorPrettyPrinter(AbstractVisitor):
 
     def visitExpPlusMinusPlus(self, expPlusMinusPlus):
         expPlusMinusPlus.stm.accept(self)
+        print('+')
         expPlusMinusPlus.stm2.accept(self)
 
     def visitExpPlusMinusMinus(self, expPlusMinusMinus):
         expPlusMinusMinus.stm.accept(self)
+        print('-')
         expPlusMinusMinus.stm2.accept(self)
 
     def visitExpPlusMinusJustTimes(self, expPlusMinusJustTimes):
@@ -324,22 +343,27 @@ class VisitorPrettyPrinter(AbstractVisitor):
 
     def visitExpTimesDividesTimes(self, expTimesDividesTimes):
         expTimesDividesTimes.stm.accept(self)
+        print('*')
         expTimesDividesTimes.stm2.accept(self)
 
     def visitExpTimesDividesDivide(self, expTimesDividesDivide):
         expTimesDividesDivide.stm.accept(self)
+        print('/')
         expTimesDividesDivide.stm2.accept(self)
 
     def visitExpTimesDividesModulo(self, expTimesDividesModulo):
         expTimesDividesModulo.stm.accept(self)
+        print('%')
         expTimesDividesModulo.stm2.accept(self)
 
     def visitExpTimesDividesJustLnot(self, expTimesDividesJustLnot):
         expTimesDividesJustLnot.stm.accept(self)
 
     def visitExpLnotXor(self, expLnotXor):
+        print('^')
         expLnotXor.stm.accept(self)
 
+    # todo: add prints...
     def visitExpLnotJustDecrementIncrement(self, expLnotJustDecrementIncrement):
         expLnotJustDecrementIncrement.stm.accept(self)
 
