@@ -97,6 +97,7 @@ def p_interations(p):
        | WHILE LPAREN exp RPAREN LBRACE blockcode RBRACE
        | WHILE LPAREN exp RPAREN LBRACE RBRACE
     '''
+
     if p[1] == 'for':
         p[0] = InterationsFor(p[3], p[5], p[7], p[10])
     elif p[1] == 'do':
@@ -112,7 +113,8 @@ def p_for_assignments(p):
     ''' for_assignments : exp
         | exp COMMA for_assignments
     '''
-    if p[2] == ',':
+    if len(p) > 2:
+        # if p[2] == ',':
         p[0] = ForAssignmentsComma(p[1], p[3])
     else:
         p[0] = p[1]
@@ -122,7 +124,8 @@ def p_function(p):
     ''' function : SUB ID LPAREN RPAREN LBRACE blockcode RBRACE
         | SUB ID LPAREN function_assignments RPAREN LBRACE blockcode RBRACE
     '''
-    if p[4] == ')':
+    if len(p) > 8:
+        # if p[4] == ')':
         p[0] = FunctionStmNoParams(p[2], p[6])
     else:
         p[0] = FunctionStm(p[2], p[4], p[7])
@@ -132,7 +135,8 @@ def p_function_assignments(p):
     ''' function_assignments : exp
         | exp COMMA function_assignments
     '''
-    if p[2] == ',':
+    if len(p) > 2:
+        # if p[2] == ',':
         p[0] = FunctionAssignmentsStmComma(p[1], p[3])
     else:
         p[0] = FunctionAssignmentsStm(p[1])
@@ -143,7 +147,8 @@ def p_call(p):
         call : ID LPAREN RPAREN
             | ID LPAREN function_assignments RPAREN
     '''
-    if p[3] == ')':
+    if len(p) > 4:
+        # if p[3] == ')':
         p[0] = CallStm(p[1], p[3])
     else:
         p[0] = CallStmBlank(p[1])
@@ -164,20 +169,21 @@ def p_exp(p):
         | ID_SC TIMESEQUAL exp_lor
         | exp_lor
     '''
-    if p[1][0] == '$' and p[2] == '=':
-        p[0] = ExpAssignmentIdSc(p[1], p[3])
-    elif p[1][0] == '@' and p[2] == '=':
-        p[0] = ExpAssignmentIdLi(p[1], p[3])
-    elif p[2] == '-=':
-        p[0] = ExpAssignmentIdScMinus(p[1], p[3])
-    elif p[2] == '+=':
-        p[0] = ExpAssignmentIdScPlus(p[1], p[3])
-    elif p[2] == '%=':
-        p[0] = ExpAssignmentIdScMode(p[1], p[3])
-    elif p[2] == '/=':
-        p[0] = ExpAssignmentIdScDivequal(p[1], p[3])
-    elif p[2] == '*=':
-        p[0] = ExpAssignmentIdScTimes(p[1], p[3])
+    if len(p) > 2:
+        if p[1][0] == '$' and p[2] == '=':
+            p[0] = ExpAssignmentIdSc(p[1], p[3])
+        elif p[1][0] == '@' and p[2] == '=':
+            p[0] = ExpAssignmentIdLi(p[1], p[3])
+        elif p[2] == '-=':
+            p[0] = ExpAssignmentIdScMinus(p[1], p[3])
+        elif p[2] == '+=':
+            p[0] = ExpAssignmentIdScPlus(p[1], p[3])
+        elif p[2] == '%=':
+            p[0] = ExpAssignmentIdScMode(p[1], p[3])
+        elif p[2] == '/=':
+            p[0] = ExpAssignmentIdScDivequal(p[1], p[3])
+        elif p[2] == '*=':
+            p[0] = ExpAssignmentIdScTimes(p[1], p[3])
     else:
         p[0] = ExpAssignmentLor(p[1])
 
@@ -187,7 +193,8 @@ def p_exp_lor(p):
         exp_lor : exp_lor LOR exp_land
             | exp_land
     '''
-    if p[2] == '||':
+    if len(p) > 2:
+        # if p[2] == '||':
         p[0] = ExpLorStm(p[1], p[3])
     else:
         p[0] = ExpLorJustLand(p[1])
@@ -198,7 +205,8 @@ def p_exp_land(p):
         exp_land : exp_land LAND exp_or
             | exp_or
     '''
-    if p[2] == '&&':
+    if len(p) > 2:
+        # if p[2] == '&&':
         p[0] = ExpLandStm(p[1], p[3])
     else:
         p[0] = ExpLandJustOr(p[1])
@@ -209,7 +217,8 @@ def p_exp_or(p):
         exp_or : exp_or OR exp_and
             | exp_and
     '''
-    if p[2] == '|':
+    if len(p) > 2:
+        # if p[2] == '|':
         p[0] = ExpOrStm(p[1], p[3])
     else:
         p[0] = ExpOrJustAnd(p[1])
@@ -220,7 +229,8 @@ def p_exp_and(p):
         exp_and : exp_and AND exp_comp
             | exp_comp_eq
     '''
-    if p[2] == '&':
+    if len(p) > 2:
+        # if p[2] == '&':
         p[0] = ExpAndStm(p[1], p[3])
     else:
         p[0] = ExpAndJustCompEq(p[1])
@@ -235,16 +245,17 @@ def p_exp_comp_eq(p):
             | exp_comp_eq CMP exp_comp
             | exp_comp
     '''
-    if p[2] == '==':
-        p[0] = ExpCompEqEQ(p[1], p[3])
-    elif p[2] == '!=':
-        p[0] = ExpCompEqNE(p[1], p[3])
-    elif p[2] == 'eq':
-        p[0] = ExpCompEqSEQ(p[1], p[3])
-    elif p[2] == 'ne':
-        p[0] = ExpCompEqSNE(p[1], p[3])
-    elif p[2] == 'cmp':
-        p[0] = ExpCompEqCMP(p[1], p[3])
+    if len(p) > 2:
+        if p[2] == '==':
+            p[0] = ExpCompEqEQ(p[1], p[3])
+        elif p[2] == '!=':
+            p[0] = ExpCompEqNE(p[1], p[3])
+        elif p[2] == 'eq':
+            p[0] = ExpCompEqSEQ(p[1], p[3])
+        elif p[2] == 'ne':
+            p[0] = ExpCompEqSNE(p[1], p[3])
+        elif p[2] == 'cmp':
+            p[0] = ExpCompEqCMP(p[1], p[3])
     else:
         p[0] = ExpCompEqJust(p[1])
 
@@ -261,22 +272,23 @@ def p_exp_comp(p):
             | exp_comp SLE exp_plusminus
             | exp_plusminus
     '''
-    if p[2] == '>':
-        p[0] = ExpCompGt(p[1], p[3])
-    elif p[2] == '<':
-        p[0] = ExpCompLt(p[1], p[3])
-    elif p[2] == '>=':
-        p[0] = ExpCompGe(p[1], p[3])
-    elif p[2] == '<=':
-        p[0] = ExpCompLe(p[1], p[3])
-    elif p[2] == 'lt':
-        p[0] = ExpCompSlt(p[1], p[3])
-    elif p[2] == 'gt':
-        p[0] = ExpCompSgt(p[1], p[3])
-    elif p[2] == 'ge':
-        p[0] = ExpCompSge(p[1], p[3])
-    elif p[2] == 'le':
-        p[0] = ExpCompSle(p[1], p[3])
+    if len(p) > 2:
+        if p[2] == '>':
+            p[0] = ExpCompGt(p[1], p[3])
+        elif p[2] == '<':
+            p[0] = ExpCompLt(p[1], p[3])
+        elif p[2] == '>=':
+            p[0] = ExpCompGe(p[1], p[3])
+        elif p[2] == '<=':
+            p[0] = ExpCompLe(p[1], p[3])
+        elif p[2] == 'lt':
+            p[0] = ExpCompSlt(p[1], p[3])
+        elif p[2] == 'gt':
+            p[0] = ExpCompSgt(p[1], p[3])
+        elif p[2] == 'ge':
+            p[0] = ExpCompSge(p[1], p[3])
+        elif p[2] == 'le':
+            p[0] = ExpCompSle(p[1], p[3])
     else:
         p[0] = ExpCompJustPlus(p[1])
 
@@ -287,10 +299,11 @@ def p_exp_plusminus(p):
             | exp_plusminus MINUS exp_times_divides
             | exp_times_divides
     '''
-    if p[2] == '+':
-        p[0] = ExpPlusMinusPlus(p[1], p[3])
-    elif p[2] == '-':
-        p[0] = ExpPlusMinusMinus(p[1], p[3])
+    if len(p) > 2:
+        if p[2] == '+':
+            p[0] = ExpPlusMinusPlus(p[1], p[3])
+        elif p[2] == '-':
+            p[0] = ExpPlusMinusMinus(p[1], p[3])
     else:
         p[0] = ExpPlusMinusJustTimes(p[1])
 
@@ -302,12 +315,13 @@ def p_exp_times_divides(p):
             | exp_times_divides MODULO exp_lnot
             | exp_lnot
     '''
-    if p[2] == '*':
-        p[0] = ExpTimesDividesTimes(p[1], p[3])
-    elif p[2] == '/':
-        p[0] = ExpTimesDividesDivide(p[1], p[3])
-    elif p[2] == '%':
-        p[0] = ExpTimesDividesModulo(p[1], p[3])
+    if len(p) > 2:
+        if p[2] == '*':
+            p[0] = ExpTimesDividesTimes(p[1], p[3])
+        elif p[2] == '/':
+            p[0] = ExpTimesDividesDivide(p[1], p[3])
+        elif p[2] == '%':
+            p[0] = ExpTimesDividesModulo(p[1], p[3])
     else:
         p[0] = ExpTimesDividesJustLnot(p[1])
 
@@ -331,14 +345,15 @@ def p_exp_decrement_increment(p):
         | ID_SC DECREMENT
         | exp_lastlayer
     '''
-    if p[1] == '++':
-        p[0] = ExpDecrementPreIncrement(p[2])
-    elif p[1] == '--':
-        p[0] = ExpDecrementPreDecrement(p[2])
-    elif p[2] == '++':
-        p[0] = ExpDecrementPosIncrement(p[1])
-    elif p[2] == '--':
-        p[0] = ExpDecrementPosDecrement(p[1])
+    if len(p) > 2:
+        if p[1] == '++':
+            p[0] = ExpDecrementPreIncrement(p[2])
+        elif p[1] == '--':
+            p[0] = ExpDecrementPreDecrement(p[2])
+        elif p[2] == '++':
+            p[0] = ExpDecrementPosIncrement(p[1])
+        elif p[2] == '--':
+            p[0] = ExpDecrementPosDecrement(p[1])
     else:
         p[0] = ExpDecrementIncrementJustLastLayer(p[1])
 
@@ -375,7 +390,7 @@ parser = yacc.yacc()
 
 while True:
     try:
-        text = open('src/test.txt')
+        text = open('C:\\Users\\AllucardHome\\Documents\\GitHub\\Compiler\\application\\src\\test.txt')
         lines = text.readlines()
         s = ''
         for l in lines:
