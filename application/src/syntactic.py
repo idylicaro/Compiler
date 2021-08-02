@@ -24,9 +24,10 @@ def p_init(p):
 
 def p_blockcode(p):
     ''' blockcode : command
-        | blockcode command
+            | blockcode command
     '''
-    if p[2] is not None:
+    if len(p) >= 3:
+        # if p[2] is not None:
         BlockcodeBcdCommand(p[1], p[2])
     else:
         BlockcodeCommand(p[1])
@@ -36,7 +37,7 @@ def p_command(p):
     ''' command : interations
         | IF LPAREN exp RPAREN if_statement
         | exp SEMICOLON
-        | RETURN return SEMICOLON
+        | RETURN exp SEMICOLON
         | BREAK SEMICOLON
         | CONTINUE SEMICOLON
     '''
@@ -60,10 +61,11 @@ def p_if_statement(p):
             | LBRACE blockcode RBRACE ELSE LBRACE blockcode RBRACE
             | LBRACE blockcode RBRACE elsif
     '''
-    if p[4] == 'else':
-        p[0] = IfStatementBlockcodeElse(p[2], p[6])
-    elif isinstance(p[4], Elsif):
-        p[0] = IfStatementBlockcodeElsif(p[2], p[4])
+    if len(p) >= 5:
+        if p[4] == 'else':
+            p[0] = IfStatementBlockcodeElse(p[2], p[6])
+        elif isinstance(p[4], Elsif):
+            p[0] = IfStatementBlockcodeElsif(p[2], p[4])
     else:
         p[0] = IfStatementBlockcode(p[2])
 
@@ -73,7 +75,8 @@ def p_elsif(p):
         elsif : ELSIF LPAREN exp RPAREN LBRACE blockcode RBRACE
         | ELSIF LPAREN exp RPAREN LBRACE blockcode RBRACE elsif2
     '''
-    if isinstance(p[8], Elsif2):
+    if len(p) >=8:
+        # if isinstance(p[8], Elsif2):
         p[0] = ElsifStmElsif2(p[3], p[6], p[8])
     else:
         p[0] = ElsifStm(p[3], p[6])
@@ -152,11 +155,6 @@ def p_call(p):
         p[0] = CallStm(p[1], p[3])
     else:
         p[0] = CallStmBlank(p[1])
-
-
-def p_return(p):
-    ''' return : exp '''
-    p[0] = ReturnStm(p[1])
 
 
 def p_exp(p):
@@ -398,7 +396,7 @@ while True:
     except EOFError:
         break
     if not s: continue
-    result = parser.parse(s)
+    result = parser.parse(s, debug=True)
     visitor = VisitorPrettyPrinter()
     result.accept(visitor)
     print(result)
