@@ -11,12 +11,14 @@ def p_init(p):
         | function
     '''
     if isinstance(p[1], Command):
-        if p[2] is not None:
+        if len(p) >= 3:
+            # if p[2] is not None:
             InitCommandInit(p[1], p[2])
         else:
             InitCommand(p[1])
     if isinstance(p[1], Function):
-        if p[2] is not None:
+        if len(p) >= 3:
+            # if p[2] is not None:
             InitFunctionInit(p[1], p[2])
         else:
             InitFunction(p[1])
