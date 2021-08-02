@@ -2,8 +2,11 @@ from .abstractClasses import Continue, Break
 
 
 class ContinueStm(Continue):
-    pass
+    def accept(self, visitor):
+        visitor.visitContinueStm(self)
+
 
 
 class BreakStm(Break):
-    pass
+    def accept(self, visitor):
+        visitor.visitBreakStm(self)

@@ -291,3 +291,11 @@ class AbstractVisitor(ABC):
     @abstractmethod
     def visitExpLastlayerFalse(self, expLastlayerFalse):
         pass
+
+    @abstractmethod
+    def visitContinueStm(self, continueStm):
+        pass
+
+    @abstractmethod
+    def visitBreakStm(self, breakStm):
+        pass

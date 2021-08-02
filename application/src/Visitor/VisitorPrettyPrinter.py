@@ -404,3 +404,11 @@ class VisitorPrettyPrinter(AbstractVisitor):
 
     def visitExpLastlayerFalse(self, expLastlayerFalse):
         print('false')
+
+    def visitContinueStm(self, continueStm):
+        print('continue')
+        print(';')
+
+    def visitBreakStm(self, breakStm):
+        print('break')
+        print(';')
