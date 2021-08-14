@@ -10,15 +10,11 @@ blockcode : command
     | blockcode command
 
 command : interations
-    | if
+    | IF LPAREN exp RPAREN if_statement
     | exp SEMICOLON
-    | call SEMICOLON
-    | RETURN return SEMICOLON
+    | RETURN exp SEMICOLON
     | BREAK SEMICOLON
     | CONTINUE SEMICOLON
-
-if : IF LPAREN exp RPAREN if_statement
-    # | command IF LPAREN exp RPAREN.
 
 if_statement :  LBRACE blockcode RBRACE
         | LBRACE blockcode RBRACE ELSE LBRACE blockcode RBRACE
@@ -27,22 +23,16 @@ if_statement :  LBRACE blockcode RBRACE
 elsif : ELSIF LPAREN exp RPAREN LBRACE blockcode RBRACE
     | ELSIF LPAREN exp RPAREN LBRACE blockcode RBRACE elsif2
 
-    elsif2 : elsif
-        | ELSE LBRACE blockcode RBRACE
+elsif2 : elsif
+    | ELSE LBRACE blockcode RBRACE
 
-    interations :  for
-    | dowhile
-    | while
-
-for : FOR LPAREN for_assignments SEMICOLON exp SEMICOLON for_assignments RPAREN LBRACE blockcode RBRA
+interations : FOR LPAREN for_assignments SEMICOLON exp SEMICOLON for_assignments RPAREN LBRACE blockcode RBRACE
+    | DO LBRACE blockcode RBRACE WHILE LPAREN exp RPAREN
+    | WHILE LPAREN exp RPAREN LBRACE blockcode RBRACE
+    | WHILE LPAREN exp RPAREN LBRACE RBRACE
 
 for_assignments : exp
     | exp COMMA for_assignments
-
-dowhile :  DO LBRACE blockcode RBRACE WHILE LPAREN exp RPARE
-
-while : WHILE LPAREN exp RPAREN LBRACE blockcode RBRACE
-    | WHILE LPAREN exp RPAREN LBRACE RBRACE
 
 function : SUB ID LPAREN RPAREN LBRACE blockcode RBRACE
     | SUB ID LPAREN function_assignments RPAREN LBRACE blockcode RBRACE
@@ -52,8 +42,6 @@ function_assignments : exp
 
 call : ID LPAREN RPAREN
     | ID LPAREN function_assignments RPAREN
-
-return : exp
 
 exp : ID_SC EQUALS exp_lor
     | ID_LI EQUALS exp_lor
@@ -110,8 +98,7 @@ exp_lnot : XOR exp_lnot
     | exp_decrement_increment
 
 
-exp_decrement_increment :
-    | INCREMENT  ID_SC
+exp_decrement_increment : INCREMENT  ID_SC
     | DECREMENT ID_SC
     | ID_SC INCREMENT
     | ID_SC DECREMENT
@@ -124,16 +111,3 @@ exp_lastlayer : LPAREN exp RPAREN
     | call
     | TRUE
     | FALSE
-
-
-
-parser = yacc.yacc()
-
-while True:
-    try:
-        s = input('perl > ')
-    except EOFError:
-        break
-    if not s: continue
-    result = parser.parse(s)
-    print(result)
