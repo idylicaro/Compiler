@@ -3,11 +3,11 @@ Python compiler for (Perl)
 
 #### Sumário
 
-1. [Instalação e execução](https://github.com/pauloigormoraes/SanchaCppParser#instalação-e-execução)
-2. [Uso básico](https://github.com/pauloigormoraes/SanchaCppParser#instalação-e-execução)
-3. [Gramática BNF C++ projetada](https://github.com/allexlima/SanchaCppParser#gramática-bnf-c-projetada)
+1. [Installation and execution](https://github.com/idylicaro/Compiler#Installation-and-execution)
+2. [BNF Grammar](https://github.com/idylicaro/Compiler#BNF-Grammar)
+3. [Team](https://github.com/idylicaro/Compiler#Team)
 
-#### Instalação e execução
+#### Installation and execution
 
 1. Clone the repository
 
@@ -39,9 +39,12 @@ Python compiler for (Perl)
 
 #### BNF Grammar
 
-#### Equipe
+#### Team
 
+#####  Advisor
 * [Andre Luis Meneses Silva](https://github.com/andreluisms)
+---
+##### Developers
 * [Antonio Frauzo Santos Moura](https://github.com/truef)
 * [Idyl Icaro dos Santos](https://github.com/idylicaro)
 
